@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Tax Lien Code — Show Rate Analysis (May 20, 2026)</title>
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0f1117;color:#e2e8f0;line-height:1.55;font-size:14px}
+  .page{max-width:1100px;margin:0 auto;padding:40px 24px 60px}
+  .header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:24px;border-bottom:1px solid #2e3350;padding-bottom:20px;flex-wrap:wrap;gap:12px}
+  .header h1{font-size:24px;font-weight:700;color:#fff;margin-bottom:4px}
+  .header .sub{font-size:13px;color:#94a3b8}
+  .header-right{text-align:right;font-size:12px;color:#94a3b8}
+  .logo{font-size:13px;font-weight:700;letter-spacing:0.05em;color:#818cf8;margin-bottom:4px}
+  .summary{background:#1a1d27;border:1px solid #2e3350;border-radius:10px;padding:18px 22px;margin-bottom:24px;display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+  .summary .l{font-size:11px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:#94a3b8;margin-bottom:4px}
+  .summary .v{font-size:22px;font-weight:700;color:#fff;line-height:1.1}
+  .summary .sub{font-size:11.5px;color:#94a3b8;margin-top:4px}
+  .summary .v.good{color:#34d399}
+  .summary .v.warn{color:#fbbf24}
+  .summary .v.alert{color:#f87171}
+  .section{background:#1a1d27;border:1px solid #2e3350;border-radius:12px;padding:22px 26px;margin-bottom:18px}
+  .section-title{font-size:11px;font-weight:700;letter-spacing:0.1em;color:#94a3b8;text-transform:uppercase;margin-bottom:14px}
+  .section-title .accent{color:#818cf8}
+  .chart-wrap{background:#0f1117;border:1px solid #232739;border-radius:8px;padding:18px 20px;overflow-x:auto;position:relative}
+  .chart-svg{width:100%;height:auto;display:block;min-width:600px}
+  .chart-axis{stroke:#2e3350;stroke-width:1}
+  .chart-grid{stroke:#1a1d27;stroke-width:1;stroke-dasharray:2 3}
+  .chart-tick{fill:#64748b;font-size:11px;font-family:-apple-system,sans-serif}
+  .chart-line{fill:none;stroke-width:1.75}
+  .chart-baseline{fill:none;stroke:#475569;stroke-width:1;stroke-dasharray:3 3}
+  .chart-dot{stroke:#0f1117;stroke-width:1.5;cursor:pointer}
+  .chart-tooltip{position:absolute;pointer-events:none;background:#0f1117;border:1px solid #2e3350;border-radius:6px;padding:8px 10px;font-size:11.5px;line-height:1.45;color:#e2e8f0;box-shadow:0 6px 18px rgba(0,0,0,0.4);opacity:0;transition:opacity 0.08s ease;z-index:20;min-width:140px}
+  .chart-tooltip.show{opacity:1}
+  .chart-tooltip .tt-date{font-size:10px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:#94a3b8;margin-bottom:5px}
+  .chart-tooltip .tt-row{display:flex;justify-content:space-between;gap:14px}
+  .chart-tooltip .tt-row .lbl{color:#94a3b8}
+  .chart-tooltip .tt-row .val{color:#f1f5f9;font-variant-numeric:tabular-nums;font-weight:600}
+  table{width:100%;border-collapse:collapse;font-size:13px;margin-top:6px}
+  table th{text-align:left;font-size:11px;font-weight:600;letter-spacing:0.04em;text-transform:uppercase;color:#94a3b8;padding:8px 10px;border-bottom:1px solid #2e3350}
+  table th.num{text-align:right}
+  table td{padding:8px 10px;border-bottom:1px solid #232739;color:#e2e8f0;vertical-align:top}
+  table td.num{text-align:right;font-variant-numeric:tabular-nums}
+  table tbody tr:last-child td{border-bottom:none}
+  table tr.good td.sr{color:#34d399;font-weight:600}
+  table tr.warn td.sr{color:#fbbf24;font-weight:600}
+  table tr.alert td.sr{color:#f87171;font-weight:600}
+  table tr.small td.code{color:#64748b}
+  table tr.small td.city{color:#64748b}
+  .narrative{font-size:13.5px;color:#cbd5e1;line-height:1.6;background:rgba(129,140,248,0.06);border-left:3px solid #818cf8;padding:12px 16px;border-radius:0 6px 6px 0;margin-top:14px}
+  .narrative strong{color:#f1f5f9}
+  .footnote{font-size:11.5px;color:#64748b;margin-top:12px;font-style:italic}
+  .chart-legend{display:flex;flex-wrap:wrap;gap:10px 14px;margin-top:10px;font-size:11.5px;color:#cbd5e1}
+  .chart-legend .item{display:inline-flex;align-items:center;gap:6px}
+  .chart-legend .swatch{width:11px;height:11px;border-radius:2px;display:inline-block}
+  .chart-legend .baseline-swatch{width:14px;height:2px;background:#475569;display:inline-block}
+  .footer{margin-top:30px;font-size:11px;color:#64748b;text-align:center;line-height:1.7}
+  @media (max-width:640px){
+    .summary{grid-template-columns:repeat(2,1fr)}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+  <header class="header">
+    <div>
+      <h1>Tax Lien Code — Show Rate Analysis</h1>
+      <div class="sub">Historical show rate trend, quarterly evolution, and the last twelve closed events.</div>
+    </div>
+    <div class="header-right">
+      <div class="logo">SINGLE GRAIN</div>
+      <div>Wednesday, May 20, 2026</div>
+    </div>
+  </header>
+
+  <div class="summary">
+    <div>
+      <div class="l">All-time avg</div>
+      <div class="v">19.17%</div>
+      <div class="sub">457 closed events · 31,754 regs · 6,088 att</div>
+    </div>
+    <div>
+      <div class="l">2025 yearly avg</div>
+      <div class="v good">19.35%</div>
+      <div class="sub">138 events · the historical baseline</div>
+    </div>
+    <div>
+      <div class="l">2026 YTD avg</div>
+      <div class="v warn">15.14%</div>
+      <div class="sub">57 events · 4.2 points below 2025</div>
+    </div>
+    <div>
+      <div class="l">Last 8 main events</div>
+      <div class="v alert">13.42%</div>
+      <div class="sub">Regs ≥ 300 only · weighted average</div>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="section-title">Quarterly trend <span class="accent">— 2023 Q1 through 2026 Q2</span></div>
+    <div class="chart-wrap" id="qtr-chart"></div>
+    <div class="chart-legend">
+      <span class="item"><span class="swatch" style="background:#818cf8"></span>Quarterly show rate (weighted by regs)</span>
+      <span class="item"><span class="baseline-swatch"></span>2025 baseline (19.35%)</span>
+    </div>
+    <div class="narrative">
+      <strong>The trajectory shows three distinct phases.</strong> 2023 to mid-2024 was the build phase — show rate climbing from 22% to a peak of 29.93% in Q3 2024. From Q4 2024 onward, sustained decline through Q3 2025, where show rate hit 15.92%. Q1 2026 staged a recovery to 20.28% — that's the highest reading in five quarters. Q2 2026 dropped back to 13.60%, the lowest quarter on record. The volatility in 2026 means the bottom of the curve is not stable yet.
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-title">Year over year <span class="accent">— all closed events</span></div>
+    <table>
+      <thead>
+        <tr><th>Year</th><th class="num">Events</th><th class="num">Regs</th><th class="num">Attended</th><th class="num">Show rate</th></tr>
+      </thead>
+      <tbody>
+        <tr class="good"><td>2023</td><td class="num">119</td><td class="num">5,111</td><td class="num">1,117</td><td class="num sr">21.85%</td></tr>
+        <tr class="good"><td>2024</td><td class="num">143</td><td class="num">5,589</td><td class="num">1,557</td><td class="num sr">27.86%</td></tr>
+        <tr class="good"><td>2025</td><td class="num">138</td><td class="num">5,389</td><td class="num">1,043</td><td class="num sr">19.35%</td></tr>
+        <tr class="warn"><td>2026 YTD</td><td class="num">57</td><td class="num">15,665</td><td class="num">2,371</td><td class="num sr">15.14%</td></tr>
+      </tbody>
+    </table>
+    <div class="narrative">
+      The 2026 regs total (15,665 across 57 events) is already roughly triple the full 2025 (5,389 across 138). That's the multi-venue series format scaling. The format change matters for show rate read — bigger events at lower price-per-attendee tend to draw broader audience, which compresses show rate. We're comparing different event shapes year over year, not just creative or audience strategy shifts.
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-title">Last 12 closed events <span class="accent">— ★ marks comparable scale (regs ≥ 300)</span></div>
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th><th class="code"></th><th>City</th><th class="num">Regs</th><th class="num">Att</th><th class="num">SR</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="warn"><td>2026-05-16</td><td class="code">★ MDT</td><td class="city">Harrisburg</td><td class="num">1,659</td><td class="num">262</td><td class="num sr">15.79%</td></tr>
+        <tr class="alert"><td>2026-05-16</td><td class="code">★ IAH</td><td class="city">Houston</td><td class="num">1,933</td><td class="num">243</td><td class="num sr">12.57%</td></tr>
+        <tr class="alert"><td>2026-05-16</td><td class="code">★ PHL</td><td class="city">Philadelphia</td><td class="num">1,717</td><td class="num">143</td><td class="num sr">8.33%</td></tr>
+        <tr class="alert"><td>2026-05-16</td><td class="code">★ SMF</td><td class="city">Sacramento</td><td class="num">1,208</td><td class="num">164</td><td class="num sr">13.58%</td></tr>
+        <tr class="small"><td>2026-05-08</td><td class="code">WBS</td><td class="city">Wilkes-Barre</td><td class="num">7</td><td class="num">3</td><td class="num sr">42.86%</td></tr>
+        <tr class="alert"><td>2026-05-08</td><td class="code">★ SAT</td><td class="city">San Antonio</td><td class="num">1,290</td><td class="num">155</td><td class="num sr">12.02%</td></tr>
+        <tr class="alert"><td>2026-05-08</td><td class="code">★ SEA</td><td class="city">Seattle</td><td class="num">1,135</td><td class="num">137</td><td class="num sr">12.07%</td></tr>
+        <tr class="small"><td>2026-05-02</td><td class="code">AUS</td><td class="city">Austin</td><td class="num">20</td><td class="num">5</td><td class="num sr">25.00%</td></tr>
+        <tr class="warn"><td>2026-04-25</td><td class="code">★ MCO</td><td class="city">Orlando</td><td class="num">1,704</td><td class="num">256</td><td class="num sr">15.02%</td></tr>
+        <tr class="small"><td>2026-04-18</td><td class="code">TPA</td><td class="city">Tampa</td><td class="num">23</td><td class="num">7</td><td class="num sr">30.43%</td></tr>
+        <tr class="small"><td>2026-04-11</td><td class="code">BHM</td><td class="city">Birmingham</td><td class="num">36</td><td class="num">11</td><td class="num sr">30.56%</td></tr>
+        <tr class="warn"><td>2026-04-11</td><td class="code">★ FTM</td><td class="city">Ft Myers</td><td class="num">1,258</td><td class="num">238</td><td class="num sr">18.92%</td></tr>
+      </tbody>
+    </table>
+    <div class="footnote">Rows in grey are sub-scale events (workshop format, regs &lt; 300). Their show rate is noisy at small sample sizes and is not used to compute the comparable-scale average.</div>
+    <div class="narrative">
+      Across the eight comparable-scale closings since mid-April, the weighted show rate is <strong>13.42%</strong>. Within that window, only Ft Myers (18.92%) and Harrisburg (15.79%) cleared the 2025 baseline. Philadelphia at 8.33% is the floor — half the historical norm. The pattern says the issue is not market-specific: same-week events across geographically diverse markets (Harrisburg, Houston, Philadelphia, Sacramento) all delivered below baseline on the same day. That points to a systemic creative or audience-quality cause, not local execution.
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-title">What we are doing about it</div>
+    <div class="narrative" style="border-left-color:#34d399;background:rgba(52,211,153,0.06)">
+      Three in-flight initiatives, each addressing a different point in the registration-to-attendance chain. <strong>Brian creative refresh</strong> qualifies intent upstream of registration so the people who sign up are pre-screened for outcome interest, not just curiosity. <strong>Isolated concept ad sets</strong> give a clean per-concept read on which creative angle holds attention through the pre-event window. <strong>Evergreen post-registration nurture</strong> keeps registrants engaged from sign-up day through event day. The non-linear budget test on Greenville stacks on top — compressing the registration-to-event gap to reduce the decay window in the first place.
+    </div>
+  </section>
+
+  <section class="section" style="border-color:#fbbf24">
+    <div class="section-title" style="color:#fbbf24">Greenville non-linear budget test <span class="accent">— baseline + tracking</span></div>
+
+    <div class="narrative" style="border-left-color:#fbbf24;background:rgba(251,191,36,0.06);margin-top:0">
+      Greenville launches Sunday 5/24 with the <strong>back-loaded budget curve</strong>: 15% spend in days 1-7, 25% in days 8-14, 60% in the final stretch. Hypothesis: shorter registration-to-event gap lifts show rate by reducing the decay window between sign-up and event date. We track raw regs and final show rate against Greenville's own pre-test baseline and the broader 2026 series-format performance.
+    </div>
+
+    <h3 style="font-size:13px;color:#94a3b8;text-transform:uppercase;letter-spacing:0.06em;margin:18px 0 8px 0;font-weight:700">Why Greenville is the right test market</h3>
+    <div class="narrative" style="margin-top:0">
+      Greenville has almost no series-format history on this account — two prior workshops only, both small samples, both with decent show rates. That makes it the right place to run an aggressive budget-shape test. If the back-loaded curve underperforms, we're not breaking a market that's already working — we're learning on a market with effectively zero baseline to disrupt. The two prior events do tell us the audience there isn't fundamentally hostile to the offer, which means a poor result on the test is more likely to be about budget shape than about market fit.
+    </div>
+
+    <h3 style="font-size:13px;color:#94a3b8;text-transform:uppercase;letter-spacing:0.06em;margin:18px 0 8px 0;font-weight:700">Greenville historical reference <span style="color:#64748b;font-weight:500;text-transform:none;letter-spacing:0;font-size:12px">(workshop format, pre-series — directional only)</span></h3>
+    <table>
+      <thead>
+        <tr><th>Date</th><th>Code</th><th>City</th><th class="num">Regs</th><th class="num">Att</th><th class="num">SR</th></tr>
+      </thead>
+      <tbody>
+        <tr class="good"><td>2024-04-19</td><td>CAE</td><td>Greenville</td><td class="num">47</td><td class="num">17</td><td class="num sr">36.17%</td></tr>
+        <tr class="good"><td>2025-05-17</td><td>GSP</td><td>Greenville</td><td class="num">34</td><td class="num">9</td><td class="num sr">26.47%</td></tr>
+        <tr style="background:rgba(251,191,36,0.06)"><td style="font-weight:700">Total</td><td></td><td></td><td class="num" style="font-weight:700">81</td><td class="num" style="font-weight:700">26</td><td class="num sr" style="color:#34d399;font-weight:700">32.10%</td></tr>
+      </tbody>
+    </table>
+    <div class="footnote">Both prior Greenville events ran the smaller workshop format (regs &lt; 100). Not directly comparable to the upcoming series-format event, but signals the market has historically over-indexed on show rate versus the broader portfolio — so we're not testing on hostile ground.</div>
+
+    <h3 style="font-size:13px;color:#94a3b8;text-transform:uppercase;letter-spacing:0.06em;margin:18px 0 8px 0;font-weight:700">Pre-test targets and tracking</h3>
+    <table>
+      <thead>
+        <tr><th></th><th class="num">Greenville test</th><th>Read</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="font-weight:600">Budget curve</td>
+          <td class="num">15% / 25% / 60% back-loaded</td>
+          <td>Deviation from the standard linear-pacing default</td>
+        </tr>
+        <tr>
+          <td style="font-weight:600">Reg target</td>
+          <td class="num">1,200</td>
+          <td>Standard series goal</td>
+        </tr>
+        <tr>
+          <td style="font-weight:600">Show rate floor</td>
+          <td class="num" style="color:#34d399">19.35% (2025 baseline)</td>
+          <td>What "back to baseline" looks like</td>
+        </tr>
+        <tr>
+          <td style="font-weight:600">Show rate target</td>
+          <td class="num" style="color:#fbbf24"><strong>+3 points over recent series avg (13.42%)</strong></td>
+          <td>The bet: back-load lifts SR meaningfully versus the 2026 series trend</td>
+        </tr>
+        <tr>
+          <td style="font-weight:600">Raw regs tolerance</td>
+          <td class="num">No more than -15% vs reg target</td>
+          <td>If back-load under-delivers raw volume by &gt; 15%, the SR lift has to compensate</td>
+        </tr>
+        <tr>
+          <td style="font-weight:600">Day 7 check</td>
+          <td class="num">— (fill 5/31)</td>
+          <td>Regs pacing per platform daily-lead total</td>
+        </tr>
+        <tr>
+          <td style="font-weight:600">Day 14 check</td>
+          <td class="num">— (fill 6/7)</td>
+          <td>Regs pacing + projection</td>
+        </tr>
+        <tr>
+          <td style="font-weight:600">Final regs</td>
+          <td class="num">— (fill at close)</td>
+          <td>Hapily reconciled</td>
+        </tr>
+        <tr>
+          <td style="font-weight:600">Final attended</td>
+          <td class="num">— (fill at close + 1 day)</td>
+          <td>Events team reconciliation</td>
+        </tr>
+        <tr style="background:rgba(251,191,36,0.06)">
+          <td style="font-weight:700">Final show rate</td>
+          <td class="num sr" style="font-weight:700">—</td>
+          <td>The actual KPI we're optimizing for</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="footnote">Track this table during the cycle. Day 7 and day 14 checks gate the decision to flex the back-load curve if raw volume falls short of the tolerance window.</div>
+
+    <div class="narrative" style="border-left-color:#fbbf24;background:rgba(251,191,36,0.06)">
+      <strong>Decision rules at event close:</strong> Compare Greenville's final show rate against the trailing 2026 series-format average (currently 13.42% on the last 8 main events). If Greenville lands at +3 points or better while staying within -15% on raw regs, the back-loaded curve becomes the new default for Q2 launches. If show rate lands within ±1 point of trend, inconclusive — retest on the next cycle. If it underperforms the trend, abandon the back-loaded hypothesis and look elsewhere for the show-rate lever.
+    </div>
+  </section>
+
+  <div class="footer">
+    Generated May 20, 2026 · Source: Hapily Events Table (treated CSV), grouped by event code, closed events only.<br>
+    Comparable-scale filter: regs ≥ 300 isolates the multi-venue series format from the older workshop-only format.
+  </div>
+</div>
+
+<script>
+(function(){
+  var qtrData = [
+    {q:'2023 Q1', sr:22.43, regs:1110, att:249, n:24},
+    {q:'2023 Q2', sr:21.97, regs:1402, att:308, n:31},
+    {q:'2023 Q3', sr:22.09, regs:1381, att:305, n:32},
+    {q:'2023 Q4', sr:20.94, regs:1218, att:255, n:32},
+    {q:'2024 Q1', sr:27.55, regs:1401, att:386, n:33},
+    {q:'2024 Q2', sr:28.03, regs:1691, att:474, n:41},
+    {q:'2024 Q3', sr:29.93, regs:1333, att:399, n:34},
+    {q:'2024 Q4', sr:25.60, regs:1164, att:298, n:35},
+    {q:'2025 Q1', sr:23.86, regs:1538, att:367, n:36},
+    {q:'2025 Q2', sr:20.12, regs:1297, att:261, n:30},
+    {q:'2025 Q3', sr:15.92, regs:1570, att:250, n:38},
+    {q:'2025 Q4', sr:16.77, regs:984,  att:165, n:34},
+    {q:'2026 Q1', sr:20.28, regs:3604, att:731, n:42},
+    {q:'2026 Q2', sr:13.60, regs:12061,att:1640,n:15}
+  ];
+  var BASELINE = 19.35;
+
+  var W = 1000, H = 320;
+  var padL = 50, padR = 16, padT = 24, padB = 50;
+  var plotW = W - padL - padR;
+  var plotH = H - padT - padB;
+  var nPts = qtrData.length;
+  var xStep = plotW / (nPts - 1);
+  var yMax = 32; // headroom above the peak 29.93
+
+  function xPos(i){ return padL + i * xStep; }
+  function yPos(v){ return padT + plotH - (v / yMax) * plotH; }
+
+  var svg = '<svg class="chart-svg" viewBox="0 0 '+W+' '+H+'" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Quarterly show rate trend">';
+
+  // y gridlines + labels at 0, 8, 16, 24, 32
+  var yTicks = [0, 8, 16, 24, 32];
+  yTicks.forEach(function(v){
+    var y = yPos(v);
+    svg += '<line class="chart-grid" x1="'+padL+'" y1="'+y+'" x2="'+(W-padR)+'" y2="'+y+'"/>';
+    svg += '<text class="chart-tick" x="'+(padL-8)+'" y="'+(y+4)+'" text-anchor="end">'+v+'%</text>';
+  });
+
+  // baseline dashed
+  var baseY = yPos(BASELINE);
+  svg += '<line class="chart-baseline" x1="'+padL+'" y1="'+baseY+'" x2="'+(W-padR)+'" y2="'+baseY+'"/>';
+  svg += '<text class="chart-tick" x="'+(W-padR-4)+'" y="'+(baseY-4)+'" text-anchor="end" style="fill:#94a3b8">19.35% baseline</text>';
+
+  // x labels — show every quarter
+  qtrData.forEach(function(d, i){
+    var label = d.q.split(' ')[1]; // Q1, Q2 etc
+    var year = d.q.split(' ')[0];
+    svg += '<text class="chart-tick" x="'+xPos(i)+'" y="'+(H-28)+'" text-anchor="middle">'+label+'</text>';
+    // show year label only on Q1 and last quarter
+    if (label === 'Q1' || i === nPts-1) {
+      svg += '<text class="chart-tick" x="'+xPos(i)+'" y="'+(H-12)+'" text-anchor="middle" style="font-weight:600;fill:#94a3b8">'+year+'</text>';
+    }
+  });
+
+  // baseline axis
+  svg += '<line class="chart-axis" x1="'+padL+'" y1="'+(padT+plotH)+'" x2="'+(W-padR)+'" y2="'+(padT+plotH)+'"/>';
+
+  // line
+  var pts = qtrData.map(function(d, i){ return xPos(i) + ',' + yPos(d.sr); }).join(' ');
+  svg += '<polyline class="chart-line" points="'+pts+'" stroke="#818cf8"/>';
+
+  // dots — color based on SR vs baseline
+  qtrData.forEach(function(d, i){
+    var c = d.sr >= BASELINE ? '#34d399' : (d.sr >= 17 ? '#fbbf24' : '#f87171');
+    svg += '<circle class="chart-dot" data-idx="'+i+'" cx="'+xPos(i)+'" cy="'+yPos(d.sr)+'" r="4.5" fill="'+c+'"/>';
+  });
+
+  svg += '</svg>';
+  var tooltip = '<div class="chart-tooltip" id="qtr-tt"></div>';
+  document.getElementById('qtr-chart').innerHTML = svg + tooltip;
+
+  // Hover handler
+  var wrap = document.getElementById('qtr-chart');
+  var tt = wrap.querySelector('.chart-tooltip');
+  wrap.addEventListener('mouseover', function(e){
+    var dot = e.target.closest('circle.chart-dot');
+    if (!dot) return;
+    var d = qtrData[parseInt(dot.getAttribute('data-idx'),10)];
+    tt.innerHTML = '<div class="tt-date">'+d.q+'</div>'+
+      '<div class="tt-row"><span class="lbl">Show rate</span><span class="val">'+d.sr.toFixed(2)+'%</span></div>'+
+      '<div class="tt-row"><span class="lbl">Events</span><span class="val">'+d.n+'</span></div>'+
+      '<div class="tt-row"><span class="lbl">Regs</span><span class="val">'+d.regs.toLocaleString()+'</span></div>'+
+      '<div class="tt-row"><span class="lbl">Attended</span><span class="val">'+d.att.toLocaleString()+'</span></div>';
+    tt.classList.add('show');
+    dot.setAttribute('r','7');
+    dot.setAttribute('stroke','#fff');
+    dot.setAttribute('stroke-width','2');
+  });
+  wrap.addEventListener('mousemove', function(e){
+    var dot = e.target.closest('circle.chart-dot');
+    if (!dot) return;
+    var r = wrap.getBoundingClientRect();
+    var x = e.clientX - r.left;
+    var y = e.clientY - r.top;
+    var ttW = tt.offsetWidth || 160;
+    var ttH = tt.offsetHeight || 100;
+    var L = x + 14;
+    var T = y - ttH - 10;
+    if (L + ttW > wrap.clientWidth) L = x - ttW - 14;
+    if (T < 0) T = y + 14;
+    tt.style.left = L + 'px';
+    tt.style.top = T + 'px';
+  });
+  wrap.addEventListener('mouseout', function(e){
+    var dot = e.target.closest('circle.chart-dot');
+    if (!dot) return;
+    var related = e.relatedTarget;
+    if (related && related.closest && related.closest('circle.chart-dot')) return;
+    tt.classList.remove('show');
+    dot.setAttribute('r','4.5');
+    dot.removeAttribute('stroke');
+    dot.removeAttribute('stroke-width');
+  });
+})();
+</script>
+</body>
+</html>
