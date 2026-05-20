@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Tax Lien Code — Denver Recap (May 20, 2026)</title>
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0f1117;color:#e2e8f0;line-height:1.55;font-size:14px}
+  .page{max-width:1100px;margin:0 auto;padding:40px 24px 60px}
+  .header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:24px;border-bottom:1px solid #2e3350;padding-bottom:20px;flex-wrap:wrap;gap:12px}
+  .header h1{font-size:24px;font-weight:700;color:#fff;margin-bottom:4px}
+  .header .sub{font-size:13px;color:#94a3b8}
+  .header-right{text-align:right;font-size:12px;color:#94a3b8}
+  .logo{font-size:13px;font-weight:700;letter-spacing:0.05em;color:#818cf8;margin-bottom:4px}
+  .summary{background:#1a1d27;border:1px solid #2e3350;border-radius:10px;padding:18px 22px;margin-bottom:24px;display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+  .summary .l{font-size:11px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:#94a3b8;margin-bottom:4px}
+  .summary .v{font-size:22px;font-weight:700;color:#fff;line-height:1.1}
+  .summary .sub{font-size:11.5px;color:#94a3b8;margin-top:4px}
+  .summary .v.good{color:#34d399}
+  .summary .v.warn{color:#fbbf24}
+  .summary .v.alert{color:#f87171}
+  .section{background:#1a1d27;border:1px solid #2e3350;border-radius:12px;padding:22px 26px;margin-bottom:18px}
+  .section-title{font-size:11px;font-weight:700;letter-spacing:0.1em;color:#94a3b8;text-transform:uppercase;margin-bottom:14px}
+  .section-title .accent{color:#818cf8}
+  table{width:100%;border-collapse:collapse;font-size:13px;margin-top:6px}
+  table th{text-align:left;font-size:11px;font-weight:600;letter-spacing:0.04em;text-transform:uppercase;color:#94a3b8;padding:8px 10px;border-bottom:1px solid #2e3350}
+  table th.num{text-align:right}
+  table td{padding:8px 10px;border-bottom:1px solid #232739;color:#e2e8f0;vertical-align:top}
+  table td.num{text-align:right;font-variant-numeric:tabular-nums}
+  table tbody tr:last-child td{border-bottom:none}
+  table tr.good td.metric{color:#34d399;font-weight:600}
+  table tr.warn td.metric{color:#fbbf24;font-weight:600}
+  table tr.alert td.metric{color:#f87171;font-weight:600}
+  .tier-strong{color:#34d399;font-weight:600}
+  .tier-avg{color:#fbbf24;font-weight:600}
+  .tier-weak{color:#fb923c;font-weight:600}
+  .tier-poor{color:#f87171;font-weight:600}
+  .narrative{font-size:13.5px;color:#cbd5e1;line-height:1.6;background:rgba(129,140,248,0.06);border-left:3px solid #818cf8;padding:12px 16px;border-radius:0 6px 6px 0;margin-top:14px}
+  .narrative strong{color:#f1f5f9}
+  .takeaway{background:rgba(52,211,153,0.06);border-left:3px solid #34d399}
+  .warning{background:rgba(251,191,36,0.06);border-left:3px solid #fbbf24}
+  .alert-box{background:rgba(248,113,113,0.06);border-left:3px solid #f87171}
+  .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:6px}
+  .grid-2 .card{background:#22263a;border-radius:8px;padding:14px 16px}
+  .grid-2 .card .l{font-size:10.5px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:#94a3b8;margin-bottom:6px}
+  .grid-2 .card .v{font-size:18px;font-weight:700;color:#f1f5f9;margin-bottom:6px}
+  .grid-2 .card .sub{font-size:12px;color:#cbd5e1;line-height:1.5}
+  .footer{margin-top:30px;font-size:11px;color:#64748b;text-align:center;line-height:1.7}
+  ul.reco-list{margin:8px 0 0 18px;color:#cbd5e1;font-size:13.5px;line-height:1.7}
+  ul.reco-list li{margin-bottom:8px}
+  ul.reco-list li strong{color:#f1f5f9}
+  .pill{display:inline-block;font-size:10px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;padding:2px 7px;border-radius:999px;margin-left:6px;vertical-align:middle}
+  .pill-good{background:rgba(52,211,153,0.12);color:#34d399;border:1px solid rgba(52,211,153,0.35)}
+  .pill-warn{background:rgba(251,191,36,0.12);color:#fbbf24;border:1px solid rgba(251,191,36,0.35)}
+  .pill-alert{background:rgba(248,113,113,0.12);color:#f87171;border:1px solid rgba(248,113,113,0.35)}
+  @media (max-width:640px){
+    .summary{grid-template-columns:repeat(2,1fr)}
+    .grid-2{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+  <header class="header">
+    <div>
+      <h1>Tax Lien Code — Denver Recap</h1>
+      <div class="sub">Event window May 12 to 16. Post-event reconciliation against HubSpot CRM, Hapily, and historical context.</div>
+    </div>
+    <div class="header-right">
+      <div class="logo">SINGLE GRAIN</div>
+      <div>Wednesday, May 20, 2026</div>
+    </div>
+  </header>
+
+  <div class="summary">
+    <div>
+      <div class="l">Registrations</div>
+      <div class="v">1,053</div>
+      <div class="sub">8 sessions across 7 venues</div>
+    </div>
+    <div>
+      <div class="l">Show rate</div>
+      <div class="v alert">10.5%</div>
+      <div class="sub">111 attendees · 3 points below recent series trend</div>
+    </div>
+    <div>
+      <div class="l">Close rate</div>
+      <div class="v good">23.4%</div>
+      <div class="sub">26 buyers · healthy above 20% buy rate target</div>
+    </div>
+    <div>
+      <div class="l">Reg to buyer</div>
+      <div class="v warn">2.5%</div>
+      <div class="sub">Constrained by show rate, not close rate</div>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="section-title">Headline read <span class="accent">— where Denver sits in context</span></div>
+    <div class="narrative">
+      Denver delivered registration volume in line with target but show rate at <strong>10.5%</strong>, three points below the trailing 2026 series average of 13.42% and nine points below the 2025 baseline of 19.35%. The close rate of <strong>23.4%</strong> is healthy and above the buy rate threshold the client uses internally. Read together: the people who walked through the door bought at a strong rate. The bottleneck is upstream of the door, not at the close. This is the same pattern we have been calling out at the portfolio level and the Denver data confirms it on a single-market read.
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-title">Venue performance <span class="accent">— tiered by close rate</span></div>
+    <table>
+      <thead>
+        <tr>
+          <th>Venue</th><th>Slot</th><th class="num">Regs</th><th class="num">Att</th><th class="num">Show rate</th><th class="num">Buyers</th><th class="num">Close rate</th><th class="num">Reg→buyer</th><th>Tier</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Loveland</strong></td><td>Tue lunch</td>
+          <td class="num">89</td><td class="num">13</td><td class="num">14.6%</td>
+          <td class="num">6</td><td class="num">46.2%</td><td class="num">6.7%</td>
+          <td><span class="tier-strong">Top tier</span></td>
+        </tr>
+        <tr>
+          <td>Denver DTC</td><td>Evening</td>
+          <td class="num">231</td><td class="num">17</td><td class="num">7.4%</td>
+          <td class="num">6</td><td class="num">35.3%</td><td class="num">2.6%</td>
+          <td><span class="tier-strong">Strong</span></td>
+        </tr>
+        <tr>
+          <td>Highlands Ranch</td><td>Lunch</td>
+          <td class="num">89</td><td class="num">13</td><td class="num">14.6%</td>
+          <td class="num">4</td><td class="num">30.8%</td><td class="num">4.5%</td>
+          <td><span class="tier-strong">Strong</span></td>
+        </tr>
+        <tr>
+          <td>Broomfield</td><td>Evening</td>
+          <td class="num">91</td><td class="num">10</td><td class="num">11.0%</td>
+          <td class="num">3</td><td class="num">30.0%</td><td class="num">3.3%</td>
+          <td><span class="tier-strong">Strong</span></td>
+        </tr>
+        <tr>
+          <td>Golden</td><td>Thu evening</td>
+          <td class="num">109</td><td class="num">9</td><td class="num">8.3%</td>
+          <td class="num">2</td><td class="num">22.2%</td><td class="num">1.8%</td>
+          <td><span class="tier-avg">Average</span></td>
+        </tr>
+        <tr>
+          <td>Colorado Springs</td><td>Sat AM</td>
+          <td class="num">93</td><td class="num">5</td><td class="num">5.4%</td>
+          <td class="num">1</td><td class="num">20.0%</td><td class="num">1.1%</td>
+          <td><span class="tier-weak">Weak</span></td>
+        </tr>
+        <tr>
+          <td>Colorado Springs</td><td>Fri</td>
+          <td class="num">151</td><td class="num">20</td><td class="num">13.2%</td>
+          <td class="num">3</td><td class="num">15.0%</td><td class="num">2.0%</td>
+          <td><span class="tier-weak">Weak</span></td>
+        </tr>
+        <tr>
+          <td>Aurora</td><td>Day unspecified</td>
+          <td class="num">200</td><td class="num">24</td><td class="num">12.0%</td>
+          <td class="num">1</td><td class="num">4.2%</td><td class="num">0.5%</td>
+          <td><span class="tier-poor">Poor</span></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="narrative">
+      The reg-to-buyer column is the cleanest single read of venue health because it folds both show rate and close rate into one number. Loveland delivered <strong>13× more buyers per registration than Aurora</strong> (6.7% vs 0.5%). That gap is not a paid-media problem, it is a venue-execution problem. Aurora filled the room (24 attendees, second-highest in the market) but only converted one of them. The funnel worked. What happened after the door closed is what failed.
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-title">The Loveland model <span class="accent">— what to replicate</span></div>
+    <div class="grid-2">
+      <div class="card">
+        <div class="l">Format signal</div>
+        <div class="v">Lunch slot, small venue</div>
+        <div class="sub">Tuesday lunch, Embassy Suites Loveland. Smallest registration base in the market at 89, but the highest show rate (14.6%) and the highest close rate (46.2%) by a wide margin.</div>
+      </div>
+      <div class="card">
+        <div class="l">Repeatable pattern</div>
+        <div class="v">High-intent / low-volume</div>
+        <div class="sub">Lower volume registrations correlate with higher intent. Lunch slots filter for committed weekday participation. Small venue keeps the room intimate and the close mechanic warm.</div>
+      </div>
+    </div>
+    <div class="narrative takeaway">
+      <strong>Recommendation:</strong> for the next Colorado-style market, slot at least one lunchtime, small-capacity venue at a Loveland-equivalent location. Treat it as the market anchor and protect its budget allocation. The Loveland reg-to-buyer rate (6.7%) is more than double the Denver-metro average (2.6%) and equal to what we want every venue to look like.
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-title">The Denver DTC anomaly <span class="accent">— biggest base, worst show rate, strong close</span></div>
+    <div class="narrative">
+      Denver DTC pulled <strong>231 registrations</strong>, the largest base in the market. Show rate dropped to <strong>7.4%</strong>, the second-worst in Denver. But of the 17 who attended, six bought. That is a <strong>35.3% close rate</strong>, the second-best in the market. So the registration mechanic was strong (volume came in), the close mechanic was strong (those who showed bought), but the in-between step failed.
+    </div>
+    <div class="narrative warning">
+      <strong>Likely driver:</strong> evening slot + downtown audience + largest base. Three factors compound. Largest base means the average registrant intent is lower (volume regression). Downtown evening venues compete with after-work plans. The DTC audience over-indexes on professionals who registered with intent but rescheduled with low cost. We are not pushing budget down, we are pushing it to the wrong shape of registrant.
+    </div>
+    <div class="narrative takeaway">
+      <strong>Recommendation:</strong> on next high-volume urban venue, test capping registrations earlier in the window to lift average intent. Aim for a smaller absolute reg count with a tighter intent profile. The DTC close rate proves the buyer is there. We just need to get more of them to show up.
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-title">The Aurora failure <span class="accent">— funnel worked, close did not</span></div>
+    <div class="narrative alert-box">
+      Aurora is the clearest single-venue read of where Denver lost money. The market delivered <strong>24 attendees</strong>, second only to Colorado Springs Friday. But only one converted. That is a <strong>4.2% close rate</strong>. By comparison, every other Denver-metro venue cleared 22%. The paid media side did its job. Something in the room failed.
+    </div>
+    <div class="narrative warning">
+      <strong>Hypotheses to investigate before the June 13 Aurora rebooking:</strong>
+      <ul class="reco-list">
+        <li><strong>Speaker delivery.</strong> Was a specific speaker assigned to Aurora that is different from the Loveland or Denver DTC speakers? Compare attribution rate by speaker if data is available.</li>
+        <li><strong>Audience-message fit.</strong> Was the registrant profile pulled by paid media materially different in Aurora vs the rest of Denver metro? Cross-check Meta audience composition at the campaign level.</li>
+        <li><strong>Venue logistics.</strong> Room layout, seating capacity, A/V quality, signage. Any operational variable that could shape how engaged the room was during the close.</li>
+        <li><strong>Time of day / day of week.</strong> Aurora day not specified in the source report. If it was the same day as a higher-converting event, the lateral pull on the room is a candidate.</li>
+      </ul>
+    </div>
+    <div class="narrative takeaway">
+      <strong>Recommendation:</strong> do not rebook Aurora for June 13 without addressing at least one of the hypotheses above. The risk is the same execution pattern repeating with a fresh audience. Lower-risk path: swap Aurora for a different metro venue with comparable demographics, hold the Aurora seat for September.
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-title">Colorado Springs regional drag</div>
+    <div class="narrative">
+      Both Colorado Springs slots (Friday 13.2% close, Saturday 5.4% close) underperformed Denver-metro venues. Combined they delivered <strong>4 buyers across 244 registrations</strong>, a <strong>1.6% reg-to-buyer rate</strong> against the Denver-metro 3.5%. The Friday slot did better on attendance but worse on close. The Saturday slot did poorly on both.
+    </div>
+    <div class="narrative warning">
+      The Friday vs Saturday split inside Springs is informative. Friday pulled enough volume (151 regs, 20 attendees) but the close fell apart at 15%. Saturday pulled less volume (93 regs, 5 attendees) and the close was barely better (20%). This is not a slot-quality problem, it is a market-fit problem. The same creative and audience pull that works in Denver-metro Loveland and Highlands Ranch did not translate to the Springs market.
+    </div>
+    <ul class="reco-list">
+      <li><strong>Consolidate</strong> the Springs Saturday slot into the Friday slot for the next Colorado launch. Saturday's reg-to-buyer of 1.1% does not justify the venue cost.</li>
+      <li><strong>Springs-specific creative test.</strong> Brian-themed video performed well in Denver-metro. Test a Brian-Springs cut for the next launch. If the gap closes, the issue is messaging localization. If it does not, Springs may simply be a weaker market for this offer.</li>
+      <li><strong>Audience tightening.</strong> Springs likely needs a different interest layer than Denver-metro. Test wealth-focused interest audiences narrower to higher-income segments.</li>
+    </ul>
+  </section>
+
+  <section class="section">
+    <div class="section-title">Creative attribution <span class="accent">— what carried buyers</span></div>
+    <table>
+      <thead>
+        <tr><th>Creative theme</th><th class="num">Buyers</th><th class="num">% share</th><th>Read</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Brian-themed videos</strong> (4 variants)</td>
+          <td class="num">8</td><td class="num">36.4%</td>
+          <td>Largest creator theme. Includes Brian-Denver, Brian-Denver Direct Call-Out, RT Brian Script 2 Evergreen, RT Brian Script 3 Full Funnel.</td>
+        </tr>
+        <tr>
+          <td>AI Flyer variants (3 variants)</td>
+          <td class="num">6</td><td class="num">27.3%</td>
+          <td>Consistent low-volume conversion. Continue scaling but cap variant count.</td>
+        </tr>
+        <tr>
+          <td><strong>Blue Event Dates (static)</strong></td>
+          <td class="num">3</td><td class="num">13.6%</td>
+          <td>#1 single creative across three markets (FRE 37.5%, IND 31.8%, DEN tied #1). Most reliable cross-market converter.</td>
+        </tr>
+        <tr>
+          <td>Street Sign Video</td>
+          <td class="num">2</td><td class="num">9.1%</td>
+          <td>New creative. Functional, not a standout. Track for next markets.</td>
+        </tr>
+        <tr>
+          <td>Why Don't You (FRE creative)</td>
+          <td class="num">1</td><td class="num">4.5%</td>
+          <td>Cross-market FRE attribution. Worth a properly-tagged Denver test.</td>
+        </tr>
+        <tr>
+          <td>Drone Footage Video</td>
+          <td class="num">1</td><td class="num">4.5%</td>
+          <td>Under-indexed in Denver vs Indianapolis. De-prioritize for Denver-style markets.</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="narrative takeaway">
+      <strong>Two creative reads:</strong>
+      <ul class="reco-list">
+        <li><strong>Brian-themed video is the workhorse.</strong> 36.4% of attributed buyers from one creator theme. The naming convention "Brian-Denver" worth cloning per market (Brian-Cincinnati, Brian-Chicago, Brian-Greenville).</li>
+        <li><strong>Blue Event Dates static is the anchor.</strong> Third place in volume but #1 single creative across three different markets. Lock it in as the static anchor in every active campaign. Build two to three additional event-dates static variants to give it room to breathe without diluting.</li>
+        <li><strong>Drone footage de-prioritized for Denver-style metros.</strong> Worked in Indianapolis, did not translate here. Save it for markets with a strong visual-landmark identity.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-title">Campaign mix <span class="accent">— BOFU dominance signals a maturing pool</span></div>
+    <div class="grid-2">
+      <div class="card">
+        <div class="l">Denver BOFU share</div>
+        <div class="v">31.8%</div>
+        <div class="sub">7 of 22 attributed buyers came from BOFU Website Leads retargeting.</div>
+      </div>
+      <div class="card">
+        <div class="l">Cross-market comparison</div>
+        <div class="v">Inversion</div>
+        <div class="sub">Fresno BOFU 12.5%, Indianapolis BOFU 9.1%. Denver's retargeting pool converted 2.5× to 3.5× harder than comparable markets.</div>
+      </div>
+    </div>
+    <div class="narrative">
+      The Denver BOFU inversion is a market-warmth signal. When a market's retargeting pool converts disproportionately well, it tells us the registrants who interacted with the brand pre-event remembered it and came back primed. That maturity is built over time through repeat exposure. Denver had it. Fresno and Indianapolis did not.
+    </div>
+    <div class="narrative takeaway">
+      <strong>Implication for the portfolio:</strong> we can treat BOFU share as a "warmth score" to predict registration mix in the next launch. Markets where we have been live longer (Cincinnati, San Diego repeat exposure since April) should show higher BOFU share in attribution. Markets going live for the first time (Greenville) should expect TOFU to carry most of the close volume.
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-title">UTM hygiene gap <span class="accent">— process to fix this week</span></div>
+    <div class="narrative warning">
+      Three of 22 attributed buyers were tagged with the Fresno May 4 campaign, but two of them had Denver-specific creative (Brian-Denver). This is either genuine demand-gen lookalike overlap from Fresno, or a UTM mis-tagging issue. The Meta Auto-Tagged single buyer (Colorado Springs Saturday) confirms a manual UTM tagging discipline gap. Four total buyers (18% of attributed) sit in attribution noise that should be cleanable.
+    </div>
+    <ul class="reco-list">
+      <li><strong>Enforce naming convention</strong> before next launch: campaign name must include the market code (e.g. `[SG] - 20260524_GVL - ...`) at the campaign level, not just the ad set or creative.</li>
+      <li><strong>Audit existing campaign UTMs</strong> on May 22 before the Sunday launch. Any campaign with cross-market creative tags gets a relabel before going live.</li>
+      <li><strong>No campaign reuse across markets.</strong> Even if the audience is identical, spin up a new campaign per market so UTM lineage is clean.</li>
+    </ul>
+  </section>
+
+  <section class="section">
+    <div class="section-title">Action items going into the next cohort</div>
+    <ul class="reco-list">
+      <li><strong>Replicate the Loveland format.</strong> Lunch slot, small venue, market-anchor budget protection. Aim for at least one Loveland-equivalent in each new launch.</li>
+      <li><strong>Hold Aurora June 13 booking pending investigation.</strong> Investigate speaker, audience fit, and venue dynamics before rebooking. Consider swap to a different metro.</li>
+      <li><strong>Consolidate Colorado Springs into one slot</strong> for any next CO market. Saturday's reg-to-buyer of 1.1% does not justify the venue cost.</li>
+      <li><strong>Lock Blue Event Dates static as anchor</strong> in every active campaign. Add 2-3 additional event-dates static variants. De-prioritize drone footage for Denver-style metros.</li>
+      <li><strong>Clone Brian-themed video per market</strong> (Brian-Cincinnati, Brian-Chicago, Brian-Greenville). Concentrate 30% fewer creative variants overall, more budget per top performer.</li>
+      <li><strong>Cap registration count on high-volume urban venues.</strong> Test on the next Denver DTC-equivalent: hold the close-rate-strong audience tight, accept lower absolute reg volume.</li>
+      <li><strong>Audit UTMs before Sunday's launch.</strong> Any cross-market creative tags get relabeled. New convention enforced on Greenville and Chicago at launch.</li>
+      <li><strong>Treat BOFU share as a warmth signal.</strong> Track BOFU attribution per market going forward as a leading indicator of next-month registration mix.</li>
+    </ul>
+  </section>
+
+  <div class="footer">
+    Generated May 20, 2026 · Source: Tax Lien Code Denver Campaign Report (HubSpot CRM export), Hapily Events Table, internal Athena pacing snapshots (5/11, 5/13, 5/15).<br>
+    Show rate context cross-referenced against the May 20 show rate analysis at /tax-lien-code/show-rate-05-20.html.
+  </div>
+</div>
+</body>
+</html>
