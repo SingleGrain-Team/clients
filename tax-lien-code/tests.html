@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Tax Lien Code — Ongoing Tests Report</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;color:#1f2733;background:#f4f6fb;line-height:1.55;font-size:14px}
+  .wrap{max-width:1100px;margin:0 auto;padding:34px 24px 80px}
+  header{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:14px;border-bottom:3px solid #5b6ef5;padding-bottom:18px;margin-bottom:24px}
+  .kicker{font-size:11px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:#5b6ef5}
+  h1{font-size:26px;font-weight:800;color:#0f1a33;margin:5px 0 4px}
+  .sub{font-size:13px;color:#5a6679}
+  .hr{text-align:right;font-size:12px;color:#5a6679}
+  .hr .stamp{font-weight:600;color:#1f2733}
+  .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:22px}
+  .kpi{background:#ffffff;border:1px solid #e1e6f0;border-radius:12px;padding:15px 18px;box-shadow:0 1px 2px rgba(16,26,51,.04)}
+  .kpi .k{font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#76819a}
+  .kpi .v{font-size:28px;font-weight:800;color:#0f1a33;margin-top:4px}
+  .charts{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:24px}
+  .panel{background:#ffffff;border:1px solid #e1e6f0;border-radius:12px;padding:16px 18px;box-shadow:0 1px 2px rgba(16,26,51,.04)}
+  .panel h2{font-size:14px;font-weight:800;color:#0f1a33;margin-bottom:4px}
+  .panel .ph{font-size:12px;color:#5a6679;margin-bottom:10px}
+  .panel.full{grid-column:1/-1}
+  .cwrap{position:relative;height:230px}
+  table{width:100%;border-collapse:collapse;font-size:13px}
+  th,td{text-align:left;padding:9px 10px;border-bottom:1px solid #eceff6}
+  th{font-size:10.5px;letter-spacing:.05em;text-transform:uppercase;color:#76819a;font-weight:700;background:#f8f9fd}
+  .chip{display:inline-block;font-size:10.5px;font-weight:700;padding:2px 9px;border-radius:999px}
+  .test{background:#ffffff;border:1px solid #e1e6f0;border-radius:13px;padding:20px 22px;margin-bottom:16px;box-shadow:0 1px 2px rgba(16,26,51,.04)}
+  .thead{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+  .tmkt{font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#76819a}
+  .tname{font-size:19px;font-weight:800;color:#0f1a33;margin-top:2px}
+  .thr{display:flex;flex-direction:column;align-items:flex-end;gap:6px}
+  .status{font-size:10.5px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;border:1px solid;border-radius:999px;padding:3px 11px}
+  .cd{font-size:12px;font-weight:600;color:#f59e0b}
+  .obj{background:#eef0ff;border-left:3px solid #5b6ef5;border-radius:0 8px 8px 0;padding:11px 15px;margin-bottom:13px;font-size:13.5px;color:#2a3550}
+  .obj-l{display:block;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#5b6ef5;margin-bottom:3px}
+  .phase-banner{display:flex;align-items:center;gap:12px;background:#f8f9fd;border:1px solid #e1e6f0;border-radius:9px;padding:10px 15px;margin-bottom:13px;font-size:13px}
+  .pb-l{font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:#76819a}
+  .pb-cur{font-weight:700;color:#10b981}
+  .live{display:flex;gap:26px;flex-wrap:wrap;background:#f0fbf6;border:1px solid #bdecd6;border-radius:9px;padding:12px 16px;margin-bottom:13px}
+  .lk{display:flex;flex-direction:column;gap:2px}
+  .ll{font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#76819a}
+  .lv{font-size:16px;font-weight:800;color:#0f1a33}
+  .pace{font-size:11px;font-weight:600}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .sub{margin-bottom:14px}
+  .sub h4{font-size:10.5px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:#76819a;margin-bottom:7px}
+  .sub p{font-size:13px;color:#1f2733}
+  .sv{margin-top:7px;font-size:12px;color:#5a6679}
+  .sv-l{font-weight:700;color:#76819a;text-transform:uppercase;font-size:10px;letter-spacing:.06em}
+  .pills{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:9px}
+  .pp{background:#f8f9fd;border:1px solid #e1e6f0;border-radius:9px;padding:11px 13px}
+  .pp-cur{border-color:#10b981;box-shadow:0 0 0 1px #10b981;background:#f0fbf6}
+  .pp-name{font-size:12.5px;font-weight:700;color:#0f1a33;margin-bottom:3px}
+  .pp-dates{font-size:11px;color:#5b6ef5;font-variant-numeric:tabular-nums;margin-bottom:4px}
+  .pp-tgt{font-size:11.5px;font-weight:700;color:#1f2733;margin-bottom:4px}
+  .pp-note{font-size:11.5px;color:#5a6679;line-height:1.45}
+  .timeline{list-style:none}
+  .tl{display:flex;gap:10px;padding:6px 0;border-bottom:1px solid #eceff6;font-size:13px;align-items:baseline}
+  .tl:last-child{border-bottom:none}
+  .tl-date{flex:0 0 92px;font-size:11.5px;color:#5a6679;font-variant-numeric:tabular-nums}
+  .tl-done .tl-date::before{content:"✓ ";color:#10b981;font-weight:700}
+  .tl-upcoming{opacity:.85}
+  .tl-upcoming .tl-date::before{content:"○ ";color:#f59e0b;font-weight:700}
+  .foot{margin-top:30px;font-size:11.5px;color:#76819a;text-align:center;line-height:1.7;border-top:1px solid #e1e6f0;padding-top:16px}
+  .foot a{color:#5b6ef5}
+  @media (max-width:780px){.charts{grid-template-columns:1fr}.grid2{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div>
+      <div class="kicker">Single Grain · Tax Lien Code</div>
+      <h1>Ongoing Tests Report</h1>
+      <div class="sub">Every in-progress test: objective, mechanics, spend curve, pace and milestones. Live numbers pulled from Meta three times a day.</div>
+    </div>
+    <div class="hr">
+      <div class="stamp">Sunday, May 31, 2026 · 4:50 PM</div>
+      <div>6 tests tracked</div>
+    </div>
+  </header>
+
+  <div class="kpis">
+    <div class="kpi"><div class="k">Active</div><div class="v" style="color:#10b981">3</div></div>
+    <div class="kpi"><div class="k">Planning</div><div class="v" style="color:#5b6ef5">2</div></div>
+    <div class="kpi"><div class="k">Paused</div><div class="v" style="color:#f59e0b">1</div></div>
+    <div class="kpi"><div class="k">Greenville pace</div><div class="v" style="color:#ef4444">70%</div></div>
+  </div>
+
+  <div class="charts">
+    <div class="panel">
+      <h2>Back-load spend curve — Greenville</h2>
+      <div class="ph">Budget share per phase (bars) and the daily envelope (line). The 15 / 25 / 60 ramp.</div>
+      <div class="cwrap"><canvas id="curveChart"></canvas></div>
+    </div>
+    <div class="panel">
+      <h2>Pace vs target</h2>
+      <div class="ph">Each active test's run rate against its phase target. Green 90-115%, amber 80-130%, red outside.</div>
+      <div class="cwrap"><canvas id="paceChart"></canvas></div>
+    </div>
+    <div class="panel">
+      <h2>Portfolio by status</h2>
+      <div class="ph">Where the 6 tests sit right now.</div>
+      <div class="cwrap"><canvas id="statusChart"></canvas></div>
+    </div>
+    <div class="panel">
+      <h2>All tests</h2>
+      <div class="ph">Click a name to jump to its detail card.</div>
+      <table>
+        <tr><th>Test</th><th>Market</th><th>Status</th><th>Phase</th><th>To event</th><th>Spend</th><th>Pace</th></tr>
+        <tr><td><a href="#test-greenville_backload" style="color:#5b6ef5;text-decoration:none;font-weight:600">Back-Load Spend Curve</a></td><td>Greenville (GSP)</td><td><span class="chip" style="background:#10b9811a;color:#10b981">Active</span></td><td>Phase 2 - Build</td><td style="font-variant-numeric:tabular-nums">20d to event</td><td>$11,067</td><td><span style="color:#ef4444;font-weight:700">70%</span></td></tr><tr><td><a href="#test-bold_fear_copy" style="color:#5b6ef5;text-decoration:none;font-weight:600">Bold / Fear Copy Variants</a></td><td>Greenville (GSP), embedded in the back-load ad sets</td><td><span class="chip" style="background:#10b9811a;color:#10b981">Active</span></td><td>Seed</td><td style="font-variant-numeric:tabular-nums">20d to event</td><td>—</td><td><span style="color:#aeb6c7">—</span></td></tr><tr><td><a href="#test-cae_hubspot_form" style="color:#5b6ef5;text-decoration:none;font-weight:600">HubSpot Form Validation</a></td><td>Cape Coral (CAE)</td><td><span class="chip" style="background:#10b9811a;color:#10b981">Active</span></td><td>BOFU validation</td><td style="font-variant-numeric:tabular-nums">22d to event</td><td>—</td><td><span style="color:#aeb6c7">—</span></td></tr><tr><td><a href="#test-geo_exclusion_ftl_mia" style="color:#5b6ef5;text-decoration:none;font-weight:600">Geo Exclusion - Sequential Metros</a></td><td>Fort Lauderdale (FTL) &lt;- Miami (MIA)</td><td><span class="chip" style="background:#5b6ef51a;color:#5b6ef5">Planning</span></td><td>—</td><td style="font-variant-numeric:tabular-nums">—</td><td>—</td><td><span style="color:#aeb6c7">—</span></td></tr><tr><td><a href="#test-lal_consolidation" style="color:#5b6ef5;text-decoration:none;font-weight:600">LAL Audience Consolidation</a></td><td>Greenville (GSP)</td><td><span class="chip" style="background:#5b6ef51a;color:#5b6ef5">Planning</span></td><td>Analysis</td><td style="font-variant-numeric:tabular-nums">—</td><td>$5,516</td><td><span style="color:#aeb6c7">—</span></td></tr><tr><td><a href="#test-bofu_lp_test" style="color:#5b6ef5;text-decoration:none;font-weight:600">Ugly Landing Page A/B</a></td><td>Cape Coral (CAE) + Washington DC (DCA)</td><td><span class="chip" style="background:#f59e0b1a;color:#f59e0b">Paused</span></td><td>Build and fix</td><td style="font-variant-numeric:tabular-nums">22d to event</td><td>—</td><td><span style="color:#aeb6c7">—</span></td></tr>
+      </table>
+    </div>
+  </div>
+
+  
+        <section class="test" id="test-greenville_backload">
+          <div class="thead">
+            <div>
+              <div class="tmkt">Greenville (GSP)</div>
+              <h3 class="tname">Back-Load Spend Curve</h3>
+            </div>
+            <div class="thr">
+              <span class="status" style="color:#10b981;border-color:#10b981">Active</span>
+              <span class="cd">20d to event</span>
+            </div>
+          </div>
+          <div class="obj"><span class="obj-l">Objective</span>Learn whether concentrating spend late in the window lifts show rate without losing raw registrations, so we can decide the default spend curve for Q2.</div>
+          <div class="phase-banner">
+            <span class="pb-l">Current phase</span>
+            <span class="pb-cur">Phase 2 - Build</span>
+          </div>
+          <div class="live"><div class="lk"><span class="ll">Window spend</span><span class="lv">$11,067</span></div><div class="lk"><span class="ll">Run rate</span><span class="lv">$1,613/day</span><span class="pace" style="color:#ef4444">70% of phase target ($2,320/day)</span></div><div class="lk"><span class="ll">Budget</span><span class="lv">$65,000</span></div></div>
+          <div class="grid2">
+            <div class="sub"><h4>Hypothesis</h4><p>A back-loaded curve (15% week one, 25% week two, 60% in the final stretch) compresses the registration-to-event gap. Registrations that land closer to the event show up at a higher rate, so show rate should rise while raw volume holds.</p></div>
+            <div class="sub"><h4>Decision / pass bar</h4><p>If the back-loaded curve reaches a 16% or higher show rate without losing raw registration volume, it becomes the new default curve for the rest of Q2. Baseline to beat is the 2026 series show rate of 13.42%.</p><div class="sv"><span class="sv-l">Single variable</span> Spend curve shape (same audiences, creative, landing pages)</div></div>
+          </div>
+          <div class="sub"><h4>Phases (spend curve)</h4><div class="pills"><div class="pp "><div class="pp-name">Phase 1 - Foundation (low) · 15%</div><div class="pp-dates">2026-05-24 → 2026-05-30</div><div class="pp-tgt">$1,350/day</div><div class="pp-note">Counter-intuitive start: budgets set below default to hold the curve flat early. Actual Phase 1 spend landed at $9,453 across the 4 campaigns (171 pixel leads).</div></div><div class="pp pp-cur"><div class="pp-name">Phase 2 - Build · 25%</div><div class="pp-dates">2026-05-31 → 2026-06-06</div><div class="pp-tgt">$2,320/day</div><div class="pp-note">About $16,250 for the week, ~$2,320/day. Winners-weighted: the 4 Controls carry most of the envelope; weak ad sets (over $140 CPL) paused; Bold and Bolder seeded small for a first read at the Phase 3 gate.</div></div><div class="pp "><div class="pp-name">Phase 3 - Concentrate (hold higher) · 60%</div><div class="pp-dates">2026-06-07 → 2026-06-19</div><div class="pp-tgt">$3,025/day</div><div class="pp-note">About $39,297 across 13 days, ~$3,025/day. Configured via Meta Schedule Apply effective Sunday June 7 00:00 ET so the phase grid is preserved. Phase 1 underspend headroom pushed here.</div></div></div></div>
+          <div class="sub"><h4>Timeline</h4><ul class="timeline"><li class="tl tl-done"><span class="tl-date">2026-05-24</span><span class="tl-text">Launch. 23 ad sets live (20 TOFU, 3 BOFU). Budgets set below default to start the curve flat.</span></li><li class="tl tl-done"><span class="tl-date">2026-05-28</span><span class="tl-text">Day-5 read. Cumulative registrations checked against the 110-reg floor.</span></li><li class="tl tl-done"><span class="tl-date">2026-05-31</span><span class="tl-text">Phase 2 began. Per-ad-set budgets re-weighted to winners; weak sets paused; Bold/Bolder seeded.</span></li><li class="tl tl-upcoming"><span class="tl-date">2026-06-04</span><span class="tl-text">Day-12 read. Registrations vs the 336 floor plus a CPL guardrail check, then confirm the Phase 3 path.</span></li><li class="tl tl-upcoming"><span class="tl-date">2026-06-05</span><span class="tl-text">Configure Meta Schedule Apply for Phase 3, effective Sunday June 7 00:00 ET.</span></li><li class="tl tl-upcoming"><span class="tl-date">2026-06-19</span><span class="tl-text">Last spend day. Hold Phase 3 budgets.</span></li><li class="tl tl-upcoming"><span class="tl-date">2026-06-20</span><span class="tl-text">Event day. Pause all 23 ad sets.</span></li><li class="tl tl-upcoming"><span class="tl-date">2026-06-22</span><span class="tl-text">Post-event recap and the Q2 default-curve verdict, show rate vs the 13.42% baseline.</span></li></ul></div>
+        </section>
+        
+        <section class="test" id="test-bold_fear_copy">
+          <div class="thead">
+            <div>
+              <div class="tmkt">Greenville (GSP), embedded in the back-load ad sets</div>
+              <h3 class="tname">Bold / Fear Copy Variants</h3>
+            </div>
+            <div class="thr">
+              <span class="status" style="color:#10b981;border-color:#10b981">Active</span>
+              <span class="cd">20d to event</span>
+            </div>
+          </div>
+          <div class="obj"><span class="obj-l">Objective</span>Learn which primary-text angle (bold benefit, fear, urgency, scarcity) earns the lowest cost per lead, so we can promote the winning angle across markets.</div>
+          <div class="phase-banner">
+            <span class="pb-l">Current phase</span>
+            <span class="pb-cur">Seed</span>
+          </div>
+          
+          <div class="grid2">
+            <div class="sub"><h4>Hypothesis</h4><p>More aggressive benefit framing and fear-based angles will beat the control copy on cost per lead, but may carry a show-rate cost worth measuring.</p></div>
+            <div class="sub"><h4>Decision / pass bar</h4><p>The lowest-CPL angle that holds show rate becomes the new copy default. Angles with no history get a first read at the Day-12 gate (June 4).</p><div class="sv"><span class="sv-l">Single variable</span> Primary-text angle (creative image and audience held constant within each ad set)</div></div>
+          </div>
+          <div class="sub"><h4>Phases (spend curve)</h4><div class="pills"><div class="pp pp-cur"><div class="pp-name">Seed</div><div class="pp-dates">2026-05-31 → 2026-06-03</div><div class="pp-note">Bold and Bolder ad sets activated with small budgets, accumulating first impressions.</div></div><div class="pp "><div class="pp-name">First read</div><div class="pp-dates">2026-06-04 → 2026-06-06</div><div class="pp-note">Day-12 gate: read CPL by angle, decide which variants to scale into Phase 3.</div></div><div class="pp "><div class="pp-name">Scale winners</div><div class="pp-dates">2026-06-07 → 2026-06-19</div><div class="pp-note">Push budget toward the lowest-CPL angle inside the Phase 3 envelope.</div></div></div></div>
+          <div class="sub"><h4>Timeline</h4><ul class="timeline"><li class="tl tl-done"><span class="tl-date">2026-05-23</span><span class="tl-text">37 copy variants written across 5 angles (Bold/Fear/Urgency/Scarcity/Aspirational).</span></li><li class="tl tl-done"><span class="tl-date">2026-05-31</span><span class="tl-text">Bold and Bolder ad sets activated and seeded inside the back-load test.</span></li><li class="tl tl-upcoming"><span class="tl-date">2026-06-04</span><span class="tl-text">First CPL-by-angle read at the Day-12 gate.</span></li></ul></div>
+        </section>
+        
+        <section class="test" id="test-cae_hubspot_form">
+          <div class="thead">
+            <div>
+              <div class="tmkt">Cape Coral (CAE)</div>
+              <h3 class="tname">HubSpot Form Validation</h3>
+            </div>
+            <div class="thr">
+              <span class="status" style="color:#10b981;border-color:#10b981">Active</span>
+              <span class="cd">22d to event</span>
+            </div>
+          </div>
+          <div class="obj"><span class="obj-l">Objective</span>Validate that the HubSpot lead form syncs registrations correctly before we enable it on prospecting traffic, since the HubSpot sync layer has been the account&#x27;s standing blocker.</div>
+          <div class="phase-banner">
+            <span class="pb-l">Current phase</span>
+            <span class="pb-cur">BOFU validation</span>
+          </div>
+          
+          <div class="grid2">
+            <div class="sub"><h4>Hypothesis</h4><p>Placing the form on a single bottom-funnel ad set first will surface any sync breakage at low volume, without risking prospecting budget on a broken flow.</p></div>
+            <div class="sub"><h4>Decision / pass bar</h4><p>Once HubSpot receives leads cleanly from the BOFU ad set, roll the form out to prospecting (TOFU). Until then, keep it off TOFU.</p><div class="sv"><span class="sv-l">Single variable</span> Lead form on one BOFU ad set only</div></div>
+          </div>
+          <div class="sub"><h4>Phases (spend curve)</h4><div class="pills"><div class="pp pp-cur"><div class="pp-name">BOFU validation</div><div class="pp-dates">2026-05-24 → 2026-06-22</div><div class="pp-note">Form lives on [SG] 20260622_CAE - BOFU - Website - Leads only. Watch HubSpot for clean sync.</div></div><div class="pp "><div class="pp-name">TOFU rollout</div><div class="pp-dates">2026-06-22 → 2026-06-22</div><div class="pp-note">Conditional - only after the BOFU sync is confirmed clean.</div></div></div></div>
+          <div class="sub"><h4>Timeline</h4><ul class="timeline"><li class="tl tl-done"><span class="tl-date">2026-05-24</span><span class="tl-text">Form placed on the CAE BOFU Website-Leads ad set. Not activated on TOFU.</span></li><li class="tl tl-upcoming"><span class="tl-date">2026-06-22</span><span class="tl-text">If sync is clean, extend the form to prospecting ad sets.</span></li></ul></div>
+        </section>
+        
+        <section class="test" id="test-bofu_lp_test">
+          <div class="thead">
+            <div>
+              <div class="tmkt">Cape Coral (CAE) + Washington DC (DCA)</div>
+              <h3 class="tname">Ugly Landing Page A/B</h3>
+            </div>
+            <div class="thr">
+              <span class="status" style="color:#f59e0b;border-color:#f59e0b">Paused</span>
+              <span class="cd">22d to event</span>
+            </div>
+          </div>
+          <div class="obj"><span class="obj-l">Objective</span>Learn whether the aggressive ugly landing page converts better than the current registration flow, an idea Chris explicitly endorsed (do not tone it back).</div>
+          <div class="phase-banner">
+            <span class="pb-l">Current phase</span>
+            <span class="pb-cur">Build and fix</span>
+          </div>
+          
+          <div class="grid2">
+            <div class="sub"><h4>Hypothesis</h4><p>A blunt, high-contrast ugly landing page reduces friction and lifts the registration conversion rate versus the polished page.</p></div>
+            <div class="sub"><h4>Decision / pass bar</h4><p>If the ugly page wins on registration conversion rate at equal or lower CPL, promote it to the default landing page.</p><div class="sv"><span class="sv-l">Single variable</span> Landing page (ugly variant vs current), one ad set carrying it</div></div>
+          </div>
+          <div class="sub"><h4>Phases (spend curve)</h4><div class="pills"><div class="pp pp-cur"><div class="pp-name">Build and fix</div><div class="pp-dates">2026-05-24 → 2026-06-22</div><div class="pp-note">Ad set sized at 20% of the 400/day BOFU budget. Held inactive until the on-page form bug is fixed.</div></div></div></div>
+          <div class="sub"><h4>Timeline</h4><ul class="timeline"><li class="tl tl-done"><span class="tl-date">2026-05-24</span><span class="tl-text">Ugly LP ad set created at 20% of the BOFU budget, pointed at the free-event-registration page. Kept inactive - a form bug blocks launch.</span></li><li class="tl tl-upcoming"><span class="tl-date">2026-06-22</span><span class="tl-text">Activate once the form bug is resolved, then read conversion rate vs the current flow.</span></li></ul></div>
+        </section>
+        
+        <section class="test" id="test-lal_consolidation">
+          <div class="thead">
+            <div>
+              <div class="tmkt">Greenville (GSP)</div>
+              <h3 class="tname">LAL Audience Consolidation</h3>
+            </div>
+            <div class="thr">
+              <span class="status" style="color:#5b6ef5;border-color:#5b6ef5">Planning</span>
+              
+            </div>
+          </div>
+          <div class="obj"><span class="obj-l">Objective</span>Learn whether merging the paired lookalike campaigns (currently split only by an SG naming tag, with identical ad sets and ads) removes duplication and improves delivery, without losing the structure that lets us weight budget by ad content.</div>
+          <div class="phase-banner">
+            <span class="pb-l">Current phase</span>
+            <span class="pb-cur">Analysis</span>
+          </div>
+          <div class="live"><div class="lk"><span class="ll">Window spend</span><span class="lv">$5,516</span></div><div class="lk"><span class="ll">Run rate</span><span class="lv">$812/day</span></div><div class="lk"><span class="ll">Budget</span><span class="lv">—</span></div></div>
+          <div class="grid2">
+            <div class="sub"><h4>Hypothesis</h4><p>Two near-identical LAL campaigns split only by name are likely cannibalizing each other in the auction. Consolidating should reduce overlap and stabilize CPL.</p></div>
+            <div class="sub"><h4>Decision / pass bar</h4><p>If a consolidated structure delivers equal or lower CPL with less audience overlap, adopt it as the standard LAL structure.</p><div class="sv"><span class="sv-l">Single variable</span> Campaign structure (two paired LAL campaigns vs one consolidated)</div></div>
+          </div>
+          <div class="sub"><h4>Phases (spend curve)</h4><div class="pills"><div class="pp pp-cur"><div class="pp-name">Analysis</div><div class="pp-dates">2026-05-31 → 2026-06-06</div><div class="pp-note">Merge report drafted. Confirm ABO / manual-by-content structure (not CBO) and audience overlap.</div></div><div class="pp "><div class="pp-name">Decision</div><div class="pp-dates">2026-06-07 → 2026-06-19</div><div class="pp-note">Decide whether to consolidate after the back-load test finishes, to avoid disturbing that test.</div></div></div></div>
+          <div class="sub"><h4>Timeline</h4><ul class="timeline"><li class="tl tl-done"><span class="tl-date">2026-05-31</span><span class="tl-text">Merge report produced; structure questions (ABO vs CBO, overlap) flagged.</span></li><li class="tl tl-upcoming"><span class="tl-date">2026-06-07</span><span class="tl-text">Revisit consolidation after the back-load test phase grid is locked.</span></li></ul></div>
+        </section>
+        
+        <section class="test" id="test-geo_exclusion_ftl_mia">
+          <div class="thead">
+            <div>
+              <div class="tmkt">Fort Lauderdale (FTL) &lt;- Miami (MIA)</div>
+              <h3 class="tname">Geo Exclusion - Sequential Metros</h3>
+            </div>
+            <div class="thr">
+              <span class="status" style="color:#5b6ef5;border-color:#5b6ef5">Planning</span>
+              
+            </div>
+          </div>
+          <div class="obj"><span class="obj-l">Objective</span>Prevent audience overlap and double-spend when two metros within 25 miles run in sequence, by excluding the earlier metro&#x27;s geo from the later launch.</div>
+          <div class="phase-banner">
+            <span class="pb-l">Current phase</span>
+            <span class="pb-cur">Not started</span>
+          </div>
+          
+          <div class="grid2">
+            <div class="sub"><h4>Hypothesis</h4><p>Without exclusion, the Fort Lauderdale launch would re-serve the same Miami-area users, inflating frequency and CPL.</p></div>
+            <div class="sub"><h4>Decision / pass bar</h4><p>Operational rule, not a measured test: set the geo exclusion at build time for every proximate sequential launch.</p><div class="sv"><span class="sv-l">Single variable</span> Geo exclusion applied at build</div></div>
+          </div>
+          <div class="sub"><h4>Phases (spend curve)</h4><div class="pills"><div class="pp "><div class="pp-name">Build-time setup</div><div class="pp-dates">2026-07-06 → 2026-07-13</div><div class="pp-note">When Fort Lauderdale (7/13) builds, exclude the Miami (7/6) metro - 25 miles, sequential.</div></div></div></div>
+          <div class="sub"><h4>Timeline</h4><ul class="timeline"><li class="tl tl-upcoming"><span class="tl-date">2026-07-06</span><span class="tl-text">Miami launches.</span></li></ul></div>
+        </section>
+        
+
+  <div class="foot">
+    Source of truth: the <a href="https://docs.google.com/spreadsheets/d/1YXSujbEf6CZvtOaxey8xAqepoAAZAou2I5Dt--euX2Q/edit">TLC Tests Tracker</a> Google Sheet. Live spend pulled from Meta via the SingleGrain gateway 3x/day; this report rebuilds on each sync.<br>
+    Reusable template — the same three-tab Sheet + sync stand up a tests report for any client.
+  </div>
+</div>
+
+<script id="chart-data" type="application/json">{"status": {"labels": ["Active", "Planning", "Paused"], "data": [3, 2, 1], "colors": ["#10b981", "#5b6ef5", "#f59e0b"]}, "curve": {"labels": ["Phase 1 - Foundation (low)", "Phase 2 - Build", "Phase 3 - Concentrate (hold higher)"], "budget": [15.0, 25.0, 60.0], "target": [1350.0, 2320.0, 3025.0]}, "pace": {"labels": ["Back-Load Spend Curve"], "data": [70.0], "colors": ["#ef4444"]}}</script>
+<script>
+(function(){
+  var D = JSON.parse(document.getElementById('chart-data').textContent);
+  var f = {font:{family:'-apple-system,Segoe UI,Helvetica,Arial,sans-serif'}};
+
+  if (D.curve.labels.length) {
+    new Chart(document.getElementById('curveChart'), {
+      data: {
+        labels: D.curve.labels,
+        datasets: [
+          {type:'bar', label:'Budget %', data:D.curve.budget, backgroundColor:'#5b6ef5', borderRadius:6, yAxisID:'y'},
+          {type:'line', label:'Target $/day', data:D.curve.target, borderColor:'#f59e0b', backgroundColor:'#f59e0b', tension:.3, yAxisID:'y1', pointRadius:4}
+        ]
+      },
+      options: {responsive:true, maintainAspectRatio:false,
+        plugins:{legend:{position:'bottom', labels:{boxWidth:12, font:f.font}}},
+        scales:{
+          y:{position:'left', title:{display:true, text:'Budget %'}, ticks:{callback:function(v){return v+'%'}}},
+          y1:{position:'right', title:{display:true, text:'$/day'}, grid:{drawOnChartArea:false}, ticks:{callback:function(v){return '$'+v}}}
+        }}
+    });
+  }
+
+  if (D.pace.labels.length) {
+    new Chart(document.getElementById('paceChart'), {
+      type:'bar',
+      data:{labels:D.pace.labels, datasets:[{label:'Pace %', data:D.pace.data, backgroundColor:D.pace.colors, borderRadius:6}]},
+      options:{indexAxis:'y', responsive:true, maintainAspectRatio:false,
+        plugins:{legend:{display:false}},
+        scales:{x:{ticks:{callback:function(v){return v+'%'}}, suggestedMax:130}}}
+    });
+  }
+
+  if (D.status.labels.length) {
+    new Chart(document.getElementById('statusChart'), {
+      type:'doughnut',
+      data:{labels:D.status.labels, datasets:[{data:D.status.data, backgroundColor:D.status.colors, borderWidth:2, borderColor:'#fff'}]},
+      options:{responsive:true, maintainAspectRatio:false, cutout:'58%',
+        plugins:{legend:{position:'bottom', labels:{boxWidth:12, font:f.font}}}}
+    });
+  }
+})();
+</script>
+</body>
+</html>
