@@ -118,6 +118,30 @@
   .activations .upcoming .ttl{color:#94a3b8;font-size:10.5px;letter-spacing:0.08em;margin-bottom:6px}
   .activations .upcoming li{color:#cbd5e1;font-size:12.5px;border-bottom:none;padding:2px 0}
   .activations .desc{color:#94a3b8;font-size:11.5px;display:block;margin-top:2px}
+
+.analysis{margin-top:18px;border-top:1px solid #2e3350;padding-top:16px}
+  .analysis-title{font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#94a3b8;margin-bottom:12px}
+  .analysis-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+  .analysis-col{background:#22263a;border-radius:8px;padding:13px 15px;border-top:2px solid #2e3350}
+  .analysis-col.good{border-top-color:#34d399}
+  .analysis-col.bad{border-top-color:#f87171}
+  .analysis-col.doing{border-top-color:#818cf8}
+  .analysis-col h4{font-size:11px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;margin-bottom:9px}
+  .analysis-col.good h4{color:#34d399}
+  .analysis-col.bad h4{color:#f87171}
+  .analysis-col.doing h4{color:#818cf8}
+  .analysis-col ul{list-style:none;padding:0;margin:0}
+  .analysis-col li{font-size:12.5px;color:#cbd5e1;line-height:1.5;padding:5px 0 5px 14px;position:relative;border-bottom:1px solid #2a2f44}
+  .analysis-col li:last-child{border-bottom:none}
+  .analysis-col li::before{content:'';position:absolute;left:2px;top:12px;width:5px;height:5px;border-radius:50%;background:#475569}
+  .analysis-col.good li::before{background:#34d399}
+  .analysis-col.bad li::before{background:#f87171}
+  .analysis-col.doing li::before{background:#818cf8}
+  .test-chip{display:inline-block;font-size:9.5px;font-weight:700;letter-spacing:0.04em;text-transform:uppercase;padding:1px 6px;border-radius:999px;margin-left:5px;vertical-align:middle}
+  .test-chip.live{background:rgba(52,211,153,0.12);color:#34d399;border:1px solid rgba(52,211,153,0.35)}
+  .test-chip.planned{background:rgba(251,191,36,0.12);color:#fbbf24;border:1px solid rgba(251,191,36,0.35)}
+  .test-chip.paused{background:rgba(148,163,184,0.12);color:#94a3b8;border:1px solid rgba(148,163,184,0.35)}
+  @media (max-width:640px){ .analysis-grid{grid-template-columns:1fr} }
 </style>
 </head>
 <body>
@@ -274,6 +298,33 @@
           </tbody>
         </table>
       </div>
+      <div class="analysis">
+        <div class="analysis-title">Read &amp; actions</div>
+        <div class="analysis-grid">
+          <div class="analysis-col good">
+            <h4>What's working</h4>
+            <ul>
+              <li>Five of six venues pacing healthy, led by Billings (182), Kalispell (118) and Missoula (109).</li>
+              <li>Steady daily Meta delivery held through the mid-window stretch.</li>
+            </ul>
+          </div>
+          <div class="analysis-col bad">
+            <h4>What's not</h4>
+            <ul>
+              <li>Spend at 144% of plan against 64% of the 1,200 registration goal, so efficiency is the focus for the final days.</li>
+              <li>CPL at $103 is above the $69 blended average.</li>
+              <li>Great Falls is the one venue pacing behind.</li>
+            </ul>
+          </div>
+          <div class="analysis-col doing">
+            <h4>What we're doing</h4>
+            <ul>
+              <li>Interest-based audiences testing live.<span class="test-chip live">Live</span></li>
+              <li>Concentrating the remaining budget on the top venues and easing the lower-volume sets to protect CPL into the close.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
     </section>
     </div><div id="ev-SBA">
     <section class="event">
@@ -356,6 +407,33 @@
     
           </tbody>
         </table>
+      </div>
+      <div class="analysis">
+        <div class="analysis-title">Read &amp; actions</div>
+        <div class="analysis-grid">
+          <div class="analysis-col good">
+            <h4>What's working</h4>
+            <ul>
+              <li>Santa Barbara (218) and Oxnard (172) are carrying the market well.</li>
+              <li>Consistent daily Meta delivery across the window.</li>
+            </ul>
+          </div>
+          <div class="analysis-col bad">
+            <h4>What's not</h4>
+            <ul>
+              <li>Spend at 129% of plan against 60% of the registration goal, so the final days favor efficiency over volume.</li>
+              <li>CPL at $99 sits above the $69 blended average.</li>
+              <li>Paso Robles is the soft spot at 47 registrations, with no nearby venue to consolidate into.</li>
+            </ul>
+          </div>
+          <div class="analysis-col doing">
+            <h4>What we're doing</h4>
+            <ul>
+              <li>Interest-based audiences testing live.<span class="test-chip live">Live</span></li>
+              <li>Shifting weight toward Santa Barbara and Oxnard and easing the Paso Robles spend for the last five days.</li>
+            </ul>
+          </div>
+        </div>
       </div>
     </section>
     </div><div id="ev-CDR">
@@ -447,6 +525,33 @@
           </tbody>
         </table>
       </div>
+      <div class="analysis">
+        <div class="analysis-title">Read &amp; actions</div>
+        <div class="analysis-grid">
+          <div class="analysis-col good">
+            <h4>What's working</h4>
+            <ul>
+              <li>Strongest reg pace of the closing-soon markets at 93%, projecting roughly 1,115.</li>
+              <li>CPL at $66 is right at the blended average, with Des Moines (212), Cedar Rapids (205) and Davenport (173) leading.</li>
+            </ul>
+          </div>
+          <div class="analysis-col bad">
+            <h4>What's not</h4>
+            <ul>
+              <li>Front-loaded spend at 134% of plan, worth watching so the budget lasts the full window.</li>
+              <li>Coralville and Dubuque are the two lagging venues.</li>
+            </ul>
+          </div>
+          <div class="analysis-col doing">
+            <h4>What we're doing</h4>
+            <ul>
+              <li>Interest-based audiences testing live.<span class="test-chip live">Live</span></li>
+              <li>Candidate market for the new Single Grain landing page A/B template.<span class="test-chip planned">Planned</span></li>
+              <li>Holding the current setup given the healthy pace and keeping an eye on Dubuque.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
     </section>
     </div><div id="ev-CLT">
     <section class="event">
@@ -537,6 +642,33 @@
           </tbody>
         </table>
       </div>
+      <div class="analysis">
+        <div class="analysis-title">Read &amp; actions</div>
+        <div class="analysis-grid">
+          <div class="analysis-col good">
+            <h4>What's working</h4>
+            <ul>
+              <li>Reg pace at 92%, projecting around 1,108, with Charlotte North very strong at 323.</li>
+              <li>CPL at $66, in line with the blended average.</li>
+            </ul>
+          </div>
+          <div class="analysis-col bad">
+            <h4>What's not</h4>
+            <ul>
+              <li>Spend at 134% of plan, front-loaded, worth monitoring for the rest of the window.</li>
+              <li>Rock Hill and Waverly are pacing behind the others.</li>
+            </ul>
+          </div>
+          <div class="analysis-col doing">
+            <h4>What we're doing</h4>
+            <ul>
+              <li>Interest-based audiences testing live.<span class="test-chip live">Live</span></li>
+              <li>Candidate market for the new Single Grain landing page A/B template.<span class="test-chip planned">Planned</span></li>
+              <li>Holding course on the healthy pace and watching the two softer venues.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
     </section>
     </div><div id="ev-GSP">
     <section class="event">
@@ -619,6 +751,35 @@
     
           </tbody>
         </table>
+      </div>
+      <div class="analysis">
+        <div class="analysis-title">Read &amp; actions</div>
+        <div class="analysis-grid">
+          <div class="analysis-col good">
+            <h4>What's working</h4>
+            <ul>
+              <li>Efficient CPL at $55, below the $69 blended average.</li>
+              <li>Greenville Downtown (131) and Spartanburg (127) are leading early.</li>
+              <li>Spend at 78% of plan leaves room as the curve ramps.</li>
+            </ul>
+          </div>
+          <div class="analysis-col bad">
+            <h4>What's not</h4>
+            <ul>
+              <li>Registrations projecting 64% of goal at the halfway mark, so the back half needs to deliver.</li>
+              <li>Asheville (23) and Hendersonville (17) are well behind.</li>
+            </ul>
+          </div>
+          <div class="analysis-col doing">
+            <h4>What we're doing</h4>
+            <ul>
+              <li>Back-load spend curve test running, 15/25/60 weighting, which explains the lighter early pace.<span class="test-chip live">Live</span></li>
+              <li>Interest-based audiences testing live.<span class="test-chip live">Live</span></li>
+              <li>Bolder-claims creative going live June 7.</li>
+              <li>Letting the back-load ramp carry the final stretch and watching Asheville and Hendersonville for a possible pull.</li>
+            </ul>
+          </div>
+        </div>
       </div>
     </section>
     </div><div id="ev-ORD">
@@ -724,6 +885,35 @@
           </tbody>
         </table>
       </div>
+      <div class="analysis">
+        <div class="analysis-title">Read &amp; actions</div>
+        <div class="analysis-grid">
+          <div class="analysis-col good">
+            <h4>What's working</h4>
+            <ul>
+              <li>Best performer in the set, registrations at 125% of goal, projecting roughly 1,502.</li>
+              <li>CPL at $41 is well below the blended average.</li>
+              <li>Oak Lawn (163), Orland Park (140) and Oak Park (123) all strong.</li>
+            </ul>
+          </div>
+          <div class="analysis-col bad">
+            <h4>What's not</h4>
+            <ul>
+              <li>Spend slightly ahead at 112% of plan.</li>
+              <li>Gurnee is the one venue pacing behind.</li>
+            </ul>
+          </div>
+          <div class="analysis-col doing">
+            <h4>What we're doing</h4>
+            <ul>
+              <li>Bold and fear-based copy variants testing live.<span class="test-chip live">Live</span></li>
+              <li>Interest-based audiences testing live.<span class="test-chip live">Live</span></li>
+              <li>Market refresh creative planned as a repeat city.<span class="test-chip planned">Planned</span></li>
+              <li>Bolder-claims creative going live June 7, with room to keep scaling the winners.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
     </section>
     </div><div id="ev-CAE">
     <section class="event">
@@ -806,6 +996,34 @@
     
           </tbody>
         </table>
+      </div>
+      <div class="analysis">
+        <div class="analysis-title">Read &amp; actions</div>
+        <div class="analysis-grid">
+          <div class="analysis-col good">
+            <h4>What's working</h4>
+            <ul>
+              <li>Very strong early read, registrations at 192% of the projected pace.</li>
+              <li>CPL at $15 in the opening days, though still early.</li>
+            </ul>
+          </div>
+          <div class="analysis-col bad">
+            <h4>What's not</h4>
+            <ul>
+              <li>Only 11% of the window has elapsed, so the early numbers will normalize.</li>
+              <li>HubSpot form sync needs validation before scaling spend.</li>
+            </ul>
+          </div>
+          <div class="analysis-col doing">
+            <h4>What we're doing</h4>
+            <ul>
+              <li>HubSpot form validation test running on a single bottom-funnel set to surface sync issues early.<span class="test-chip live">Live</span></li>
+              <li>Lookalike audience consolidation test live, paired with Washington DC.<span class="test-chip live">Live</span></li>
+              <li>Bold-claims creative going live June 7.</li>
+              <li>Ugly landing page A/B on hold for now.<span class="test-chip paused">Paused</span></li>
+            </ul>
+          </div>
+        </div>
       </div>
     </section>
     </div><div id="ev-DCA">
@@ -903,6 +1121,34 @@
     
           </tbody>
         </table>
+      </div>
+      <div class="analysis">
+        <div class="analysis-title">Read &amp; actions</div>
+        <div class="analysis-grid">
+          <div class="analysis-col good">
+            <h4>What's working</h4>
+            <ul>
+              <li>Efficient early CPL relative to goal at this stage.</li>
+              <li>Full 26 days remaining to build volume.</li>
+            </ul>
+          </div>
+          <div class="analysis-col bad">
+            <h4>What's not</h4>
+            <ul>
+              <li>Slow registration start, projecting 44% of goal, so the market needs volume.</li>
+              <li>Only 11% of the window elapsed, early to read.</li>
+            </ul>
+          </div>
+          <div class="analysis-col doing">
+            <h4>What we're doing</h4>
+            <ul>
+              <li>Lookalike audience consolidation test live, paired with Columbia.<span class="test-chip live">Live</span></li>
+              <li>Bold-claims creative going live June 7.</li>
+              <li>Ugly landing page A/B on hold for now.<span class="test-chip paused">Paused</span></li>
+              <li>Building volume in the opening week and monitoring the early curve.</li>
+            </ul>
+          </div>
+        </div>
       </div>
     </section>
     </div>
