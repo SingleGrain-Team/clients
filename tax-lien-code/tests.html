@@ -1,782 +1,938 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
+<meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Tax Lien Code — Ongoing Tests Report</title>
+<title>Tax Lien Code · Ongoing Tests Report — Single Grain</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,500&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <style>
-  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;color:#1f2733;background:#f4f6fb;line-height:1.55;font-size:14px}
-  .wrap{max-width:1100px;margin:0 auto;padding:34px 24px 80px}
-  header{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:14px;border-bottom:3px solid #5b6ef5;padding-bottom:18px;margin-bottom:24px}
-  .kicker{font-size:11px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:#5b6ef5}
-  h1{font-size:26px;font-weight:800;color:#0f1a33;margin:5px 0 4px}
-  .sub{font-size:13px;color:#5a6679}
-  .hr{text-align:right;font-size:12px;color:#5a6679}
-  .hr .stamp{font-weight:600;color:#1f2733}
-  .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:22px}
-  .kpi{background:#ffffff;border:1px solid #e1e6f0;border-radius:12px;padding:15px 18px;box-shadow:0 1px 2px rgba(16,26,51,.04)}
-  .kpi .k{font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#76819a}
-  .kpi .v{font-size:28px;font-weight:800;color:#0f1a33;margin-top:4px}
-  .charts{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:24px}
-  .panel{background:#ffffff;border:1px solid #e1e6f0;border-radius:12px;padding:16px 18px;box-shadow:0 1px 2px rgba(16,26,51,.04)}
-  .panel h2{font-size:14px;font-weight:800;color:#0f1a33;margin-bottom:4px}
-  .panel .ph{font-size:12px;color:#5a6679;margin-bottom:10px}
-  .panel.full{grid-column:1/-1}
-  .cwrap{position:relative;height:230px}
-  table{width:100%;border-collapse:collapse;font-size:13px}
-  th,td{text-align:left;padding:9px 10px;border-bottom:1px solid #eceff6}
-  th{font-size:10.5px;letter-spacing:.05em;text-transform:uppercase;color:#76819a;font-weight:700;background:#f8f9fd}
-  .chip{display:inline-block;font-size:10.5px;font-weight:700;padding:2px 9px;border-radius:999px}
-  .test{background:#ffffff;border:1px solid #e1e6f0;border-radius:13px;padding:20px 22px;margin-bottom:16px;box-shadow:0 1px 2px rgba(16,26,51,.04)}
-  .thead{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap;margin-bottom:12px}
-  .tmkt{font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#76819a}
-  .tname{font-size:19px;font-weight:800;color:#0f1a33;margin-top:2px}
-  .thr{display:flex;flex-direction:column;align-items:flex-end;gap:6px}
-  .status{font-size:10.5px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;border:1px solid;border-radius:999px;padding:3px 11px}
-  .cd{font-size:12px;font-weight:600;color:#f59e0b}
-  .obj{background:#eef0ff;border-left:3px solid #5b6ef5;border-radius:0 8px 8px 0;padding:11px 15px;margin-bottom:13px;font-size:13.5px;color:#2a3550}
-  .obj-l{display:block;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#5b6ef5;margin-bottom:3px}
-  .phase-banner{display:flex;align-items:center;gap:12px;background:#f8f9fd;border:1px solid #e1e6f0;border-radius:9px;padding:10px 15px;margin-bottom:13px;font-size:13px}
-  .pb-l{font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:#76819a}
-  .pb-cur{font-weight:700;color:#10b981}
-  .live{display:flex;gap:26px;flex-wrap:wrap;background:#f0fbf6;border:1px solid #bdecd6;border-radius:9px;padding:12px 16px;margin-bottom:13px}
-  .lk{display:flex;flex-direction:column;gap:2px}
-  .ll{font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#76819a}
-  .lv{font-size:16px;font-weight:800;color:#0f1a33}
-  .pace{font-size:11px;font-weight:600}
-  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
-  .sub{margin-bottom:14px}
-  .sub h4{font-size:10.5px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:#76819a;margin-bottom:7px}
-  .sub p{font-size:13px;color:#1f2733}
-  .sv{margin-top:7px;font-size:12px;color:#5a6679}
-  .sv-l{font-weight:700;color:#76819a;text-transform:uppercase;font-size:10px;letter-spacing:.06em}
-  .pills{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:9px}
-  .pp{background:#f8f9fd;border:1px solid #e1e6f0;border-radius:9px;padding:11px 13px}
-  .pp-cur{border-color:#10b981;box-shadow:0 0 0 1px #10b981;background:#f0fbf6}
-  .pp-name{font-size:12.5px;font-weight:700;color:#0f1a33;margin-bottom:3px}
-  .pp-dates{font-size:11px;color:#5b6ef5;font-variant-numeric:tabular-nums;margin-bottom:4px}
-  .pp-tgt{font-size:11.5px;font-weight:700;color:#1f2733;margin-bottom:4px}
-  .pp-note{font-size:11.5px;color:#5a6679;line-height:1.45}
-  .timeline{list-style:none}
-  .tl{display:flex;gap:10px;padding:6px 0;border-bottom:1px solid #eceff6;font-size:13px;align-items:baseline}
-  .tl:last-child{border-bottom:none}
-  .tl-date{flex:0 0 92px;font-size:11.5px;color:#5a6679;font-variant-numeric:tabular-nums}
-  .tl-done .tl-date::before{content:"✓ ";color:#10b981;font-weight:700}
-  .tl-upcoming{opacity:.85}
-  .tl-upcoming .tl-date::before{content:"○ ";color:#f59e0b;font-weight:700}
-  .foot{margin-top:30px;font-size:11.5px;color:#76819a;text-align:center;line-height:1.7;border-top:1px solid #e1e6f0;padding-top:16px}
-  .foot a{color:#5b6ef5}
-  /* interactive tests table */
-  .tablewrap{margin-bottom:24px}
-  .tabletop{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap;margin-bottom:12px}
-  .counter{font-size:12px;color:#5a6679;font-weight:600;white-space:nowrap}
-  .counter span{color:#0f1a33;font-weight:800}
-  .filterbar{display:flex;gap:16px;flex-wrap:wrap;align-items:flex-end;background:#f8f9fd;border:1px solid #e1e6f0;border-radius:10px;padding:12px 14px;margin-bottom:14px}
-  .fgroup{display:flex;flex-direction:column;gap:5px}
-  .fgroup.grow{flex:1;min-width:150px}
-  .fgroup label{font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#76819a}
-  .frow{display:flex;align-items:center;gap:6px}
-  .frow span{font-size:11px;color:#76819a}
-  .filterbar input{font:inherit;font-size:12.5px;padding:6px 9px;border:1px solid #e1e6f0;border-radius:7px;background:#fff;color:#1f2733}
-  .filterbar input:focus{outline:none;border-color:#5b6ef5}
-  .chips{display:flex;gap:6px;flex-wrap:wrap}
-  .fchip{font:inherit;font-size:11.5px;font-weight:600;padding:6px 12px;border:1px solid #e1e6f0;border-radius:999px;background:#fff;color:#5a6679;cursor:pointer}
-  .fchip.on{background:#5b6ef5;border-color:#5b6ef5;color:#fff}
-  .clearbtn{font:inherit;font-size:11.5px;font-weight:600;padding:7px 13px;border:1px solid #e1e6f0;border-radius:7px;background:#fff;color:#5a6679;cursor:pointer}
-  .clearbtn:hover{border-color:#ef4444;color:#ef4444}
-  th.sortable{cursor:pointer;user-select:none;white-space:nowrap}
-  th.sortable:hover{color:#5b6ef5}
-  th.sortable::after{content:"⇅";opacity:.35;margin-left:5px;font-size:10px}
-  th.sortable.asc::after{content:"▲";opacity:.9;color:#5b6ef5}
-  th.sortable.desc::after{content:"▼";opacity:.9;color:#5b6ef5}
-  tr.hide{display:none}
-  .noresult{padding:22px;text-align:center;color:#5a6679;font-size:13px}
-  /* collapsible cards */
-  .cardsbar{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:6px 0 14px}
-  .cardsh{font-size:16px;font-weight:800;color:#0f1a33}
-  .expandctl{display:flex;gap:8px}
-  .expandctl button{font:inherit;font-size:11.5px;font-weight:600;padding:6px 12px;border:1px solid #e1e6f0;border-radius:7px;background:#fff;color:#5a6679;cursor:pointer}
-  .expandctl button:hover{border-color:#5b6ef5;color:#5b6ef5}
-  .test{padding:0;overflow:hidden}
-  button.thead{width:100%;text-align:left;font:inherit;background:none;border:none;cursor:pointer;padding:18px 22px;margin:0;border-radius:13px}
-  button.thead:hover{background:#fafbff}
-  .caret{font-size:13px;color:#76819a;transition:transform .15s ease}
-  .test.open .caret{transform:rotate(90deg);color:#5b6ef5}
-  .cd-win{font-size:11.5px;font-weight:600;color:#5a6679;font-variant-numeric:tabular-nums}
-  .tbody{display:none;padding:0 22px 20px}
-  .test.open .tbody{display:block}
-  .test.hide{display:none}
-  @media (max-width:780px){.charts{grid-template-columns:1fr}.grid2{grid-template-columns:1fr}.filterbar{gap:12px}}
+/* ============================================================ TOKENS */
+:root{
+  --ink:#1c1813; --ink-2:#615849; --ink-3:#978c7c; --ink-4:#bcb3a4;
+  --paper:#f4f0e9; --surface:#ffffff; --surface-2:#fbf8f3;
+  --line:#e9e2d6; --line-2:#ddd4c4;
+  --brand:#e76f3c; --brand-light:#f2b34b; --brand-ink:#b1521f;
+  --active:#1f8f57;     --active-bg:#e6f3ea;
+  --planning:#5560d8;   --planning-bg:#ecedfc;
+  --paused:#bd720c;     --paused-bg:#fbefd9;
+  --complete:#5d6675;   --complete-bg:#eceef2;
+  --win:#1f8f57; --loss:#d6493a; --inconcl:#bd720c; --pending:#9b9081;
+  --pace-green:#1f8f57; --pace-amber:#bd720c; --pace-red:#d6493a;
+  --r:14px; --r-sm:10px;
+  --shadow:0 1px 2px rgba(28,24,19,.04), 0 6px 22px -12px rgba(28,24,19,.16);
+  --shadow-lg:0 2px 4px rgba(28,24,19,.05), 0 18px 50px -22px rgba(28,24,19,.28);
+  --maxw:1200px;
+  --font:'Archivo', system-ui, sans-serif;
+}
+*{box-sizing:border-box;}
+html{-webkit-text-size-adjust:100%;}
+body{
+  margin:0; background:var(--paper); color:var(--ink);
+  font-family:var(--font); font-size:15px; line-height:1.55;
+  -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+  font-variant-numeric:tabular-nums; font-feature-settings:"tnum" 1;
+}
+.tnum{font-variant-numeric:tabular-nums;}
+a{color:inherit;}
+::selection{background:var(--brand-light);color:var(--ink);}
+
+.wrap{max-width:var(--maxw); margin:0 auto; padding:0 28px;}
+.eyebrow{font-size:11.5px; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:var(--ink-3);}
+
+/* ============================================================ TOP BAR */
+.topbar{border-bottom:1px solid var(--line); background:rgba(255,255,255,.6); backdrop-filter:blur(6px);}
+.topbar .wrap{display:flex; align-items:center; justify-content:space-between; height:62px; gap:18px;}
+.lockup{display:flex; align-items:center; gap:12px; text-decoration:none;}
+.lockup img{width:30px; height:30px; display:block;}
+.lockup .wm{font-weight:600; letter-spacing:.26em; font-size:14px; color:var(--ink-2); text-transform:uppercase;}
+.lockup .div{width:1px; height:20px; background:var(--line-2);}
+.lockup .client{font-weight:700; font-size:13.5px; letter-spacing:.01em; color:var(--ink);}
+.topbar-right{display:flex; align-items:center; gap:14px;}
+.fresh{display:inline-flex; align-items:center; gap:8px; font-size:12.5px; font-weight:600; color:var(--ink-2); padding:6px 12px; background:var(--active-bg); border-radius:999px;}
+.fresh .pulse{width:8px; height:8px; border-radius:50%; background:var(--active); position:relative; flex:none;}
+.fresh .pulse::after{content:""; position:absolute; inset:-4px; border-radius:50%; border:2px solid var(--active); opacity:.45; animation:ping 2.4s ease-out infinite;}
+@keyframes ping{0%{transform:scale(.6);opacity:.6;}80%,100%{transform:scale(1.5);opacity:0;}}
+.btn{display:inline-flex; align-items:center; gap:7px; font-family:var(--font); font-size:13px; font-weight:700; color:var(--ink); background:var(--surface); border:1px solid var(--line-2); border-radius:999px; padding:8px 15px; cursor:pointer; transition:.16s; letter-spacing:.01em;}
+.btn:hover{border-color:var(--ink-3); transform:translateY(-1px); box-shadow:var(--shadow);}
+.btn svg{width:15px; height:15px;}
+
+/* ============================================================ MASTHEAD */
+.masthead{padding:48px 0 30px;}
+.masthead .eyebrow{margin-bottom:14px;}
+.masthead h1{font-size:clamp(34px,5.2vw,56px); font-weight:800; letter-spacing:-.025em; line-height:1.02; margin:0; max-width:16ch;}
+.masthead h1 .accent{color:var(--brand);}
+.lede{margin:18px 0 0; font-size:clamp(16px,1.6vw,18.5px); line-height:1.5; color:var(--ink-2); max-width:62ch; font-weight:400;}
+.mast-meta{display:flex; flex-wrap:wrap; align-items:center; gap:10px 18px; margin-top:22px; font-size:13.5px; color:var(--ink-2); font-weight:600;}
+.mast-meta .sep{width:4px; height:4px; border-radius:50%; background:var(--ink-4);}
+
+/* ============================================================ KPIs */
+.kpis{display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin:8px 0 6px;}
+.kpi{background:var(--surface); border:1px solid var(--line); border-radius:var(--r); padding:20px 20px 18px; box-shadow:var(--shadow); position:relative; overflow:hidden;}
+.kpi .klabel{font-size:12px; font-weight:700; letter-spacing:.04em; text-transform:uppercase; color:var(--ink-3); display:flex; align-items:center; gap:7px;}
+.kpi .kval{font-size:46px; font-weight:800; letter-spacing:-.03em; line-height:1; margin:14px 0 0;}
+.kpi .kval small{font-size:22px; font-weight:700; color:var(--ink-3); letter-spacing:0;}
+.kpi .ksub{font-size:12.5px; color:var(--ink-2); margin-top:9px; line-height:1.4;}
+.kpi.hero{background:linear-gradient(150deg,#fff 60%, #fff8ef);}
+.kpi.hero::before{content:""; position:absolute; inset:0 0 auto 0; height:4px; background:linear-gradient(90deg,var(--brand-light),var(--brand));}
+/* portfolio split bar */
+.splitbar{display:flex; height:9px; border-radius:999px; overflow:hidden; margin-top:16px; background:var(--line);}
+.splitbar i{display:block; height:100%;}
+.split-legend{display:flex; flex-wrap:wrap; gap:6px 14px; margin-top:11px;}
+.split-legend span{display:inline-flex; align-items:center; gap:6px; font-size:11.5px; font-weight:600; color:var(--ink-2);}
+.split-legend b{font-weight:800; color:var(--ink);}
+.dot{width:9px; height:9px; border-radius:50%; flex:none;}
+/* pace gauge */
+.gauge{margin-top:16px;}
+.gauge-track{position:relative; height:9px; border-radius:999px; background:linear-gradient(90deg,#f3dada 0 12%, #fbeccd 12% 30%, #e0f0e6 30% 64%, #fbeccd 64% 82%, #f3dada 82% 100%);}
+.gauge-fill{position:absolute; top:50%; transform:translate(-50%,-50%); width:15px; height:15px; border-radius:50%; background:var(--paused); border:3px solid #fff; box-shadow:0 1px 4px rgba(0,0,0,.2);}
+.gauge-scale{display:flex; justify-content:space-between; font-size:10.5px; color:var(--ink-3); font-weight:600; margin-top:7px;}
+
+/* ============================================================ SECTION */
+.section{padding:14px 0;}
+.section-head{display:flex; align-items:flex-end; justify-content:space-between; gap:18px; margin:34px 0 18px; flex-wrap:wrap;}
+.section-head h2{font-size:22px; font-weight:800; letter-spacing:-.02em; margin:0;}
+.section-head .sub{font-size:13.5px; color:var(--ink-2); margin:5px 0 0; max-width:64ch; font-weight:400;}
+
+/* ============================================================ CHARTS */
+.charts{display:grid; grid-template-columns:1fr; gap:16px;}
+.card{background:var(--surface); border:1px solid var(--line); border-radius:var(--r); box-shadow:var(--shadow);}
+.panel{padding:22px 22px 18px;}
+.panel-head{display:flex; align-items:flex-start; justify-content:space-between; gap:12px; margin-bottom:6px;}
+.panel-head h3{font-size:15.5px; font-weight:800; letter-spacing:-.01em; margin:0;}
+.panel-head .ph-sub{font-size:12.5px; color:var(--ink-2); margin:4px 0 0; font-weight:400; line-height:1.4; max-width:46ch;}
+.chart-box{position:relative; width:100%;}
+.chart-side .chart-box{height:236px;}
+.card-chart{position:relative; width:100%; height:300px; margin:4px 0 16px; animation:fadein .6s ease both;}
+.curve-sub{font-size:13px; color:var(--ink-2); margin:0 0 12px; max-width:72ch; font-weight:400; line-height:1.5;}
+@keyframes fadein{from{opacity:0; transform:translateY(4px);}to{opacity:1; transform:none;}}
+.legend{display:flex; flex-wrap:wrap; gap:8px 18px; margin-top:14px; font-size:12px; font-weight:600; color:var(--ink-2);}
+.legend span{display:inline-flex; align-items:center; gap:7px;}
+.legend .ln{width:18px; height:0; border-top:3px solid; border-radius:2px;}
+.legend .ln.dash{border-top-style:dashed;}
+.doughnut-row{display:flex; align-items:center; gap:40px; flex-wrap:wrap; margin-top:8px;}
+.doughnut-wrap{position:relative; width:248px; height:240px; flex:none;}
+.status-legend{list-style:none; padding:0; margin:0; flex:1; min-width:280px; display:flex; flex-direction:column; gap:16px;}
+.sl-row{display:grid; grid-template-columns:1fr auto; gap:5px 12px; align-items:center;}
+.sl-key{display:inline-flex; align-items:center; gap:9px; font-weight:700; font-size:14.5px; color:var(--ink);}
+.sl-key i{width:11px; height:11px; border-radius:50%; flex:none;}
+.sl-val{font-size:13px; color:var(--ink-2); font-weight:600; white-space:nowrap;}
+.sl-val b{color:var(--ink); font-weight:800;}
+.sl-bar{grid-column:1/-1; height:7px; background:var(--line); border-radius:999px; overflow:hidden;}
+.sl-bar i{display:block; height:100%; border-radius:999px;}
+.spend-box{height:300px;}
+.doughnut-center{position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; pointer-events:none;}
+.doughnut-center b{font-size:34px; font-weight:800; letter-spacing:-.03em; line-height:1;}
+.doughnut-center span{font-size:11px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-3); margin-top:3px;}
+
+/* ============================================================ STATUS + VERDICT BADGES */
+.pill{display:inline-flex; align-items:center; gap:7px; font-size:11.5px; font-weight:700; letter-spacing:.02em; padding:4px 11px 4px 9px; border-radius:999px; white-space:nowrap; text-transform:capitalize;}
+.pill .glyph{width:9px; height:9px; flex:none;}
+.pill.active{color:var(--active); background:var(--active-bg);}
+.pill.planning{color:var(--planning); background:var(--planning-bg);}
+.pill.paused{color:var(--paused); background:var(--paused-bg);}
+.pill.complete{color:var(--complete); background:var(--complete-bg);}
+/* status glyphs differ by shape, not just color */
+.g-active{border-radius:50%; background:currentColor;}
+.g-planning{border-radius:50%; border:2.5px solid currentColor; background:transparent;}
+.g-paused{border-radius:1px; background:currentColor; position:relative;}
+.g-paused::after{content:""; position:absolute; top:0; bottom:0; left:50%; width:2px; transform:translateX(-50%); background:var(--paused-bg);}
+.g-complete{position:relative; border-radius:50%; background:currentColor;}
+.g-complete::after{content:""; position:absolute; left:2.5px; top:1.5px; width:2px; height:4px; border:solid var(--complete-bg); border-width:0 1.6px 1.6px 0; transform:rotate(40deg);}
+
+.verdict{display:inline-flex; align-items:center; gap:7px; font-size:11.5px; font-weight:700; letter-spacing:.02em; white-space:nowrap;}
+.verdict .vdot{width:9px; height:9px; border-radius:50%; flex:none;}
+.verdict.win{color:var(--win);} .verdict.win .vdot{background:var(--win);}
+.verdict.loss{color:var(--loss);} .verdict.loss .vdot{background:var(--loss);}
+.verdict.inconclusive{color:var(--inconcl);} .verdict.inconclusive .vdot{background:var(--inconcl);}
+.verdict.pending{color:var(--ink-3);} .verdict.pending .vdot{background:transparent; border:2px solid var(--ink-4);}
+
+/* ============================================================ TOOLBAR */
+.toolbar{display:flex; flex-wrap:wrap; align-items:flex-end; gap:16px 22px; padding:18px 22px; border-bottom:1px solid var(--line);}
+.field{display:flex; flex-direction:column; gap:6px;}
+.field > label{font-size:10.5px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-3);}
+.seg{display:inline-flex; background:var(--surface-2); border:1px solid var(--line); border-radius:999px; padding:3px;}
+.seg button{font-family:var(--font); font-size:12.5px; font-weight:700; color:var(--ink-2); background:transparent; border:none; border-radius:999px; padding:6px 13px; cursor:pointer; transition:.14s; letter-spacing:.01em;}
+.seg button[aria-pressed="true"]{background:var(--ink); color:#fff;}
+.dates{display:flex; align-items:center; gap:7px;}
+.dates input{font-family:var(--font); font-size:12.5px; color:var(--ink); background:var(--surface); border:1px solid var(--line-2); border-radius:var(--r-sm); padding:7px 9px; width:140px;}
+.dates span{font-size:12px; color:var(--ink-3); font-weight:600;}
+.search{position:relative;}
+.search svg{position:absolute; left:11px; top:50%; transform:translateY(-50%); width:15px; height:15px; color:var(--ink-3);}
+.search input{font-family:var(--font); font-size:13px; color:var(--ink); background:var(--surface); border:1px solid var(--line-2); border-radius:999px; padding:8px 14px 8px 33px; width:230px;}
+input:focus, .search input:focus{outline:none; border-color:var(--brand); box-shadow:0 0 0 3px rgba(231,111,60,.14);}
+.toolbar .spacer{flex:1;}
+.linkbtn{font-family:var(--font); font-size:12.5px; font-weight:700; color:var(--brand-ink); background:none; border:none; cursor:pointer; padding:8px 4px; letter-spacing:.01em;}
+.linkbtn:hover{text-decoration:underline;}
+.count{font-size:12.5px; font-weight:700; color:var(--ink-2);}
+.count b{color:var(--ink);}
+
+/* ============================================================ TABLE */
+.table-scroll{overflow-x:auto;}
+table.tests{width:100%; border-collapse:collapse; min-width:880px;}
+table.tests thead th{font-size:10.5px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-3); text-align:left; padding:14px 16px; border-bottom:1px solid var(--line); white-space:nowrap; cursor:pointer; user-select:none; position:relative;}
+table.tests thead th.num{text-align:right;}
+table.tests thead th .arr{opacity:0; margin-left:5px; font-size:9px; color:var(--brand-ink);}
+table.tests thead th[aria-sort="ascending"] .arr,
+table.tests thead th[aria-sort="descending"] .arr{opacity:1;}
+table.tests thead th:not(.nosort):hover{color:var(--ink);}
+table.tests tbody td{padding:15px 16px; border-bottom:1px solid var(--line); font-size:13.5px; vertical-align:middle;}
+table.tests tbody tr:last-child td{border-bottom:none;}
+table.tests tbody tr.trow:hover{background:var(--surface-2);}
+td.num{text-align:right; font-variant-numeric:tabular-nums;}
+.t-name{font-weight:700; color:var(--ink); text-decoration:none; font-size:14px; display:inline-flex; align-items:center; gap:7px; letter-spacing:-.005em;}
+.t-name:hover{color:var(--brand-ink);}
+.t-name .open-i{width:13px; height:13px; color:var(--ink-4); transition:.15s;}
+.t-name:hover .open-i{color:var(--brand);}
+.t-market{color:var(--ink-2); font-size:12.5px; max-width:230px;}
+.t-dates{color:var(--ink-2); white-space:nowrap; font-size:13px;}
+.t-muted{color:var(--ink-4);}
+.pace-tag{display:inline-flex; align-items:center; gap:6px; font-weight:700; font-size:13px; justify-content:flex-end;}
+.pace-tag .pdot{width:7px;height:7px;border-radius:50%;}
+.result-cell{display:flex; flex-direction:column; gap:2px;}
+.result-cell .read{font-size:11px; color:var(--ink-3); font-weight:600;}
+.empty-row td{text-align:center; padding:46px 16px; color:var(--ink-3); font-size:14px; font-weight:500;}
+
+/* ============================================================ DETAIL CARDS */
+.tests-list{display:flex; flex-direction:column; gap:14px;}
+.test{background:var(--surface); border:1px solid var(--line); border-radius:var(--r); box-shadow:var(--shadow); overflow:hidden; transition:box-shadow .2s, border-color .2s;}
+.test.open{box-shadow:var(--shadow-lg); border-color:var(--line-2);}
+.test-header{display:grid; grid-template-columns:1fr auto; gap:14px 20px; align-items:center; padding:18px 22px; cursor:pointer; list-style:none;}
+.test-header::-webkit-details-marker{display:none;}
+.th-main{min-width:0;}
+.th-eyebrow{display:flex; flex-wrap:wrap; align-items:center; gap:9px; margin-bottom:7px;}
+.th-eyebrow .mkt{font-size:11.5px; font-weight:600; color:var(--ink-3); letter-spacing:.01em;}
+.test-header h3{font-size:19px; font-weight:800; letter-spacing:-.02em; margin:0; line-height:1.2;}
+.th-sub{font-size:12.5px; color:var(--ink-2); margin-top:6px; display:flex; flex-wrap:wrap; gap:5px 14px; font-weight:500;}
+.th-right{display:flex; align-items:center; gap:16px;}
+.caret{width:30px; height:30px; border-radius:50%; border:1px solid var(--line-2); display:grid; place-items:center; color:var(--ink-2); transition:.2s; flex:none;}
+.caret svg{width:15px; height:15px;}
+.test.open .caret{transform:rotate(180deg); background:var(--ink); color:#fff; border-color:var(--ink);}
+.test-body{display:grid; grid-template-rows:0fr; transition:grid-template-rows .32s ease;}
+.test.no-anim .test-body{transition:none;}
+.test.open .test-body{grid-template-rows:1fr;}
+.tb-inner{overflow:hidden; min-height:0;}
+.tb-pad{padding:4px 22px 24px;}
+
+.statstrip{display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:1px; background:var(--line); border:1px solid var(--line); border-radius:var(--r-sm); overflow:hidden; margin-bottom:22px;}
+.stat{background:var(--surface-2); padding:13px 15px;}
+.stat .sl{font-size:10.5px; font-weight:700; letter-spacing:.07em; text-transform:uppercase; color:var(--ink-3);}
+.stat .sv{font-size:17px; font-weight:800; letter-spacing:-.01em; margin-top:4px; color:var(--ink);}
+.stat .sv small{font-size:12px; font-weight:600; color:var(--ink-2);}
+
+.objective{font-size:15.5px; line-height:1.6; color:var(--ink); margin:0 0 22px; max-width:74ch; font-weight:400;}
+.objective .ol{font-size:10.5px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--brand-ink); display:block; margin-bottom:7px;}
+
+.twocol{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:22px;}
+.block{background:var(--surface-2); border:1px solid var(--line); border-radius:var(--r-sm); padding:16px 18px;}
+.block h4{font-size:11px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-3); margin:0 0 8px;}
+.block.pass h4{color:var(--brand-ink);}
+.block p{margin:0; font-size:14px; line-height:1.55; color:var(--ink); font-weight:400;}
+.single-var{display:flex; align-items:baseline; gap:9px; font-size:13.5px; margin-bottom:24px; padding:13px 16px; background:#fff; border:1px dashed var(--line-2); border-radius:var(--r-sm);}
+.single-var .svlab{font-size:10.5px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-3); flex:none;}
+.single-var span{color:var(--ink); font-weight:500;}
+
+.sub-h{font-size:12px; font-weight:700; letter-spacing:.07em; text-transform:uppercase; color:var(--ink-2); margin:0 0 14px; display:flex; align-items:center; gap:10px;}
+.sub-h::after{content:""; flex:1; height:1px; background:var(--line);}
+
+/* phases */
+.phasemix{display:flex; height:10px; border-radius:999px; overflow:hidden; margin-bottom:16px; background:var(--line);}
+.phasemix i{height:100%; display:block;}
+.phases{display:flex; flex-direction:column; gap:0; margin-bottom:24px;}
+.phase{display:grid; grid-template-columns:30px 1fr; gap:16px; padding:14px 0; border-top:1px solid var(--line);}
+.phase:first-child{border-top:none;}
+.phase .pnum{width:30px; height:30px; border-radius:8px; display:grid; place-items:center; font-size:13px; font-weight:800; color:#fff; flex:none;}
+.phase .pmeta{min-width:0;}
+.phase .pname{font-size:14.5px; font-weight:800; letter-spacing:-.01em; display:flex; flex-wrap:wrap; align-items:baseline; gap:9px;}
+.phase .ppct{font-size:11.5px; font-weight:800; color:var(--brand-ink); background:#fff5ee; padding:1px 8px; border-radius:999px;}
+.phase .pdates{font-size:12px; color:var(--ink-3); font-weight:600; margin-top:3px;}
+.phase .pdaily{font-size:12.5px; font-weight:700; color:var(--ink); margin-top:3px;}
+.phase .pnote{font-size:13px; color:var(--ink-2); line-height:1.5; margin-top:6px; font-weight:400;}
+
+/* timeline */
+.timeline{display:flex; flex-direction:column; gap:0; margin:0;}
+.tl{display:grid; grid-template-columns:80px 22px 1fr; gap:0; padding:0;}
+.tl .tl-date{font-size:12px; font-weight:700; color:var(--ink-2); padding:13px 12px 13px 0; text-align:right; white-space:nowrap;}
+.tl .tl-rail{position:relative; display:flex; justify-content:center;}
+.tl .tl-rail::before{content:""; position:absolute; top:0; bottom:0; width:2px; background:var(--line);}
+.tl:first-child .tl-rail::before{top:18px;}
+.tl:last-child .tl-rail::before{bottom:calc(100% - 18px);}
+.tl .tl-node{position:relative; width:11px; height:11px; border-radius:50%; margin-top:14px; background:#fff; border:2.5px solid var(--ink-4); z-index:1;}
+.tl.done .tl-node{background:var(--active); border-color:var(--active);}
+.tl.next .tl-node{background:#fff; border-color:var(--brand);}
+.tl .tl-text{font-size:13.5px; line-height:1.5; color:var(--ink); padding:11px 0 11px 14px; font-weight:400;}
+.tl.done .tl-text{color:var(--ink-2);}
+
+/* result slot */
+.result-slot{margin-top:24px; padding:16px 18px; border-radius:var(--r-sm); background:linear-gradient(120deg,#fbf8f3, #fff); border:1px solid var(--line); display:flex; flex-wrap:wrap; align-items:center; gap:8px 22px;}
+.result-slot .rs-item{display:flex; flex-direction:column; gap:3px;}
+.result-slot .rs-lab{font-size:10px; font-weight:700; letter-spacing:.09em; text-transform:uppercase; color:var(--ink-3);}
+.result-slot .rs-val{font-size:14px; font-weight:700;}
+.result-slot .rs-note{flex:1; min-width:200px; font-size:12.5px; color:var(--ink-2); font-weight:400; line-height:1.45;}
+
+/* ============================================================ FOOTER */
+.foot{margin-top:46px; border-top:1px solid var(--line); background:var(--surface);}
+.foot .wrap{padding:30px 28px 40px; display:grid; grid-template-columns:1.4fr 1fr; gap:30px; align-items:start;}
+.foot .lockup{margin-bottom:14px;}
+.foot p{margin:0; font-size:13px; line-height:1.6; color:var(--ink-2); max-width:60ch;}
+.foot a.src{color:var(--brand-ink); font-weight:700; text-decoration:none;}
+.foot a.src:hover{text-decoration:underline;}
+.trust{display:flex; flex-direction:column; gap:12px;}
+.trust .ti{display:flex; gap:11px; align-items:flex-start; font-size:13px; color:var(--ink); font-weight:500;}
+.trust .ti svg{width:17px; height:17px; color:var(--active); flex:none; margin-top:1px;}
+.foot-bottom{border-top:1px solid var(--line);}
+.foot-bottom .wrap{padding:16px 28px; display:flex; justify-content:space-between; align-items:center; gap:14px; flex-wrap:wrap;}
+.foot-bottom span{font-size:12px; color:var(--ink-3); font-weight:500;}
+
+/* ============================================================ RESPONSIVE */
+@media (max-width:1000px){
+  .charts{grid-template-columns:1fr;}
+  .chart-hero{grid-row:auto;}
+  .kpis{grid-template-columns:repeat(2,1fr);}
+  .foot .wrap{grid-template-columns:1fr;}
+}
+@media (max-width:680px){
+  .wrap{padding:0 18px;}
+  .topbar .wrap{height:auto; padding-top:12px; padding-bottom:12px; flex-wrap:wrap;}
+  .lockup .wm{display:none;}
+  .masthead{padding:34px 0 24px;}
+  .kpis{grid-template-columns:1fr 1fr; gap:12px;}
+  .kpi .kval{font-size:38px;}
+  .twocol{grid-template-columns:1fr;}
+  .search input{width:170px;}
+  .dates input{width:120px;}
+  .test-header{grid-template-columns:1fr; }
+  .th-right{justify-content:space-between;}
+}
+@media (max-width:430px){ .kpis{grid-template-columns:1fr;} }
+
+/* ============================================================ PRINT */
+@media print{
+  @page{margin:14mm;}
+  body{background:#fff; font-size:11px;}
+  .topbar, .toolbar, .caret, .btn, .fresh .pulse{display:none !important;}
+  .topbar{display:block !important; border:none;}
+  .card,.kpi,.test{box-shadow:none !important; border:1px solid #ddd !important; break-inside:avoid;}
+  .test-body{grid-template-rows:1fr !important;}
+  .charts{grid-template-columns:1fr 1fr;}
+  .chart-hero .chart-box{height:240px;} .chart-side .chart-box{height:150px;}
+  .masthead h1{font-size:32px;}
+  a{text-decoration:none;}
+}
 </style>
 </head>
 <body>
-<div class="wrap">
-  <header>
-    <div>
-      <div class="kicker">Single Grain · Tax Lien Code</div>
-      <h1>Ongoing Tests Report</h1>
-      <div class="sub">Every in-progress test: objective, mechanics, spend curve, pace and milestones. Live numbers pulled from Meta three times a day.</div>
-    </div>
-    <div class="hr">
-      <div class="stamp">Tuesday, June 2, 2026 · 9:01 AM</div>
-      <div>14 tests tracked</div>
-    </div>
-  </header>
 
+<!-- ============================================ TOP BAR -->
+<header class="topbar">
+  <div class="wrap">
+    <a class="lockup" href="#top">
+      <img src="data:image/png;base64,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" alt="Single Grain">
+      <span class="wm">Single Grain</span>
+      <span class="div"></span>
+      <span class="client">Tax Lien Code</span>
+    </a>
+    <div class="topbar-right">
+      <span class="fresh"><span class="pulse"></span>Live · synced 3&times; daily</span>
+      <button class="btn" onclick="window.print()" title="Save as PDF or print">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+        Save PDF
+      </button>
+    </div>
+  </div>
+</header>
+
+<a id="top"></a>
+<!-- ============================================ MASTHEAD -->
+<section class="masthead">
+  <div class="wrap">
+    <span class="eyebrow">Paid Media · Experiment Program</span>
+    <h1>Ongoing <span class="accent">Tests</span> Report</h1>
+    <p class="lede">Every in-progress test we are running for Tax Lien Code, with its objective, mechanics, spend curve, pace and milestones in one place. Live numbers are pulled from Meta three times a day.</p>
+    <div class="mast-meta">
+      <span id="mast-date">Monday, June 1, 2026 · 2:20 PM ET</span>
+      <span class="sep"></span>
+      <span><b id="mast-count">14</b> tests tracked</span>
+      <span class="sep"></span>
+      <span>Reporting window: <span id="mast-window">May &ndash; July 2026</span></span>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================ KPIs -->
+<section class="wrap">
   <div class="kpis">
-    <div class="kpi"><div class="k">Active</div><div class="v" style="color:#10b981">7</div></div>
-    <div class="kpi"><div class="k">Planning</div><div class="v" style="color:#5b6ef5">6</div></div>
-    <div class="kpi"><div class="k">Paused</div><div class="v" style="color:#f59e0b">1</div></div>
-    <div class="kpi"><div class="k">Greenville pace</div><div class="v" style="color:#f59e0b">80%</div></div>
-  </div>
+    <div class="kpi">
+      <div class="klabel">Tests tracked</div>
+      <div class="kval tnum" id="kpi-total">14</div>
+      <div class="splitbar" id="kpi-splitbar"></div>
+      <div class="split-legend" id="kpi-splitlegend"></div>
+    </div>
 
-  <div class="charts">
-    <div class="panel full">
-      <h2>Back-load spend curve — Greenville · planned vs executed</h2>
-      <div class="ph">Cumulative dollars: the planned 15 / 25 / 60 ramp (dashed) against real Meta spend to date (solid). The gap is how far ahead or behind we are pacing.</div>
-      <div class="cwrap" style="height:280px"><canvas id="curveChart"></canvas></div>
+    <div class="kpi">
+      <div class="klabel">In market now</div>
+      <div class="kval tnum" id="kpi-active">7</div>
+      <div class="ksub">Active tests in the program. Several are pacing against a live phase target on a dated window.</div>
     </div>
-    <div class="panel">
-      <h2>Pace vs target</h2>
-      <div class="ph">Each active test's run rate against its phase target. Green 90-115%, amber 80-130%, red outside.</div>
-      <div class="cwrap"><canvas id="paceChart"></canvas></div>
-    </div>
-    <div class="panel">
-      <h2>Portfolio by status</h2>
-      <div class="ph">Where the 14 tests sit right now.</div>
-      <div class="cwrap"><canvas id="statusChart"></canvas></div>
-    </div>
-  </div>
 
-  <div class="panel full tablewrap">
-    <div class="tabletop">
-      <div>
-        <h2>All tests</h2>
-        <div class="ph">Filter and sort like a spreadsheet. Click a column header to sort; click a test name to open its card below.</div>
+    <div class="kpi hero">
+      <div class="klabel"><span class="dot" style="background:var(--brand)"></span><span id="hero-label">Greenville pace</span></div>
+      <div class="kval tnum" id="hero-pace">86<small>%</small></div>
+      <div class="gauge">
+        <div class="gauge-track"><div class="gauge-fill" id="hero-gauge" style="left:12%"></div></div>
+        <div class="gauge-scale"><span>80</span><span>100</span><span>130</span></div>
       </div>
-      <div class="counter"><span id="shown">14</span> of 14 shown</div>
+      <div class="ksub" id="hero-sub">Phase 2 build: $1,990/day run rate vs the $2,320/day target. Slightly under, inside the amber band.</div>
     </div>
-    <div class="filterbar">
-      <div class="fgroup">
-        <label>Status</label>
-        <div class="chips" id="statusChips">
-          <button class="fchip on" data-status="all" type="button">All</button>
-          <button class="fchip" data-status="active" type="button">Active</button>
-          <button class="fchip" data-status="planning" type="button">Planning</button>
-          <button class="fchip" data-status="paused" type="button">Paused</button>
-          <button class="fchip" data-status="complete" type="button">Complete</button>
+
+    <div class="kpi">
+      <div class="klabel">Reads coming up</div>
+      <div class="kval tnum" id="kpi-reads">4</div>
+      <div class="ksub" id="reads-sub">Decision reads scheduled by June 22, led by the Day-12 copy gate on June 4 and the back-load verdict on June 22.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================ CHARTS -->
+<section class="wrap section">
+  <div class="section-head">
+    <div>
+      <h2>Portfolio at a glance</h2>
+      <p class="sub">Where the portfolio stands today: spend in market by active test, and how the 14 tests split by status. Each test's own spend curve lives in its card below.</p>
+    </div>
+  </div>
+  <div class="charts">
+    <div class="card panel">
+      <div class="panel-head">
+        <div>
+          <h3>Portfolio by status</h3>
+          <p class="ph-sub">Where the tests sit today.</p>
         </div>
       </div>
-      <div class="fgroup">
+      <div class="doughnut-row">
+        <div class="chart-box doughnut-wrap">
+          <canvas id="statusChart"></canvas>
+          <div class="doughnut-center"><b id="dn-total">14</b><span>Tests</span></div>
+        </div>
+        <ul class="status-legend" id="statusLegend"></ul>
+      </div>
+    </div>
+
+    <div class="card panel">
+      <div class="panel-head">
+        <div>
+          <h3>Spend to date</h3>
+          <p class="ph-sub">Window spend by active test.</p>
+        </div>
+      </div>
+      <div class="chart-box spend-box"><canvas id="spendChart"></canvas></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================ TABLE -->
+<section class="wrap section">
+  <div class="section-head">
+    <div>
+      <h2>All tests</h2>
+      <p class="sub">Filter and sort like a spreadsheet. Click a column heading to sort; click a test name to open its full card below.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="toolbar">
+      <div class="field">
+        <label>Status</label>
+        <div class="seg" id="statusSeg" role="group" aria-label="Filter by status">
+          <button data-status="all" aria-pressed="true">All</button>
+          <button data-status="active" aria-pressed="false">Active</button>
+          <button data-status="planning" aria-pressed="false">Planning</button>
+          <button data-status="paused" aria-pressed="false">Paused</button>
+          <button data-status="complete" aria-pressed="false">Complete</button>
+        </div>
+      </div>
+      <div class="field">
         <label>Start date</label>
-        <div class="frow"><input type="date" id="startFrom"><span>to</span><input type="date" id="startTo"></div>
+        <div class="dates"><input type="date" id="startMin" aria-label="Start from"><span>to</span><input type="date" id="startMax" aria-label="Start to"></div>
       </div>
-      <div class="fgroup">
+      <div class="field">
         <label>End date</label>
-        <div class="frow"><input type="date" id="endFrom"><span>to</span><input type="date" id="endTo"></div>
+        <div class="dates"><input type="date" id="endMin" aria-label="End from"><span>to</span><input type="date" id="endMax" aria-label="End to"></div>
       </div>
-      <div class="fgroup grow">
-        <label>Search</label>
-        <input type="search" id="search" placeholder="test or market…">
+      <div class="spacer"></div>
+      <div class="field">
+        <label for="search">Search</label>
+        <div class="search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+          <input type="search" id="search" placeholder="Test or market">
+        </div>
       </div>
-      <button class="clearbtn" type="button" onclick="clearFilters()">Clear</button>
+      <button class="linkbtn" id="clearBtn">Clear filters</button>
     </div>
-    <table id="testsTable">
-      <thead>
-        <tr>
-          <th class="sortable" data-col="0">Test</th>
-          <th class="sortable" data-col="1">Market</th>
-          <th class="sortable" data-col="2">Status</th>
-          <th class="sortable" data-col="3">Start</th>
-          <th class="sortable" data-col="4">End</th>
-          <th class="sortable" data-col="5">To event</th>
-          <th class="sortable" data-col="6">Spend</th>
-          <th class="sortable" data-col="7">Pace</th>
-        </tr>
-      </thead>
-      <tbody id="testsBody">
-        <tr class="trow" data-status="active" data-start="2026-05-24" data-end="2026-06-19" data-name="back-load spend curve" data-market="greenville (gsp)"><td data-sort="back-load spend curve"><a href="#test-greenville_backload" style="color:#5b6ef5;text-decoration:none;font-weight:600">Back-Load Spend Curve</a></td><td data-sort="greenville (gsp)">Greenville (GSP)</td><td data-sort="active"><span class="chip" style="background:#10b9811a;color:#10b981">Active</span></td><td data-sort="2026-05-24" style="font-variant-numeric:tabular-nums">May 24</td><td data-sort="2026-06-19" style="font-variant-numeric:tabular-nums">Jun 19</td><td data-sort="18.0" style="font-variant-numeric:tabular-nums">18d to event</td><td data-sort="14996.18">$14,996</td><td data-sort="80.0"><span style="color:#f59e0b;font-weight:700">80%</span></td></tr><tr class="trow" data-status="active" data-start="2026-05-24" data-end="2026-06-19" data-name="bold / fear copy variants" data-market="chicago (ord)"><td data-sort="bold / fear copy variants"><a href="#test-bold_fear_copy" style="color:#5b6ef5;text-decoration:none;font-weight:600">Bold / Fear Copy Variants</a></td><td data-sort="chicago (ord)">Chicago (ORD)</td><td data-sort="active"><span class="chip" style="background:#10b9811a;color:#10b981">Active</span></td><td data-sort="2026-05-24" style="font-variant-numeric:tabular-nums">May 24</td><td data-sort="2026-06-19" style="font-variant-numeric:tabular-nums">Jun 19</td><td data-sort="18.0" style="font-variant-numeric:tabular-nums">18d to event</td><td data-sort="-1">—</td><td data-sort="-1"><span style="color:#aeb6c7">—</span></td></tr><tr class="trow" data-status="active" data-start="2026-05-24" data-end="2026-06-22" data-name="hubspot form validation" data-market="columbia (cae)"><td data-sort="hubspot form validation"><a href="#test-cae_hubspot_form" style="color:#5b6ef5;text-decoration:none;font-weight:600">HubSpot Form Validation</a></td><td data-sort="columbia (cae)">Columbia (CAE)</td><td data-sort="active"><span class="chip" style="background:#10b9811a;color:#10b981">Active</span></td><td data-sort="2026-05-24" style="font-variant-numeric:tabular-nums">May 24</td><td data-sort="2026-06-22" style="font-variant-numeric:tabular-nums">Jun 22</td><td data-sort="20.0" style="font-variant-numeric:tabular-nums">20d to event</td><td data-sort="-1">—</td><td data-sort="-1"><span style="color:#aeb6c7">—</span></td></tr><tr class="trow" data-status="active" data-start="2026-05-31" data-end="2026-06-27" data-name="lal audience consolidation" data-market="washington dc (dca) + columbia (cae)"><td data-sort="lal audience consolidation"><a href="#test-lal_consolidation" style="color:#5b6ef5;text-decoration:none;font-weight:600">LAL Audience Consolidation</a></td><td data-sort="washington dc (dca) + columbia (cae)">Washington DC (DCA) + Columbia (CAE)</td><td data-sort="active"><span class="chip" style="background:#10b9811a;color:#10b981">Active</span></td><td data-sort="2026-05-31" style="font-variant-numeric:tabular-nums">May 31</td><td data-sort="2026-06-27" style="font-variant-numeric:tabular-nums">Jun 27</td><td data-sort="25.0" style="font-variant-numeric:tabular-nums">25d to event</td><td data-sort="10913.34">$10,913</td><td data-sort="-1"><span style="color:#aeb6c7">—</span></td></tr><tr class="trow" data-status="active" data-start="" data-end="" data-name="meta conversions api (server-side tracking)" data-market="account-wide"><td data-sort="meta conversions api (server-side tracking)"><a href="#test-meta_capi" style="color:#5b6ef5;text-decoration:none;font-weight:600">Meta Conversions API (Server-Side Tracking)</a></td><td data-sort="account-wide">Account-wide</td><td data-sort="active"><span class="chip" style="background:#10b9811a;color:#10b981">Active</span></td><td data-sort="9999" style="font-variant-numeric:tabular-nums">—</td><td data-sort="9999" style="font-variant-numeric:tabular-nums">—</td><td data-sort="99999" style="font-variant-numeric:tabular-nums">—</td><td data-sort="0.0">$0</td><td data-sort="-1"><span style="color:#aeb6c7">—</span></td></tr><tr class="trow" data-status="active" data-start="" data-end="" data-name="meta lead forms (native mobile registration)" data-market="to be assigned"><td data-sort="meta lead forms (native mobile registration)"><a href="#test-meta_lead_forms" style="color:#5b6ef5;text-decoration:none;font-weight:600">Meta Lead Forms (Native Mobile Registration)</a></td><td data-sort="to be assigned">To be assigned</td><td data-sort="active"><span class="chip" style="background:#10b9811a;color:#10b981">Active</span></td><td data-sort="9999" style="font-variant-numeric:tabular-nums">—</td><td data-sort="9999" style="font-variant-numeric:tabular-nums">—</td><td data-sort="99999" style="font-variant-numeric:tabular-nums">—</td><td data-sort="-1">—</td><td data-sort="-1"><span style="color:#aeb6c7">—</span></td></tr><tr class="trow" data-status="active" data-start="2026-05-24" data-end="" data-name="new interest-based audiences (meta)" data-market="all active meta markets"><td data-sort="new interest-based audiences (meta)"><a href="#test-interest_audiences_meta" style="color:#5b6ef5;text-decoration:none;font-weight:600">New Interest-Based Audiences (Meta)</a></td><td data-sort="all active meta markets">All active Meta markets</td><td data-sort="active"><span class="chip" style="background:#10b9811a;color:#10b981">Active</span></td><td data-sort="2026-05-24" style="font-variant-numeric:tabular-nums">May 24</td><td data-sort="9999" style="font-variant-numeric:tabular-nums">—</td><td data-sort="99999" style="font-variant-numeric:tabular-nums">—</td><td data-sort="4157.0">$4,157</td><td data-sort="-1"><span style="color:#aeb6c7">—</span></td></tr><tr class="trow" data-status="planning" data-start="" data-end="" data-name="brian-forward video nurture (co-build)" data-market="post-registration nurture (all markets)"><td data-sort="brian-forward video nurture (co-build)"><a href="#test-brian_video_nurture" style="color:#5b6ef5;text-decoration:none;font-weight:600">Brian-Forward Video Nurture (Co-Build)</a></td><td data-sort="post-registration nurture (all markets)">Post-registration nurture (all markets)</td><td data-sort="planning"><span class="chip" style="background:#5b6ef51a;color:#5b6ef5">Planning</span></td><td data-sort="9999" style="font-variant-numeric:tabular-nums">—</td><td data-sort="9999" style="font-variant-numeric:tabular-nums">—</td><td data-sort="99999" style="font-variant-numeric:tabular-nums">—</td><td data-sort="-1">—</td><td data-sort="-1"><span style="color:#aeb6c7">—</span></td></tr><tr class="trow" data-status="planning" data-start="2026-07-06" data-end="2026-07-13" data-name="geo exclusion - sequential metros" data-market="fort lauderdale (ftl) &lt;- miami (mia)"><td data-sort="geo exclusion - sequential metros"><a href="#test-geo_exclusion_ftl_mia" style="color:#5b6ef5;text-decoration:none;font-weight:600">Geo Exclusion - Sequential Metros</a></td><td data-sort="fort lauderdale (ftl) &lt;- miami (mia)">Fort Lauderdale (FTL) &lt;- Miami (MIA)</td><td data-sort="planning"><span class="chip" style="background:#5b6ef51a;color:#5b6ef5">Planning</span></td><td data-sort="2026-07-06" style="font-variant-numeric:tabular-nums">Jul 6</td><td data-sort="2026-07-13" style="font-variant-numeric:tabular-nums">Jul 13</td><td data-sort="99999" style="font-variant-numeric:tabular-nums">—</td><td data-sort="-1">—</td><td data-sort="-1"><span style="color:#aeb6c7">—</span></td></tr><tr class="trow" data-status="planning" data-start="" data-end="" data-name="landing page a/b (new sg template)" data-market="cedar rapids (cdr) or charlotte (clt)"><td data-sort="landing page a/b (new sg template)"><a href="#test-sg_lp_template_test" style="color:#5b6ef5;text-decoration:none;font-weight:600">Landing Page A/B (New SG Template)</a></td><td data-sort="cedar rapids (cdr) or charlotte (clt)">Cedar Rapids (CDR) or Charlotte (CLT)</td><td data-sort="planning"><span class="chip" style="background:#5b6ef51a;color:#5b6ef5">Planning</span></td><td data-sort="9999" style="font-variant-numeric:tabular-nums">—</td><td data-sort="9999" style="font-variant-numeric:tabular-nums">—</td><td data-sort="99999" style="font-variant-numeric:tabular-nums">—</td><td data-sort="-1">—</td><td data-sort="-1"><span style="color:#aeb6c7">—</span></td></tr><tr class="trow" data-status="planning" data-start="" data-end="" data-name="market refresh creative (repeat cities)" data-market="philadelphia, nyc-area, chicago (ord), dallas"><td data-sort="market refresh creative (repeat cities)"><a href="#test-market_refresh_creative" style="color:#5b6ef5;text-decoration:none;font-weight:600">Market Refresh Creative (Repeat Cities)</a></td><td data-sort="philadelphia, nyc-area, chicago (ord), dallas">Philadelphia, NYC-area, Chicago (ORD), Dallas</td><td data-sort="planning"><span class="chip" style="background:#5b6ef51a;color:#5b6ef5">Planning</span></td><td data-sort="9999" style="font-variant-numeric:tabular-nums">—</td><td data-sort="9999" style="font-variant-numeric:tabular-nums">—</td><td data-sort="99999" style="font-variant-numeric:tabular-nums">—</td><td data-sort="-1">—</td><td data-sort="-1"><span style="color:#aeb6c7">—</span></td></tr><tr class="trow" data-status="planning" data-start="" data-end="" data-name="resume mtn (next launch)" data-market="mtn (market label to confirm)"><td data-sort="resume mtn (next launch)"><a href="#test-mtn_relaunch" style="color:#5b6ef5;text-decoration:none;font-weight:600">Resume MTN (Next Launch)</a></td><td data-sort="mtn (market label to confirm)">MTN (market label to confirm)</td><td data-sort="planning"><span class="chip" style="background:#5b6ef51a;color:#5b6ef5">Planning</span></td><td data-sort="9999" style="font-variant-numeric:tabular-nums">—</td><td data-sort="9999" style="font-variant-numeric:tabular-nums">—</td><td data-sort="99999" style="font-variant-numeric:tabular-nums">—</td><td data-sort="-1">—</td><td data-sort="-1"><span style="color:#aeb6c7">—</span></td></tr><tr class="trow" data-status="planning" data-start="" data-end="" data-name="weekly ad-level show/buy rate teardown" data-market="all markets"><td data-sort="weekly ad-level show/buy rate teardown"><a href="#test-show_buy_rate_teardown" style="color:#5b6ef5;text-decoration:none;font-weight:600">Weekly Ad-Level Show/Buy Rate Teardown</a></td><td data-sort="all markets">All markets</td><td data-sort="planning"><span class="chip" style="background:#5b6ef51a;color:#5b6ef5">Planning</span></td><td data-sort="9999" style="font-variant-numeric:tabular-nums">—</td><td data-sort="9999" style="font-variant-numeric:tabular-nums">—</td><td data-sort="99999" style="font-variant-numeric:tabular-nums">—</td><td data-sort="-1">—</td><td data-sort="-1"><span style="color:#aeb6c7">—</span></td></tr><tr class="trow" data-status="paused" data-start="2026-05-24" data-end="2026-06-22" data-name="ugly landing page a/b" data-market="columbia (cae) + washington dc (dca)"><td data-sort="ugly landing page a/b"><a href="#test-bofu_lp_test" style="color:#5b6ef5;text-decoration:none;font-weight:600">Ugly Landing Page A/B</a></td><td data-sort="columbia (cae) + washington dc (dca)">Columbia (CAE) + Washington DC (DCA)</td><td data-sort="paused"><span class="chip" style="background:#f59e0b1a;color:#f59e0b">Paused</span></td><td data-sort="2026-05-24" style="font-variant-numeric:tabular-nums">May 24</td><td data-sort="2026-06-22" style="font-variant-numeric:tabular-nums">Jun 22</td><td data-sort="20.0" style="font-variant-numeric:tabular-nums">20d to event</td><td data-sort="-1">—</td><td data-sort="-1"><span style="color:#aeb6c7">—</span></td></tr>
-      </tbody>
-    </table>
-    <div class="noresult" id="noResult" style="display:none">No tests match these filters.</div>
-  </div>
 
-  <div class="cardsbar">
-    <h2 class="cardsh">Test details</h2>
-    <div class="expandctl">
-      <button type="button" onclick="setAllCards(true)">Expand all</button>
-      <button type="button" onclick="setAllCards(false)">Collapse all</button>
+    <div class="table-scroll">
+      <table class="tests">
+        <thead>
+          <tr>
+            <th data-key="name" data-type="text">Test<span class="arr">▲</span></th>
+            <th data-key="market" data-type="text">Market<span class="arr">▲</span></th>
+            <th data-key="status" data-type="text">Status<span class="arr">▲</span></th>
+            <th data-key="start" data-type="date">Start<span class="arr">▲</span></th>
+            <th data-key="end" data-type="date">End<span class="arr">▲</span></th>
+            <th data-key="event" data-type="num">To event<span class="arr">▲</span></th>
+            <th data-key="spend" data-type="num" class="num">Spend<span class="arr">▲</span></th>
+            <th data-key="pace" data-type="num" class="num">Pace<span class="arr">▲</span></th>
+            <th data-key="verdict" data-type="text">Result<span class="arr">▲</span></th>
+          </tr>
+        </thead>
+        <tbody id="tbody"></tbody>
+      </table>
+    </div>
+    <div class="toolbar" style="border-bottom:none; border-top:1px solid var(--line); padding-top:14px; padding-bottom:14px;">
+      <span class="count" id="count"><b>14</b> of 14 tests shown</span>
     </div>
   </div>
+</section>
 
-  
-        <section class="test" id="test-greenville_backload" data-status="active"
-                 data-start="2026-05-24" data-end="2026-06-19"
-                 data-name="back-load spend curve" data-market="greenville (gsp)">
-          <button class="thead" type="button" aria-expanded="false" onclick="toggleCard(this)">
-            <div>
-              <div class="tmkt">Greenville (GSP)</div>
-              <h3 class="tname">Back-Load Spend Curve</h3>
-            </div>
-            <div class="thr">
-              <span class="status" style="color:#10b981;border-color:#10b981">Active</span>
-              <span class="cd-win">May 24 → Jun 19</span><span class="cd">18d to event</span>
-              <span class="caret" aria-hidden="true">▸</span>
-            </div>
-          </button>
-          <div class="tbody">
-          <div class="obj"><span class="obj-l">Objective</span>Learn whether concentrating spend late in the window lifts show rate without losing raw registrations, so we can decide the default spend curve for Q2.</div>
-          <div class="phase-banner">
-            <span class="pb-l">Current phase</span>
-            <span class="pb-cur">Phase 2 - Build</span>
-          </div>
-          <div class="live"><div class="lk"><span class="ll">Window spend</span><span class="lv">$14,996</span></div><div class="lk"><span class="ll">Run rate</span><span class="lv">$1,847/day</span><span class="pace" style="color:#f59e0b">80% of phase target ($2,320/day)</span></div><div class="lk"><span class="ll">Budget</span><span class="lv">$65,000</span></div></div>
-          <div class="grid2">
-            <div class="sub"><h4>Hypothesis</h4><p>A back-loaded curve (15% week one, 25% week two, 60% in the final stretch) compresses the registration-to-event gap. Registrations that land closer to the event show up at a higher rate, so show rate should rise while raw volume holds.</p></div>
-            <div class="sub"><h4>Decision / pass bar</h4><p>If the back-loaded curve reaches a 16% or higher show rate without losing raw registration volume, it becomes the new default curve for the rest of Q2. Baseline to beat is the 2026 series show rate of 13.42%.</p><div class="sv"><span class="sv-l">Single variable</span> Spend curve shape (same audiences, creative, landing pages)</div></div>
-          </div>
-          <div class="sub"><h4>Phases (spend curve)</h4><div class="pills"><div class="pp "><div class="pp-name">Phase 1 - Foundation (low) · 15%</div><div class="pp-dates">2026-05-24 → 2026-05-30</div><div class="pp-tgt">$1,350/day</div><div class="pp-note">Counter-intuitive start: budgets set below default to hold the curve flat early. Actual Phase 1 spend landed at $9,453 across the 4 campaigns (171 pixel leads).</div></div><div class="pp pp-cur"><div class="pp-name">Phase 2 - Build · 25%</div><div class="pp-dates">2026-05-31 → 2026-06-06</div><div class="pp-tgt">$2,320/day</div><div class="pp-note">About $16,250 for the week, ~$2,320/day. Winners-weighted: the 4 Controls carry most of the envelope; weak ad sets (over $140 CPL) paused; Bold and Bolder seeded small for a first read at the Phase 3 gate.</div></div><div class="pp "><div class="pp-name">Phase 3 - Concentrate (hold higher) · 60%</div><div class="pp-dates">2026-06-07 → 2026-06-19</div><div class="pp-tgt">$3,025/day</div><div class="pp-note">About $39,297 across 13 days, ~$3,025/day. Configured via Meta Schedule Apply effective Sunday June 7 00:00 ET so the phase grid is preserved. Phase 1 underspend headroom pushed here.</div></div></div></div>
-          <div class="sub"><h4>Timeline</h4><ul class="timeline"><li class="tl tl-done"><span class="tl-date">2026-05-24</span><span class="tl-text">Launch. 23 ad sets live (20 TOFU, 3 BOFU). Budgets set below default to start the curve flat.</span></li><li class="tl tl-done"><span class="tl-date">2026-05-28</span><span class="tl-text">Day-5 read. Cumulative registrations checked against the 110-reg floor.</span></li><li class="tl tl-done"><span class="tl-date">2026-05-31</span><span class="tl-text">Phase 2 began. Per-ad-set budgets re-weighted to winners; weak sets paused; Bold/Bolder seeded.</span></li><li class="tl tl-upcoming"><span class="tl-date">2026-06-04</span><span class="tl-text">Day-12 read. Registrations vs the 336 floor plus a CPL guardrail check, then confirm the Phase 3 path.</span></li><li class="tl tl-upcoming"><span class="tl-date">2026-06-05</span><span class="tl-text">Configure Meta Schedule Apply for Phase 3, effective Sunday June 7 00:00 ET.</span></li><li class="tl tl-upcoming"><span class="tl-date">2026-06-19</span><span class="tl-text">Last spend day. Hold Phase 3 budgets.</span></li><li class="tl tl-upcoming"><span class="tl-date">2026-06-20</span><span class="tl-text">Event day. Pause all 23 ad sets.</span></li><li class="tl tl-upcoming"><span class="tl-date">2026-06-22</span><span class="tl-text">Post-event recap and the Q2 default-curve verdict, show rate vs the 13.42% baseline.</span></li></ul></div>
-          </div>
-        </section>
-        
-        <section class="test" id="test-bold_fear_copy" data-status="active"
-                 data-start="2026-05-24" data-end="2026-06-19"
-                 data-name="bold / fear copy variants" data-market="chicago (ord)">
-          <button class="thead" type="button" aria-expanded="false" onclick="toggleCard(this)">
-            <div>
-              <div class="tmkt">Chicago (ORD)</div>
-              <h3 class="tname">Bold / Fear Copy Variants</h3>
-            </div>
-            <div class="thr">
-              <span class="status" style="color:#10b981;border-color:#10b981">Active</span>
-              <span class="cd-win">May 24 → Jun 19</span><span class="cd">18d to event</span>
-              <span class="caret" aria-hidden="true">▸</span>
-            </div>
-          </button>
-          <div class="tbody">
-          <div class="obj"><span class="obj-l">Objective</span>Learn which primary-text angle (bold benefit, fear, urgency, scarcity) earns the lowest cost per lead, so we can promote the winning angle across markets.</div>
-          <div class="phase-banner">
-            <span class="pb-l">Current phase</span>
-            <span class="pb-cur">Seed</span>
-          </div>
-          
-          <div class="grid2">
-            <div class="sub"><h4>Hypothesis</h4><p>More aggressive benefit framing and fear-based angles will beat the control copy on cost per lead, but may carry a show-rate cost worth measuring.</p></div>
-            <div class="sub"><h4>Decision / pass bar</h4><p>The lowest-CPL angle that holds show rate becomes the new copy default. Angles with no history get a first read at the Day-12 gate (June 4).</p><div class="sv"><span class="sv-l">Single variable</span> Primary-text angle (creative image and audience held constant within each ad set)</div></div>
-          </div>
-          <div class="sub"><h4>Phases (spend curve)</h4><div class="pills"><div class="pp pp-cur"><div class="pp-name">Seed</div><div class="pp-dates">2026-05-31 → 2026-06-03</div><div class="pp-note">Bold and Bolder ad sets activated with small budgets, accumulating first impressions.</div></div><div class="pp "><div class="pp-name">First read</div><div class="pp-dates">2026-06-04 → 2026-06-06</div><div class="pp-note">Day-12 gate: read CPL by angle, decide which variants to scale into Phase 3.</div></div><div class="pp "><div class="pp-name">Scale winners</div><div class="pp-dates">2026-06-07 → 2026-06-19</div><div class="pp-note">Push budget toward the lowest-CPL angle inside the Phase 3 envelope.</div></div></div></div>
-          <div class="sub"><h4>Timeline</h4><ul class="timeline"><li class="tl tl-done"><span class="tl-date">2026-05-23</span><span class="tl-text">37 copy variants written across 5 angles (Bold/Fear/Urgency/Scarcity/Aspirational).</span></li><li class="tl tl-done"><span class="tl-date">2026-05-31</span><span class="tl-text">Bold and Bolder ad sets activated and seeded inside the back-load test.</span></li><li class="tl tl-upcoming"><span class="tl-date">2026-06-04</span><span class="tl-text">First CPL-by-angle read at the Day-12 gate.</span></li></ul></div>
-          </div>
-        </section>
-        
-        <section class="test" id="test-cae_hubspot_form" data-status="active"
-                 data-start="2026-05-24" data-end="2026-06-22"
-                 data-name="hubspot form validation" data-market="columbia (cae)">
-          <button class="thead" type="button" aria-expanded="false" onclick="toggleCard(this)">
-            <div>
-              <div class="tmkt">Columbia (CAE)</div>
-              <h3 class="tname">HubSpot Form Validation</h3>
-            </div>
-            <div class="thr">
-              <span class="status" style="color:#10b981;border-color:#10b981">Active</span>
-              <span class="cd-win">May 24 → Jun 22</span><span class="cd">20d to event</span>
-              <span class="caret" aria-hidden="true">▸</span>
-            </div>
-          </button>
-          <div class="tbody">
-          <div class="obj"><span class="obj-l">Objective</span>Validate that the HubSpot lead form syncs registrations correctly before we enable it on prospecting traffic, since the HubSpot sync layer has been the account&#x27;s standing blocker.</div>
-          <div class="phase-banner">
-            <span class="pb-l">Current phase</span>
-            <span class="pb-cur">BOFU validation</span>
-          </div>
-          
-          <div class="grid2">
-            <div class="sub"><h4>Hypothesis</h4><p>Placing the form on a single bottom-funnel ad set first will surface any sync breakage at low volume, without risking prospecting budget on a broken flow.</p></div>
-            <div class="sub"><h4>Decision / pass bar</h4><p>Once HubSpot receives leads cleanly from the BOFU ad set, roll the form out to prospecting (TOFU). Until then, keep it off TOFU.</p><div class="sv"><span class="sv-l">Single variable</span> Lead form on one BOFU ad set only</div></div>
-          </div>
-          <div class="sub"><h4>Phases (spend curve)</h4><div class="pills"><div class="pp pp-cur"><div class="pp-name">BOFU validation</div><div class="pp-dates">2026-05-24 → 2026-06-22</div><div class="pp-note">Form lives on [SG] 20260622_CAE - BOFU - Website - Leads only. Watch HubSpot for clean sync.</div></div><div class="pp "><div class="pp-name">TOFU rollout</div><div class="pp-dates">2026-06-22 → 2026-06-22</div><div class="pp-note">Conditional - only after the BOFU sync is confirmed clean.</div></div></div></div>
-          <div class="sub"><h4>Timeline</h4><ul class="timeline"><li class="tl tl-done"><span class="tl-date">2026-05-24</span><span class="tl-text">Form placed on the CAE BOFU Website-Leads ad set. Not activated on TOFU.</span></li><li class="tl tl-upcoming"><span class="tl-date">2026-06-22</span><span class="tl-text">If sync is clean, extend the form to prospecting ad sets.</span></li></ul></div>
-          </div>
-        </section>
-        
-        <section class="test" id="test-bofu_lp_test" data-status="paused"
-                 data-start="2026-05-24" data-end="2026-06-22"
-                 data-name="ugly landing page a/b" data-market="columbia (cae) + washington dc (dca)">
-          <button class="thead" type="button" aria-expanded="false" onclick="toggleCard(this)">
-            <div>
-              <div class="tmkt">Columbia (CAE) + Washington DC (DCA)</div>
-              <h3 class="tname">Ugly Landing Page A/B</h3>
-            </div>
-            <div class="thr">
-              <span class="status" style="color:#f59e0b;border-color:#f59e0b">Paused</span>
-              <span class="cd-win">May 24 → Jun 22</span><span class="cd">20d to event</span>
-              <span class="caret" aria-hidden="true">▸</span>
-            </div>
-          </button>
-          <div class="tbody">
-          <div class="obj"><span class="obj-l">Objective</span>Learn whether the aggressive ugly landing page converts better than the current registration flow, an idea Chris explicitly endorsed (do not tone it back).</div>
-          <div class="phase-banner">
-            <span class="pb-l">Current phase</span>
-            <span class="pb-cur">Build and fix</span>
-          </div>
-          
-          <div class="grid2">
-            <div class="sub"><h4>Hypothesis</h4><p>A blunt, high-contrast ugly landing page reduces friction and lifts the registration conversion rate versus the polished page.</p></div>
-            <div class="sub"><h4>Decision / pass bar</h4><p>If the ugly page wins on registration conversion rate at equal or lower CPL, promote it to the default landing page.</p><div class="sv"><span class="sv-l">Single variable</span> Landing page (ugly variant vs current), one ad set carrying it</div></div>
-          </div>
-          <div class="sub"><h4>Phases (spend curve)</h4><div class="pills"><div class="pp pp-cur"><div class="pp-name">Build and fix</div><div class="pp-dates">2026-05-24 → 2026-06-22</div><div class="pp-note">Ad set sized at 20% of the 400/day BOFU budget. Held inactive until the on-page form bug is fixed.</div></div></div></div>
-          <div class="sub"><h4>Timeline</h4><ul class="timeline"><li class="tl tl-done"><span class="tl-date">2026-05-24</span><span class="tl-text">Ugly LP ad set created at 20% of the BOFU budget, pointed at the free-event-registration page. Kept inactive - a form bug blocks launch.</span></li><li class="tl tl-upcoming"><span class="tl-date">2026-06-22</span><span class="tl-text">Activate once the form bug is resolved, then read conversion rate vs the current flow.</span></li></ul></div>
-          </div>
-        </section>
-        
-        <section class="test" id="test-lal_consolidation" data-status="active"
-                 data-start="2026-05-31" data-end="2026-06-27"
-                 data-name="lal audience consolidation" data-market="washington dc (dca) + columbia (cae)">
-          <button class="thead" type="button" aria-expanded="false" onclick="toggleCard(this)">
-            <div>
-              <div class="tmkt">Washington DC (DCA) + Columbia (CAE)</div>
-              <h3 class="tname">LAL Audience Consolidation</h3>
-            </div>
-            <div class="thr">
-              <span class="status" style="color:#10b981;border-color:#10b981">Active</span>
-              <span class="cd-win">May 31 → Jun 27</span><span class="cd">25d to event</span>
-              <span class="caret" aria-hidden="true">▸</span>
-            </div>
-          </button>
-          <div class="tbody">
-          <div class="obj"><span class="obj-l">Objective</span>Learn whether merging the paired lookalike campaigns (currently split only by an SG naming tag, with identical ad sets and ads) removes duplication and improves delivery, without losing the structure that lets us weight budget by ad content.</div>
-          <div class="phase-banner">
-            <span class="pb-l">Current phase</span>
-            <span class="pb-cur">Analysis</span>
-          </div>
-          <div class="live"><div class="lk"><span class="ll">Window spend</span><span class="lv">$10,913</span></div><div class="lk"><span class="ll">Run rate</span><span class="lv">$2,070/day</span></div><div class="lk"><span class="ll">Budget</span><span class="lv">—</span></div></div>
-          <div class="grid2">
-            <div class="sub"><h4>Hypothesis</h4><p>Two near-identical LAL campaigns split only by name are likely cannibalizing each other in the auction. Consolidating should reduce overlap and stabilize CPL.</p></div>
-            <div class="sub"><h4>Decision / pass bar</h4><p>If a consolidated structure delivers equal or lower CPL with less audience overlap, adopt it as the standard LAL structure.</p><div class="sv"><span class="sv-l">Single variable</span> Campaign structure (two paired LAL campaigns vs one consolidated)</div></div>
-          </div>
-          <div class="sub"><h4>Phases (spend curve)</h4><div class="pills"><div class="pp pp-cur"><div class="pp-name">Analysis</div><div class="pp-dates">2026-05-31 → 2026-06-06</div><div class="pp-note">Merge report drafted. Confirm ABO / manual-by-content structure (not CBO) and audience overlap.</div></div><div class="pp "><div class="pp-name">Decision</div><div class="pp-dates">2026-06-07 → 2026-06-19</div><div class="pp-note">Decide whether to consolidate after the back-load test finishes, to avoid disturbing that test.</div></div></div></div>
-          <div class="sub"><h4>Timeline</h4><ul class="timeline"><li class="tl tl-done"><span class="tl-date">2026-05-31</span><span class="tl-text">Merge report produced; structure questions (ABO vs CBO, overlap) flagged.</span></li><li class="tl tl-done"><span class="tl-date">2026-05-31</span><span class="tl-text">DCA + CAE launched with a single consolidated LAL campaign each (replacing the prior two-campaign split).</span></li><li class="tl tl-upcoming"><span class="tl-date">2026-06-07</span><span class="tl-text">Revisit consolidation after the back-load test phase grid is locked.</span></li></ul></div>
-          </div>
-        </section>
-        
-        <section class="test" id="test-geo_exclusion_ftl_mia" data-status="planning"
-                 data-start="2026-07-06" data-end="2026-07-13"
-                 data-name="geo exclusion - sequential metros" data-market="fort lauderdale (ftl) &lt;- miami (mia)">
-          <button class="thead" type="button" aria-expanded="false" onclick="toggleCard(this)">
-            <div>
-              <div class="tmkt">Fort Lauderdale (FTL) &lt;- Miami (MIA)</div>
-              <h3 class="tname">Geo Exclusion - Sequential Metros</h3>
-            </div>
-            <div class="thr">
-              <span class="status" style="color:#5b6ef5;border-color:#5b6ef5">Planning</span>
-              <span class="cd-win">Jul 6 → Jul 13</span>
-              <span class="caret" aria-hidden="true">▸</span>
-            </div>
-          </button>
-          <div class="tbody">
-          <div class="obj"><span class="obj-l">Objective</span>Prevent audience overlap and double-spend when two metros within 25 miles run in sequence, by excluding the earlier metro&#x27;s geo from the later launch.</div>
-          <div class="phase-banner">
-            <span class="pb-l">Current phase</span>
-            <span class="pb-cur">Not started</span>
-          </div>
-          
-          <div class="grid2">
-            <div class="sub"><h4>Hypothesis</h4><p>Without exclusion, the Fort Lauderdale launch would re-serve the same Miami-area users, inflating frequency and CPL.</p></div>
-            <div class="sub"><h4>Decision / pass bar</h4><p>Operational rule, not a measured test: set the geo exclusion at build time for every proximate sequential launch.</p><div class="sv"><span class="sv-l">Single variable</span> Geo exclusion applied at build</div></div>
-          </div>
-          <div class="sub"><h4>Phases (spend curve)</h4><div class="pills"><div class="pp "><div class="pp-name">Build-time setup</div><div class="pp-dates">2026-07-06 → 2026-07-13</div><div class="pp-note">When Fort Lauderdale (7/13) builds, exclude the Miami (7/6) metro - 25 miles, sequential.</div></div></div></div>
-          <div class="sub"><h4>Timeline</h4><ul class="timeline"><li class="tl tl-upcoming"><span class="tl-date">2026-07-06</span><span class="tl-text">Miami launches.</span></li></ul></div>
-          </div>
-        </section>
-        
-        <section class="test" id="test-interest_audiences_meta" data-status="active"
-                 data-start="2026-05-24" data-end=""
-                 data-name="new interest-based audiences (meta)" data-market="all active meta markets">
-          <button class="thead" type="button" aria-expanded="false" onclick="toggleCard(this)">
-            <div>
-              <div class="tmkt">All active Meta markets</div>
-              <h3 class="tname">New Interest-Based Audiences (Meta)</h3>
-            </div>
-            <div class="thr">
-              <span class="status" style="color:#10b981;border-color:#10b981">Active</span>
-              <span class="cd-win">May 24 → —</span>
-              <span class="caret" aria-hidden="true">▸</span>
-            </div>
-          </button>
-          <div class="tbody">
-          <div class="obj"><span class="obj-l">Objective</span>Learn whether a refreshed interest pool (real estate investing, tax sale education, adjacent financial signals) lowers cost per lead and widens reach beyond the current lookalike-heavy mix.</div>
-          <div class="phase-banner">
-            <span class="pb-l">Current phase</span>
-            <span class="pb-cur">Not started</span>
-          </div>
-          <div class="live"><div class="lk"><span class="ll">Window spend</span><span class="lv">$4,157</span></div><div class="lk"><span class="ll">Run rate</span><span class="lv">—/day</span></div><div class="lk"><span class="ll">Budget</span><span class="lv">—</span></div></div>
-          <div class="grid2">
-            <div class="sub"><h4>Hypothesis</h4><p>The current audience mix leans on lookalikes. Adding well-aligned interest signals should open fresh in-market reach while holding or beating CPL.</p></div>
-            <div class="sub"><h4>Decision / pass bar</h4><p>If the new interest audiences match or beat lookalike CPL at comparable show rate, keep them in the standard audience rotation.</p><div class="sv"><span class="sv-l">Single variable</span> Audience definition (added interest segments, creative and copy held constant)</div></div>
-          </div>
-          
-          
-          </div>
-        </section>
-        
-        <section class="test" id="test-market_refresh_creative" data-status="planning"
-                 data-start="" data-end=""
-                 data-name="market refresh creative (repeat cities)" data-market="philadelphia, nyc-area, chicago (ord), dallas">
-          <button class="thead" type="button" aria-expanded="false" onclick="toggleCard(this)">
-            <div>
-              <div class="tmkt">Philadelphia, NYC-area, Chicago (ORD), Dallas</div>
-              <h3 class="tname">Market Refresh Creative (Repeat Cities)</h3>
-            </div>
-            <div class="thr">
-              <span class="status" style="color:#5b6ef5;border-color:#5b6ef5">Planning</span>
-              
-              <span class="caret" aria-hidden="true">▸</span>
-            </div>
-          </button>
-          <div class="tbody">
-          <div class="obj"><span class="obj-l">Objective</span>Develop distinct creative angles for repeat markets showing audience fatigue, so returning cities get fresh hooks instead of recycled assets.</div>
-          <div class="phase-banner">
-            <span class="pb-l">Current phase</span>
-            <span class="pb-cur">Not started</span>
-          </div>
-          
-          <div class="grid2">
-            <div class="sub"><h4>Hypothesis</h4><p>Repeat markets fatigue on the same creative. Market-specific angles should restore click-through rate and lower CPL on the next pass.</p></div>
-            <div class="sub"><h4>Decision / pass bar</h4><p>If refreshed creative beats the prior cycle CPL and click-through rate in the same market, adopt market-specific refresh as the standard for repeat cities.</p><div class="sv"><span class="sv-l">Single variable</span> Creative angle per repeat market (audience and budget held constant)</div></div>
-          </div>
-          
-          
-          </div>
-        </section>
-        
-        <section class="test" id="test-sg_lp_template_test" data-status="planning"
-                 data-start="" data-end=""
-                 data-name="landing page a/b (new sg template)" data-market="cedar rapids (cdr) or charlotte (clt)">
-          <button class="thead" type="button" aria-expanded="false" onclick="toggleCard(this)">
-            <div>
-              <div class="tmkt">Cedar Rapids (CDR) or Charlotte (CLT)</div>
-              <h3 class="tname">Landing Page A/B (New SG Template)</h3>
-            </div>
-            <div class="thr">
-              <span class="status" style="color:#5b6ef5;border-color:#5b6ef5">Planning</span>
-              
-              <span class="caret" aria-hidden="true">▸</span>
-            </div>
-          </button>
-          <div class="tbody">
-          <div class="obj"><span class="obj-l">Objective</span>Test a new mobile-optimized SG-built registration template against the current page on an upcoming market, pending client approval.</div>
-          <div class="phase-banner">
-            <span class="pb-l">Current phase</span>
-            <span class="pb-cur">Not started</span>
-          </div>
-          
-          <div class="grid2">
-            <div class="sub"><h4>Hypothesis</h4><p>A faster, mobile-first template reduces friction and lifts the registration conversion rate versus the current page.</p></div>
-            <div class="sub"><h4>Decision / pass bar</h4><p>If the SG template wins on registration conversion rate at equal or lower CPL, promote it as the default landing page.</p><div class="sv"><span class="sv-l">Single variable</span> Landing page template (SG-built mobile template vs current). Requires client sign-off before launch.</div></div>
-          </div>
-          
-          
-          </div>
-        </section>
-        
-        <section class="test" id="test-show_buy_rate_teardown" data-status="planning"
-                 data-start="" data-end=""
-                 data-name="weekly ad-level show/buy rate teardown" data-market="all markets">
-          <button class="thead" type="button" aria-expanded="false" onclick="toggleCard(this)">
-            <div>
-              <div class="tmkt">All markets</div>
-              <h3 class="tname">Weekly Ad-Level Show/Buy Rate Teardown</h3>
-            </div>
-            <div class="thr">
-              <span class="status" style="color:#5b6ef5;border-color:#5b6ef5">Planning</span>
-              
-              <span class="caret" aria-hidden="true">▸</span>
-            </div>
-          </button>
-          <div class="tbody">
-          <div class="obj"><span class="obj-l">Objective</span>Stand up a recurring weekly one-pager ranking ads by show rate and buy rate, by platform and creative concept, so creative decisions tie to downstream outcomes rather than cost per lead alone.</div>
-          <div class="phase-banner">
-            <span class="pb-l">Current phase</span>
-            <span class="pb-cur">Not started</span>
-          </div>
-          
-          <div class="grid2">
-            <div class="sub"><h4>Hypothesis</h4><p>Ranking ads on show rate and buy rate (not just CPL) surfaces winners that cheap-lead metrics hide.</p></div>
-            <div class="sub"><h4>Decision / pass bar</h4><p>Operational reporting build. Success is a reliable weekly teardown the team acts on. Phase 1 starts next week.</p><div class="sv"><span class="sv-l">Single variable</span> Reporting initiative (no media variable)</div></div>
-          </div>
-          
-          
-          </div>
-        </section>
-        
-        <section class="test" id="test-brian_video_nurture" data-status="planning"
-                 data-start="" data-end=""
-                 data-name="brian-forward video nurture (co-build)" data-market="post-registration nurture (all markets)">
-          <button class="thead" type="button" aria-expanded="false" onclick="toggleCard(this)">
-            <div>
-              <div class="tmkt">Post-registration nurture (all markets)</div>
-              <h3 class="tname">Brian-Forward Video Nurture (Co-Build)</h3>
-            </div>
-            <div class="thr">
-              <span class="status" style="color:#5b6ef5;border-color:#5b6ef5">Planning</span>
-              
-              <span class="caret" aria-hidden="true">▸</span>
-            </div>
-          </button>
-          <div class="tbody">
-          <div class="obj"><span class="obj-l">Objective</span>Build five short videos (60 to 90 seconds) featuring Brian, paced across the four-week post-registration window, to lift show rate through warmer nurture.</div>
-          <div class="phase-banner">
-            <span class="pb-l">Current phase</span>
-            <span class="pb-cur">Not started</span>
-          </div>
-          
-          <div class="grid2">
-            <div class="sub"><h4>Hypothesis</h4><p>A familiar, founder-forward nurture sequence keeps registrants engaged and lifts show rate versus the current flow.</p></div>
-            <div class="sub"><h4>Decision / pass bar</h4><p>If the video-nurture cohort shows a higher show rate than the control, adopt it across markets.</p><div class="sv"><span class="sv-l">Single variable</span> Nurture content (Brian video sequence added). Requires nurture stack ownership confirmation and talent availability.</div></div>
-          </div>
-          
-          
-          </div>
-        </section>
-        
-        <section class="test" id="test-meta_capi" data-status="active"
-                 data-start="" data-end=""
-                 data-name="meta conversions api (server-side tracking)" data-market="account-wide">
-          <button class="thead" type="button" aria-expanded="false" onclick="toggleCard(this)">
-            <div>
-              <div class="tmkt">Account-wide</div>
-              <h3 class="tname">Meta Conversions API (Server-Side Tracking)</h3>
-            </div>
-            <div class="thr">
-              <span class="status" style="color:#10b981;border-color:#10b981">Active</span>
-              
-              <span class="caret" aria-hidden="true">▸</span>
-            </div>
-          </button>
-          <div class="tbody">
-          <div class="obj"><span class="obj-l">Objective</span>Stand up server-side registration and attendance event tracking through Meta CAPI to recover signal lost to browser-side gaps and improve optimization.</div>
-          <div class="phase-banner">
-            <span class="pb-l">Current phase</span>
-            <span class="pb-cur">Not started</span>
-          </div>
-          <div class="live"><div class="lk"><span class="ll">Window spend</span><span class="lv">$0</span></div><div class="lk"><span class="ll">Run rate</span><span class="lv">—/day</span></div><div class="lk"><span class="ll">Budget</span><span class="lv">—</span></div></div>
-          <div class="grid2">
-            <div class="sub"><h4>Hypothesis</h4><p>Server-side events restore conversion signal, improving Meta optimization and attribution accuracy.</p></div>
-            <div class="sub"><h4>Decision / pass bar</h4><p>Once events flow cleanly server-side, route optimization to the CAPI events.</p><div class="sv"><span class="sv-l">Single variable</span> Tracking method (server-side CAPI added alongside the pixel). Blocker: system user token approval, token window expires fast.</div></div>
-          </div>
-          
-          <div class="sub"><h4>Timeline</h4><ul class="timeline"><li class="tl tl-upcoming"><span class="tl-date">2026-06-01</span><span class="tl-text">Tracking audit from Luiz: validate server-side CAPI events (registration + attendance) before routing optimization to them.</span></li></ul></div>
-          </div>
-        </section>
-        
-        <section class="test" id="test-meta_lead_forms" data-status="active"
-                 data-start="" data-end=""
-                 data-name="meta lead forms (native mobile registration)" data-market="to be assigned">
-          <button class="thead" type="button" aria-expanded="false" onclick="toggleCard(this)">
-            <div>
-              <div class="tmkt">To be assigned</div>
-              <h3 class="tname">Meta Lead Forms (Native Mobile Registration)</h3>
-            </div>
-            <div class="thr">
-              <span class="status" style="color:#10b981;border-color:#10b981">Active</span>
-              
-              <span class="caret" aria-hidden="true">▸</span>
-            </div>
-          </button>
-          <div class="tbody">
-          <div class="obj"><span class="obj-l">Objective</span>Test in-feed Meta lead forms with qualifying questions for native mobile registration, removing the landing-page hop on mobile.</div>
-          <div class="phase-banner">
-            <span class="pb-l">Current phase</span>
-            <span class="pb-cur">Not started</span>
-          </div>
-          
-          <div class="grid2">
-            <div class="sub"><h4>Hypothesis</h4><p>Native in-feed forms cut mobile friction and lower CPL, while qualifying questions hold lead quality.</p></div>
-            <div class="sub"><h4>Decision / pass bar</h4><p>If native forms beat landing-page CPL at equal lead quality, add them to the mobile mix.</p><div class="sv"><span class="sv-l">Single variable</span> Registration surface (native lead form vs landing page). Blocked on HubSpot integration completion (see HubSpot Form Validation).</div></div>
-          </div>
-          
-          
-          </div>
-        </section>
-        
-        <section class="test" id="test-mtn_relaunch" data-status="planning"
-                 data-start="" data-end=""
-                 data-name="resume mtn (next launch)" data-market="mtn (market label to confirm)">
-          <button class="thead" type="button" aria-expanded="false" onclick="toggleCard(this)">
-            <div>
-              <div class="tmkt">MTN (market label to confirm)</div>
-              <h3 class="tname">Resume MTN (Next Launch)</h3>
-            </div>
-            <div class="thr">
-              <span class="status" style="color:#5b6ef5;border-color:#5b6ef5">Planning</span>
-              
-              <span class="caret" aria-hidden="true">▸</span>
-            </div>
-          </button>
-          <div class="tbody">
-          <div class="obj"><span class="obj-l">Objective</span>Reactivate the MTN market on the next available launch window.</div>
-          <div class="phase-banner">
-            <span class="pb-l">Current phase</span>
-            <span class="pb-cur">Not started</span>
-          </div>
-          
-          <div class="grid2">
-            <div class="sub"><h4>Hypothesis</h4><p>n/a (relaunch of a previously paused market).</p></div>
-            <div class="sub"><h4>Decision / pass bar</h4><p>Queued for a future launch. Confirm market, dates and budget at build.</p><div class="sv"><span class="sv-l">Single variable</span> Market reactivation</div></div>
-          </div>
-          
-          
-          </div>
-        </section>
-        
-
-  <div class="foot">
-    Source of truth: the <a href="https://docs.google.com/spreadsheets/d/1YXSujbEf6CZvtOaxey8xAqepoAAZAou2I5Dt--euX2Q/edit">TLC Tests Tracker</a> Google Sheet. Live spend pulled from Meta via the SingleGrain gateway 3x/day; this report rebuilds on each sync.<br>
-    Reusable template — the same three-tab Sheet + sync stand up a tests report for any client.
+<!-- ============================================ DETAIL CARDS -->
+<section class="wrap section">
+  <div class="section-head">
+    <div>
+      <h2>Test details</h2>
+      <p class="sub">Each test's objective, hypothesis, pass bar, spend phases and milestone timeline.</p>
+    </div>
+    <div style="display:flex; gap:10px;">
+      <button class="btn" id="expandAll">Expand all</button>
+      <button class="btn" id="collapseAll">Collapse all</button>
+    </div>
   </div>
-</div>
+  <div class="tests-list" id="testsList"></div>
+</section>
 
-<script id="chart-data" type="application/json">{"status": {"labels": ["Active", "Planning", "Paused"], "data": [7, 6, 1], "colors": ["#10b981", "#5b6ef5", "#f59e0b"]}, "curve": {"labels": ["May 24", "May 25", "May 26", "May 27", "May 28", "May 29", "May 30", "May 31", "Jun 1", "Jun 2", "Jun 3", "Jun 4", "Jun 5", "Jun 6", "Jun 7", "Jun 8", "Jun 9", "Jun 10", "Jun 11", "Jun 12", "Jun 13", "Jun 14", "Jun 15", "Jun 16", "Jun 17", "Jun 18", "Jun 19"], "planned": [1350.0, 2700.0, 4050.0, 5400.0, 6750.0, 8100.0, 9450.0, 11770.0, 14090.0, 16410.0, 18730.0, 21050.0, 23370.0, 25690.0, 28715.0, 31740.0, 34765.0, 37790.0, 40815.0, 43840.0, 46865.0, 49890.0, 52915.0, 55940.0, 58965.0, 61990.0, 65015.0], "actual": [null, 1498.45, 2724.12, 4027.36, 5441.0, 6727.24, 8391.03, 11288.31, 13595.8, 13937.31, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null]}, "pace": {"labels": ["Back-Load Spend Curve"], "data": [80.0], "colors": ["#f59e0b"]}}</script>
+<!-- ============================================ FOOTER -->
+<footer class="foot">
+  <div class="wrap">
+    <div>
+      <a class="lockup" href="#top" style="text-decoration:none">
+        <img src="data:image/png;base64,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" alt="Single Grain" style="width:28px;height:28px">
+        <span class="wm" style="display:inline">Single Grain</span>
+      </a>
+      <p>This report is the live source of truth for Tax Lien Code's paid-media experiment program. It rebuilds automatically on every sync, so the link you have is always the current view. Numbers come straight from Meta through the Single Grain reporting gateway, with spend refreshed three times a day.</p>
+      <p style="margin-top:14px;">Source of truth: the <a class="src" href="https://docs.google.com/spreadsheets/d/1YXSujbEf6CZvtOaxey8xAqepoAAZAou2I5Dt--euX2Q/edit" target="_blank" rel="noopener">TLC Tests Tracker</a> Google Sheet (Tests / Phases / Timeline tabs).</p>
+    </div>
+    <div class="trust">
+      <div class="ti"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-6.2-8.6"/><path d="M22 4 12 14.01l-3-3"/></svg><span>Rebuilds on every sync &mdash; no stale snapshots.</span></div>
+      <div class="ti"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4"/><path d="M12 18v4"/><path d="m4.9 4.9 2.9 2.9"/><path d="m16.2 16.2 2.9 2.9"/><path d="M2 12h4"/><path d="M18 12h4"/><path d="m4.9 19.1 2.9-2.9"/><path d="m16.2 7.8 2.9-2.9"/></svg><span>Spend pulled from Meta three times a day.</span></div>
+      <div class="ti"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg><span>One Google Sheet drives the whole report.</span></div>
+    </div>
+  </div>
+  <div class="foot-bottom">
+    <div class="wrap">
+      <span>Single Grain &times; Tax Lien Code &middot; Ongoing Tests Report</span>
+      <span id="foot-stamp">Last updated Monday, June 1, 2026 · 2:20 PM ET</span>
+    </div>
+  </div>
+</footer>
+
+<!-- speaker-notes / data not needed -->
 <script>
-(function(){
-  var D = JSON.parse(document.getElementById('chart-data').textContent);
-  var f = {font:{family:'-apple-system,Segoe UI,Helvetica,Arial,sans-serif'}};
+/* =============================================================================
+   Tax Lien Code — Ongoing Tests Report : DATA
+   In production this object is emitted by the Python render(data) f-string.
+   Field contract is unchanged from the source Google Sheet; two presentation
+   fields were added — `verdict` and `read_date` — see the handoff note.
+   ============================================================================= */
+window.TLC_DATA = {"generated": "Tuesday, June 2, 2026 · 10:13 AM ET", "curve": {"labels": ["May 24", "May 25", "May 26", "May 27", "May 28", "May 29", "May 30", "May 31", "Jun 1", "Jun 2", "Jun 3", "Jun 4", "Jun 5", "Jun 6", "Jun 7", "Jun 8", "Jun 9", "Jun 10", "Jun 11", "Jun 12", "Jun 13", "Jun 14", "Jun 15", "Jun 16", "Jun 17", "Jun 18", "Jun 19"], "planned": [1350.0, 2700.0, 4050.0, 5400.0, 6750.0, 8100.0, 9450.0, 11770.0, 14090.0, 16410.0, 18730.0, 21050.0, 23370.0, 25690.0, 28715.0, 31740.0, 34765.0, 37790.0, 40815.0, 43840.0, 46865.0, 49890.0, 52915.0, 55940.0, 58965.0, 61990.0, 65015.0], "executed": [1063.35, 2561.8, 3787.47, 5090.71, 6504.35, 7790.59, 9454.38, 12351.66, 14663.11, 15153.3, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null]}, "tests": [{"id": "greenville_backload", "name": "Back-Load Spend Curve", "market": "Greenville (GSP)", "status": "active", "start": "2026-05-24", "end": "2026-06-19", "event": 18, "spend": 15151.43, "spend_disp": "$15,151", "run_rate": "$0/day", "pace": 0, "budget": "$65,000", "current_phase": "Phase 2 - Build", "verdict": "pending", "read_date": "", "objective": "Learn whether concentrating spend late in the window lifts show rate without losing raw registrations, so we can decide the default spend curve for Q2.", "hypothesis": "A back-loaded curve (15% week one, 25% week two, 60% in the final stretch) compresses the registration-to-event gap. Registrations that land closer to the event show up at a higher rate, so show rate should rise while raw volume holds.", "decision": "If the back-loaded curve reaches a 16% or higher show rate without losing raw registration volume, it becomes the new default curve for the rest of Q2. Baseline to beat is the 2026 series show rate of 13.42%.", "single_variable": "Spend curve shape (same audiences, creative, landing pages)", "phases": [{"name": "Phase 1 - Foundation (low)", "pct": 15.0, "range": "May 24 → May 30", "daily": "$1,350/day", "note": "Counter-intuitive start: budgets set below default to hold the curve flat early. Actual Phase 1 spend landed at $9,453 across the 4 campaigns (171 pixel leads)."}, {"name": "Phase 2 - Build", "pct": 25.0, "range": "May 31 → Jun 6", "daily": "$2,320/day", "note": "About $16,250 for the week, ~$2,320/day. Winners-weighted: the 4 Controls carry most of the envelope; weak ad sets (over $140 CPL) paused; Bold and Bolder seeded small for a first read at the Phase 3 gate."}, {"name": "Phase 3 - Concentrate (hold higher)", "pct": 60.0, "range": "Jun 7 → Jun 19", "daily": "$3,025/day", "note": "About $39,297 across 13 days, ~$3,025/day. Configured via Meta Schedule Apply effective Sunday June 7 00:00 ET so the phase grid is preserved. Phase 1 underspend headroom pushed here."}], "timeline": [{"date": "May 24", "done": true, "next": false, "text": "Launch. 23 ad sets live (20 TOFU, 3 BOFU). Budgets set below default to start the curve flat."}, {"date": "May 28", "done": true, "next": false, "text": "Day-5 read. Cumulative registrations checked against the 110-reg floor."}, {"date": "May 31", "done": true, "next": false, "text": "Phase 2 began. Per-ad-set budgets re-weighted to winners; weak sets paused; Bold/Bolder seeded."}, {"date": "Jun 4", "done": false, "next": false, "text": "Day-12 read. Registrations vs the 336 floor plus a CPL guardrail check, then confirm the Phase 3 path."}, {"date": "Jun 5", "done": false, "next": false, "text": "Configure Meta Schedule Apply for Phase 3, effective Sunday June 7 00:00 ET."}, {"date": "Jun 19", "done": false, "next": false, "text": "Last spend day. Hold Phase 3 budgets."}, {"date": "Jun 20", "done": false, "next": false, "text": "Event day. Pause all 23 ad sets."}, {"date": "Jun 22", "done": false, "next": false, "text": "Post-event recap and the Q2 default-curve verdict, show rate vs the 13.42% baseline."}]}, {"id": "bold_fear_copy", "name": "Bold / Fear Copy Variants", "market": "Chicago (ORD)", "status": "active", "start": "2026-05-24", "end": "2026-06-19", "event": 18, "spend": null, "spend_disp": "—", "run_rate": "—", "pace": null, "budget": "—", "current_phase": "Seed", "verdict": "pending", "read_date": "", "objective": "Learn which primary-text angle (bold benefit, fear, urgency, scarcity) earns the lowest cost per lead, so we can promote the winning angle across markets.", "hypothesis": "More aggressive benefit framing and fear-based angles will beat the control copy on cost per lead, but may carry a show-rate cost worth measuring.", "decision": "The lowest-CPL angle that holds show rate becomes the new copy default. Angles with no history get a first read at the Day-12 gate (June 4).", "single_variable": "Primary-text angle (creative image and audience held constant within each ad set)", "phases": [{"name": "Seed", "pct": null, "range": "May 31 → Jun 3", "daily": null, "note": "Bold and Bolder ad sets activated with small budgets, accumulating first impressions."}, {"name": "First read", "pct": null, "range": "Jun 4 → Jun 6", "daily": null, "note": "Day-12 gate: read CPL by angle, decide which variants to scale into Phase 3."}, {"name": "Scale winners", "pct": null, "range": "Jun 7 → Jun 19", "daily": null, "note": "Push budget toward the lowest-CPL angle inside the Phase 3 envelope."}], "timeline": [{"date": "May 23", "done": true, "next": false, "text": "37 copy variants written across 5 angles (Bold/Fear/Urgency/Scarcity/Aspirational)."}, {"date": "May 31", "done": true, "next": false, "text": "Bold and Bolder ad sets activated and seeded inside the back-load test."}, {"date": "Jun 4", "done": false, "next": false, "text": "First CPL-by-angle read at the Day-12 gate."}]}, {"id": "cae_hubspot_form", "name": "HubSpot Form Validation", "market": "Columbia (CAE)", "status": "active", "start": "2026-05-24", "end": "2026-06-22", "event": 20, "spend": null, "spend_disp": "—", "run_rate": "—", "pace": null, "budget": "—", "current_phase": "BOFU validation", "verdict": "pending", "read_date": "", "objective": "Validate that the HubSpot lead form syncs registrations correctly before we enable it on prospecting traffic, since the HubSpot sync layer has been the account's standing blocker.", "hypothesis": "Placing the form on a single bottom-funnel ad set first will surface any sync breakage at low volume, without risking prospecting budget on a broken flow.", "decision": "Once HubSpot receives leads cleanly from the BOFU ad set, roll the form out to prospecting (TOFU). Until then, keep it off TOFU.", "single_variable": "Lead form on one BOFU ad set only", "phases": [{"name": "BOFU validation", "pct": null, "range": "May 24 → Jun 22", "daily": null, "note": "Form lives on [SG] 20260622_CAE - BOFU - Website - Leads only. Watch HubSpot for clean sync."}, {"name": "TOFU rollout", "pct": null, "range": "Jun 22 → Jun 22", "daily": null, "note": "Conditional - only after the BOFU sync is confirmed clean."}], "timeline": [{"date": "May 24", "done": true, "next": false, "text": "Form placed on the CAE BOFU Website-Leads ad set. Not activated on TOFU."}, {"date": "Jun 22", "done": false, "next": false, "text": "If sync is clean, extend the form to prospecting ad sets."}]}, {"id": "lal_consolidation", "name": "LAL Audience Consolidation", "market": "Washington DC (DCA) + Columbia (CAE)", "status": "active", "start": "2026-05-31", "end": "2026-06-27", "event": 25, "spend": 11058.8, "spend_disp": "$11,059", "run_rate": "$0/day", "pace": null, "budget": "—", "current_phase": "Analysis", "verdict": "pending", "read_date": "", "objective": "Learn whether merging the paired lookalike campaigns (currently split only by an SG naming tag, with identical ad sets and ads) removes duplication and improves delivery, without losing the structure that lets us weight budget by ad content.", "hypothesis": "Two near-identical LAL campaigns split only by name are likely cannibalizing each other in the auction. Consolidating should reduce overlap and stabilize CPL.", "decision": "If a consolidated structure delivers equal or lower CPL with less audience overlap, adopt it as the standard LAL structure.", "single_variable": "Campaign structure (two paired LAL campaigns vs one consolidated)", "phases": [{"name": "Analysis", "pct": null, "range": "May 31 → Jun 6", "daily": null, "note": "Merge report drafted. Confirm ABO / manual-by-content structure (not CBO) and audience overlap."}, {"name": "Decision", "pct": null, "range": "Jun 7 → Jun 19", "daily": null, "note": "Decide whether to consolidate after the back-load test finishes, to avoid disturbing that test."}], "timeline": [{"date": "May 31", "done": true, "next": false, "text": "Merge report produced; structure questions (ABO vs CBO, overlap) flagged."}, {"date": "May 31", "done": true, "next": false, "text": "DCA + CAE launched with a single consolidated LAL campaign each (replacing the prior two-campaign split)."}, {"date": "Jun 7", "done": false, "next": false, "text": "Revisit consolidation after the back-load test phase grid is locked."}]}, {"id": "meta_capi", "name": "Meta Conversions API (Server-Side Tracking)", "market": "Account-wide", "status": "active", "start": "", "end": "", "event": null, "spend": 0.0, "spend_disp": "$0", "run_rate": "—", "pace": null, "budget": "—", "current_phase": "—", "verdict": "pending", "read_date": "", "objective": "Stand up server-side registration and attendance event tracking through Meta CAPI to recover signal lost to browser-side gaps and improve optimization.", "hypothesis": "Server-side events restore conversion signal, improving Meta optimization and attribution accuracy.", "decision": "Once events flow cleanly server-side, route optimization to the CAPI events.", "single_variable": "Tracking method (server-side CAPI added alongside the pixel). Blocker: system user token approval, token window expires fast.", "phases": [], "timeline": [{"date": "Jun 1", "done": false, "next": false, "text": "Tracking audit from Luiz: validate server-side CAPI events (registration + attendance) before routing optimization to them."}]}, {"id": "meta_lead_forms", "name": "Meta Lead Forms (Native Mobile Registration)", "market": "To be assigned", "status": "active", "start": "", "end": "", "event": null, "spend": null, "spend_disp": "—", "run_rate": "—", "pace": null, "budget": "—", "current_phase": "—", "verdict": "pending", "read_date": "", "objective": "Test in-feed Meta lead forms with qualifying questions for native mobile registration, removing the landing-page hop on mobile.", "hypothesis": "Native in-feed forms cut mobile friction and lower CPL, while qualifying questions hold lead quality.", "decision": "If native forms beat landing-page CPL at equal lead quality, add them to the mobile mix.", "single_variable": "Registration surface (native lead form vs landing page). Blocked on HubSpot integration completion (see HubSpot Form Validation).", "phases": [], "timeline": []}, {"id": "interest_audiences_meta", "name": "New Interest-Based Audiences (Meta)", "market": "All active Meta markets", "status": "active", "start": "2026-05-24", "end": "", "event": null, "spend": 4219.85, "spend_disp": "$4,220", "run_rate": "—", "pace": null, "budget": "—", "current_phase": "—", "verdict": "pending", "read_date": "", "objective": "Learn whether a refreshed interest pool (real estate investing, tax sale education, adjacent financial signals) lowers cost per lead and widens reach beyond the current lookalike-heavy mix.", "hypothesis": "The current audience mix leans on lookalikes. Adding well-aligned interest signals should open fresh in-market reach while holding or beating CPL.", "decision": "If the new interest audiences match or beat lookalike CPL at comparable show rate, keep them in the standard audience rotation.", "single_variable": "Audience definition (added interest segments, creative and copy held constant)", "phases": [], "timeline": []}, {"id": "brian_video_nurture", "name": "Brian-Forward Video Nurture (Co-Build)", "market": "Post-registration nurture (all markets)", "status": "planning", "start": "", "end": "", "event": null, "spend": null, "spend_disp": "—", "run_rate": "—", "pace": null, "budget": "—", "current_phase": "—", "verdict": "pending", "read_date": "", "objective": "Build five short videos (60 to 90 seconds) featuring Brian, paced across the four-week post-registration window, to lift show rate through warmer nurture.", "hypothesis": "A familiar, founder-forward nurture sequence keeps registrants engaged and lifts show rate versus the current flow.", "decision": "If the video-nurture cohort shows a higher show rate than the control, adopt it across markets.", "single_variable": "Nurture content (Brian video sequence added). Requires nurture stack ownership confirmation and talent availability.", "phases": [], "timeline": []}, {"id": "geo_exclusion_ftl_mia", "name": "Geo Exclusion - Sequential Metros", "market": "Fort Lauderdale (FTL) <- Miami (MIA)", "status": "planning", "start": "2026-07-06", "end": "2026-07-13", "event": null, "spend": null, "spend_disp": "—", "run_rate": "—", "pace": null, "budget": "—", "current_phase": "—", "verdict": "pending", "read_date": "", "objective": "Prevent audience overlap and double-spend when two metros within 25 miles run in sequence, by excluding the earlier metro's geo from the later launch.", "hypothesis": "Without exclusion, the Fort Lauderdale launch would re-serve the same Miami-area users, inflating frequency and CPL.", "decision": "Operational rule, not a measured test: set the geo exclusion at build time for every proximate sequential launch.", "single_variable": "Geo exclusion applied at build", "phases": [{"name": "Build-time setup", "pct": null, "range": "Jul 6 → Jul 13", "daily": null, "note": "When Fort Lauderdale (7/13) builds, exclude the Miami (7/6) metro - 25 miles, sequential."}], "timeline": [{"date": "Jul 6", "done": false, "next": false, "text": "Miami launches."}]}, {"id": "sg_lp_template_test", "name": "Landing Page A/B (New SG Template)", "market": "Cedar Rapids (CDR) or Charlotte (CLT)", "status": "planning", "start": "", "end": "", "event": null, "spend": null, "spend_disp": "—", "run_rate": "—", "pace": null, "budget": "—", "current_phase": "—", "verdict": "pending", "read_date": "", "objective": "Test a new mobile-optimized SG-built registration template against the current page on an upcoming market, pending client approval.", "hypothesis": "A faster, mobile-first template reduces friction and lifts the registration conversion rate versus the current page.", "decision": "If the SG template wins on registration conversion rate at equal or lower CPL, promote it as the default landing page.", "single_variable": "Landing page template (SG-built mobile template vs current). Requires client sign-off before launch.", "phases": [], "timeline": []}, {"id": "market_refresh_creative", "name": "Market Refresh Creative (Repeat Cities)", "market": "Philadelphia, NYC-area, Chicago (ORD), Dallas", "status": "planning", "start": "", "end": "", "event": null, "spend": null, "spend_disp": "—", "run_rate": "—", "pace": null, "budget": "—", "current_phase": "—", "verdict": "pending", "read_date": "", "objective": "Develop distinct creative angles for repeat markets showing audience fatigue, so returning cities get fresh hooks instead of recycled assets.", "hypothesis": "Repeat markets fatigue on the same creative. Market-specific angles should restore click-through rate and lower CPL on the next pass.", "decision": "If refreshed creative beats the prior cycle CPL and click-through rate in the same market, adopt market-specific refresh as the standard for repeat cities.", "single_variable": "Creative angle per repeat market (audience and budget held constant)", "phases": [], "timeline": []}, {"id": "mtn_relaunch", "name": "Resume MTN (Next Launch)", "market": "MTN (market label to confirm)", "status": "planning", "start": "", "end": "", "event": null, "spend": null, "spend_disp": "—", "run_rate": "—", "pace": null, "budget": "—", "current_phase": "—", "verdict": "pending", "read_date": "", "objective": "Reactivate the MTN market on the next available launch window.", "hypothesis": "n/a (relaunch of a previously paused market).", "decision": "Queued for a future launch. Confirm market, dates and budget at build.", "single_variable": "Market reactivation", "phases": [], "timeline": []}, {"id": "show_buy_rate_teardown", "name": "Weekly Ad-Level Show/Buy Rate Teardown", "market": "All markets", "status": "planning", "start": "", "end": "", "event": null, "spend": null, "spend_disp": "—", "run_rate": "—", "pace": null, "budget": "—", "current_phase": "—", "verdict": "pending", "read_date": "", "objective": "Stand up a recurring weekly one-pager ranking ads by show rate and buy rate, by platform and creative concept, so creative decisions tie to downstream outcomes rather than cost per lead alone.", "hypothesis": "Ranking ads on show rate and buy rate (not just CPL) surfaces winners that cheap-lead metrics hide.", "decision": "Operational reporting build. Success is a reliable weekly teardown the team acts on. Phase 1 starts next week.", "single_variable": "Reporting initiative (no media variable)", "phases": [], "timeline": []}, {"id": "bofu_lp_test", "name": "Ugly Landing Page A/B", "market": "Columbia (CAE) + Washington DC (DCA)", "status": "paused", "start": "2026-05-24", "end": "2026-06-22", "event": 20, "spend": null, "spend_disp": "—", "run_rate": "—", "pace": null, "budget": "—", "current_phase": "Build and fix", "verdict": "pending", "read_date": "", "objective": "Learn whether the aggressive ugly landing page converts better than the current registration flow, an idea Chris explicitly endorsed (do not tone it back).", "hypothesis": "A blunt, high-contrast ugly landing page reduces friction and lifts the registration conversion rate versus the polished page.", "decision": "If the ugly page wins on registration conversion rate at equal or lower CPL, promote it to the default landing page.", "single_variable": "Landing page (ugly variant vs current), one ad set carrying it", "phases": [{"name": "Build and fix", "pct": null, "range": "May 24 → Jun 22", "daily": null, "note": "Ad set sized at 20% of the 400/day BOFU budget. Held inactive until the on-page form bug is fixed."}], "timeline": [{"date": "May 24", "done": true, "next": false, "text": "Ugly LP ad set created at 20% of the BOFU budget, pointed at the free-event-registration page. Kept inactive - a form bug blocks launch."}, {"date": "Jun 22", "done": false, "next": false, "text": "Activate once the form bug is resolved, then read conversion rate vs the current flow."}]}], "meta": {"window": "May – July 2026", "hero": {"label": "Greenville (GSP) pace", "pace": 0, "gauge_left": 0.0, "sub": "Phase 2 - Build: $0/day run rate vs the $2,320/day target. Slightly under, inside the amber band."}, "reads": {"count": 0, "sub": "Read dates are tracked per test in the cards below; none are dated yet."}}};
 
-  if (D.curve.labels && D.curve.labels.length) {
-    new Chart(document.getElementById('curveChart'), {
-      type:'line',
-      data: {
-        labels: D.curve.labels,
-        datasets: [
-          {label:'Planned (cumulative)', data:D.curve.planned, borderColor:'#5b6ef5', backgroundColor:'#5b6ef5', borderDash:[6,4], tension:.15, pointRadius:0, borderWidth:2},
-          {label:'Executed to date', data:D.curve.actual, borderColor:'#10b981', backgroundColor:'rgba(16,185,129,.10)', tension:.15, pointRadius:2, borderWidth:2.5, fill:true, spanGaps:false}
-        ]
-      },
-      options: {responsive:true, maintainAspectRatio:false,
-        interaction:{mode:'index', intersect:false},
-        plugins:{legend:{position:'bottom', labels:{boxWidth:12, font:f.font}},
-          tooltip:{callbacks:{label:function(c){return c.dataset.label+': $'+Math.round(c.parsed.y).toLocaleString('en-US')}}}},
-        scales:{
-          y:{title:{display:true, text:'Cumulative spend'}, ticks:{callback:function(v){return '$'+(v/1000)+'k'}}},
-          x:{ticks:{maxRotation:0, autoSkip:true, font:f.font}}
-        }}
-    });
-  }
-
-  if (D.pace.labels.length) {
-    new Chart(document.getElementById('paceChart'), {
-      type:'bar',
-      data:{labels:D.pace.labels, datasets:[{label:'Pace %', data:D.pace.data, backgroundColor:D.pace.colors, borderRadius:6}]},
-      options:{indexAxis:'y', responsive:true, maintainAspectRatio:false,
-        plugins:{legend:{display:false}},
-        scales:{x:{ticks:{callback:function(v){return v+'%'}}, suggestedMax:130}}}
-    });
-  }
-
-  if (D.status.labels.length) {
-    new Chart(document.getElementById('statusChart'), {
-      type:'doughnut',
-      data:{labels:D.status.labels, datasets:[{data:D.status.data, backgroundColor:D.status.colors, borderWidth:2, borderColor:'#fff'}]},
-      options:{responsive:true, maintainAspectRatio:false, cutout:'58%',
-        plugins:{legend:{position:'bottom', labels:{boxWidth:12, font:f.font}}}}
-    });
-  }
-})();
 </script>
 <script>
+/* =============================================================================
+   Tax Lien Code — Ongoing Tests Report : APP
+   Renders the table + detail cards from window.TLC_DATA, wires the
+   filter / sort / collapse behaviour, and draws the three Chart.js panels.
+   The filter & sort engine reads data-* hooks off the rendered DOM, exactly
+   as the previous version did, so the Python generator can emit the same
+   markup server-side instead of building it here.
+   ============================================================================= */
 (function(){
-  var rows  = Array.prototype.slice.call(document.querySelectorAll('#testsBody tr.trow'));
-  var cards = Array.prototype.slice.call(document.querySelectorAll('section.test'));
-  var statusFilter = 'all';
-  var startFrom=document.getElementById('startFrom'), startTo=document.getElementById('startTo');
-  var endFrom=document.getElementById('endFrom'), endTo=document.getElementById('endTo');
-  var search=document.getElementById('search');
-  var shown=document.getElementById('shown'), noResult=document.getElementById('noResult');
+  "use strict";
+  var D = window.TLC_DATA;
+  var MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+  var STATUS_RANK = { active:0, planning:1, paused:2, complete:3 };
+  var STATUS_GLYPH = { active:"g-active", planning:"g-planning", paused:"g-paused", complete:"g-complete" };
+  var VERDICT_LABEL = { win:"Win", loss:"Loss", inconclusive:"Inconclusive", pending:"Pending" };
 
-  function inRange(val, from, to){
-    if(!val) return true;                 // blank dates always pass a range filter
-    if(from && val < from) return false;
-    if(to && val > to) return false;
-    return true;
+  function esc(s){ return String(s==null?"":s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];}); }
+  function fmtDate(iso){ if(!iso) return ""; var p=iso.split("-"); return MONTHS[(+p[1])-1]+" "+(+p[2]); }
+  function paceColor(p){ if(p==null) return null; if(p>=90&&p<=115) return "var(--pace-green)"; if(p>=80&&p<=130) return "var(--pace-amber)"; return "var(--pace-red)"; }
+
+  function statusPill(st){
+    return '<span class="pill '+st+'"><span class="glyph '+STATUS_GLYPH[st]+'"></span>'+st+'</span>';
   }
+  function verdictPill(v){
+    return '<span class="verdict '+v+'"><span class="vdot"></span>'+VERDICT_LABEL[v]+'</span>';
+  }
+
+  /* ---------------------------------------------------------------- TABLE */
+  function buildRows(){
+    var tb = document.getElementById("tbody");
+    tb.innerHTML = D.tests.map(function(t){
+      var pc = paceColor(t.pace);
+      var paceCell = t.pace==null
+        ? '<span class="t-muted">—</span>'
+        : '<span class="pace-tag" style="color:'+pc+'"><span class="pdot" style="background:'+pc+'"></span>'+t.pace+'%</span>';
+      var startCell = t.start ? '<span class="t-dates">'+fmtDate(t.start)+'</span>' : '<span class="t-muted">—</span>';
+      var endCell   = t.end   ? '<span class="t-dates">'+fmtDate(t.end)+'</span>'   : '<span class="t-muted">—</span>';
+      var eventCell = t.event!=null ? '<span class="t-dates">'+t.event+'d</span>' : '<span class="t-muted">—</span>';
+      var spendCell = t.spend!=null ? esc(t.spend_disp) : '<span class="t-muted">—</span>';
+      var readLine  = t.read_date ? '<span class="read">Reads '+fmtDate(t.read_date)+'</span>' : '<span class="read">Read date TBC</span>';
+      return ''+
+      '<tr class="trow" data-status="'+t.status+'" data-start="'+(t.start||"")+'" data-end="'+(t.end||"")+
+        '" data-name="'+esc(t.name)+'" data-market="'+esc(t.market)+'" data-verdict="'+t.verdict+'">'+
+        '<td data-sort="'+esc(t.name.toLowerCase())+'"><a class="t-name" href="#test-'+t.id+'">'+esc(t.name)+
+          '<svg class="open-i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg></a></td>'+
+        '<td data-sort="'+esc(t.market.toLowerCase())+'"><span class="t-market">'+esc(t.market)+'</span></td>'+
+        '<td data-sort="'+STATUS_RANK[t.status]+'">'+statusPill(t.status)+'</td>'+
+        '<td data-sort="'+(t.start||"")+'">'+startCell+'</td>'+
+        '<td data-sort="'+(t.end||"")+'">'+endCell+'</td>'+
+        '<td class="num" data-sort="'+(t.event!=null?t.event:"")+'">'+eventCell+'</td>'+
+        '<td class="num" data-sort="'+(t.spend!=null?t.spend:"")+'">'+spendCell+'</td>'+
+        '<td class="num" data-sort="'+(t.pace!=null?t.pace:"")+'">'+paceCell+'</td>'+
+        '<td data-sort="'+t.verdict+'"><div class="result-cell">'+verdictPill(t.verdict)+readLine+'</div></td>'+
+      '</tr>';
+    }).join("") + '<tr class="empty-row" id="emptyRow" style="display:none"><td colspan="9">No tests match these filters. Try clearing them.</td></tr>';
+  }
+
+  /* ---------------------------------------------------------- DETAIL CARDS */
+  var PHASE_COLORS = ["#f2b34b","#e76f3c","#b1521f","#8a3d16"];
+  function phaseMix(phases){
+    var withPct = phases.filter(function(p){return p.pct!=null;});
+    if(withPct.length < 2) return "";
+    return '<div class="phasemix">'+withPct.map(function(p,i){
+      return '<i style="width:'+p.pct+'%;background:'+PHASE_COLORS[i%PHASE_COLORS.length]+'"></i>';
+    }).join("")+'</div>';
+  }
+  function phasesBlock(phases){
+    if(!phases.length) return "";
+    return '<p class="sub-h">Spend curve phases</p>'+phaseMix(phases)+'<div class="phases">'+
+      phases.map(function(p,i){
+        var pct = p.pct!=null ? '<span class="ppct">'+p.pct+'%</span>' : '';
+        var daily = p.daily ? '<div class="pdaily">'+esc(p.daily)+'</div>' : '';
+        return '<div class="phase">'+
+          '<div class="pnum" style="background:'+PHASE_COLORS[i%PHASE_COLORS.length]+'">'+(i+1)+'</div>'+
+          '<div class="pmeta"><div class="pname">'+esc(p.name)+pct+'</div>'+
+          '<div class="pdates">'+esc(p.range)+'</div>'+daily+
+          '<div class="pnote">'+esc(p.note)+'</div></div></div>';
+      }).join("")+'</div>';
+  }
+  function timelineBlock(tl){
+    if(!tl.length) return "";
+    return '<p class="sub-h">Timeline</p><div class="timeline">'+
+      tl.map(function(e){
+        var cls = e.done ? "done" : (e.next ? "next" : "");
+        return '<div class="tl '+cls+'"><div class="tl-date">'+esc(e.date)+'</div>'+
+          '<div class="tl-rail"><div class="tl-node"></div></div>'+
+          '<div class="tl-text">'+esc(e.text)+'</div></div>';
+      }).join("")+'</div>';
+  }
+  function statStrip(t){
+    var items = [];
+    items.push(['Current phase', esc(t.current_phase)]);
+    if(t.spend!=null) items.push(['Window spend', esc(t.spend_disp)]);
+    if(t.run_rate && t.run_rate!=="—"){
+      var pc = paceColor(t.pace);
+      var pace = t.pace!=null ? ' <small style="color:'+pc+'">'+t.pace+'% of target</small>' : '';
+      items.push(['Run rate', esc(t.run_rate)+pace]);
+    }
+    if(t.budget && t.budget!=="—") items.push(['Budget', esc(t.budget)]);
+    return '<div class="statstrip">'+items.map(function(it){
+      return '<div class="stat"><div class="sl">'+it[0]+'</div><div class="sv">'+it[1]+'</div></div>';
+    }).join("")+'</div>';
+  }
+  function resultSlot(t){
+    var read = t.read_date ? fmtDate(t.read_date) : "To be confirmed";
+    var note = t.verdict==="pending"
+      ? "Outcome lands at the read date above. The verdict (win, loss or inconclusive) and the read date are tracked here so a finished test shows its result, not just its mechanics."
+      : "";
+    return '<div class="result-slot">'+
+      '<div class="rs-item"><div class="rs-lab">Verdict</div><div class="rs-val">'+verdictPill(t.verdict)+'</div></div>'+
+      '<div class="rs-item"><div class="rs-lab">Read date</div><div class="rs-val tnum">'+esc(read)+'</div></div>'+
+      (note?'<div class="rs-note">'+note+'</div>':'')+
+      '</div>';
+  }
+  function curveBlock(t){
+    if(t.id!=="greenville_backload") return "";
+    return '<p class="sub-h">Spend curve — planned vs executed</p>'+
+      '<p class="curve-sub">Cumulative dollars: the planned 15 / 25 / 60 ramp against the real Meta spend to date. The gap is how far ahead or behind we are pacing.</p>'+
+      '<div class="card-chart"><canvas id="curveChart"></canvas></div>'+
+      '<div class="legend" style="margin-bottom:24px">'+
+        '<span><span class="ln dash" style="border-color:var(--ink-3)"></span>Planned ramp</span>'+
+        '<span><span class="ln" style="border-color:var(--brand)"></span>Executed (real spend)</span>'+
+        '<span style="color:var(--ink-3)">Total budget $65,000</span>'+
+      '</div>';
+  }
+  function buildCards(){
+    var list = document.getElementById("testsList");
+    list.innerHTML = D.tests.map(function(t){
+      var dateLine = (t.start||t.end)
+        ? (t.start?fmtDate(t.start):"TBC")+' → '+(t.end?fmtDate(t.end):"open")
+        : "Dates to be scheduled";
+      var eventLine = t.event!=null ? '<span>'+t.event+' days to event</span>' : '';
+      return '<section class="test" id="test-'+t.id+'" data-status="'+t.status+
+        '" data-start="'+(t.start||"")+'" data-end="'+(t.end||"")+
+        '" data-name="'+esc(t.name)+'" data-market="'+esc(t.market)+'" data-verdict="'+t.verdict+'">'+
+        '<div class="test-header" role="button" tabindex="0" aria-expanded="false">'+
+          '<div class="th-main">'+
+            '<div class="th-eyebrow">'+statusPill(t.status)+verdictPill(t.verdict)+'<span class="mkt">'+esc(t.market)+'</span></div>'+
+            '<h3>'+esc(t.name)+'</h3>'+
+            '<div class="th-sub"><span>'+dateLine+'</span>'+eventLine+'</div>'+
+          '</div>'+
+          '<div class="th-right"><div class="caret"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></div></div>'+
+        '</div>'+
+        '<div class="test-body"><div class="tb-inner"><div class="tb-pad">'+
+          statStrip(t)+
+          '<p class="objective"><span class="ol">Objective</span>'+esc(t.objective)+'</p>'+
+          '<div class="twocol">'+
+            '<div class="block"><h4>Hypothesis</h4><p>'+esc(t.hypothesis)+'</p></div>'+
+            '<div class="block pass"><h4>Decision / pass bar</h4><p>'+esc(t.decision)+'</p></div>'+
+          '</div>'+
+          '<div class="single-var"><span class="svlab">Single variable</span><span>'+esc(t.single_variable)+'</span></div>'+
+          curveBlock(t)+
+          phasesBlock(t.phases)+
+          timelineBlock(t.timeline)+
+          resultSlot(t)+
+        '</div></div></div>'+
+      '</section>';
+    }).join("");
+    wireCards();
+  }
+
+  /* ------------------------------------------------------------- COLLAPSE */
+  function wireCards(){
+    document.querySelectorAll(".test").forEach(function(sec){
+      var head = sec.querySelector(".test-header");
+      function toggle(){
+        var open = sec.classList.toggle("open");
+        head.setAttribute("aria-expanded", open?"true":"false");
+      }
+      head.addEventListener("click", toggle);
+      head.addEventListener("keydown", function(e){
+        if(e.key==="Enter"||e.key===" "){ e.preventDefault(); toggle(); }
+      });
+    });
+    // open from in-page link (table → card)
+    document.querySelectorAll(".t-name").forEach(function(a){
+      a.addEventListener("click", function(){
+        var id = a.getAttribute("href").slice(1);
+        var sec = document.getElementById(id);
+        if(sec){ sec.classList.add("open"); sec.querySelector(".test-header").setAttribute("aria-expanded","true"); }
+      });
+    });
+  }
+  document.getElementById("expandAll").addEventListener("click", function(){
+    document.querySelectorAll(".test").forEach(function(s){ if(s.style.display!=="none"){ s.classList.add("open"); s.querySelector(".test-header").setAttribute("aria-expanded","true"); } });
+  });
+  document.getElementById("collapseAll").addEventListener("click", function(){
+    document.querySelectorAll(".test").forEach(function(s){ s.classList.remove("open"); s.querySelector(".test-header").setAttribute("aria-expanded","false"); });
+  });
+
+  /* ------------------------------------------------------- FILTER + SORT */
+  var state = { status:"all", startMin:"", startMax:"", endMin:"", endMax:"", q:"" };
+
   function matches(el){
-    var st = el.getAttribute('data-status');
-    if(statusFilter!=='all' && st!==statusFilter) return false;
-    if(!inRange(el.getAttribute('data-start'), startFrom.value, startTo.value)) return false;
-    if(!inRange(el.getAttribute('data-end'), endFrom.value, endTo.value)) return false;
-    var q=(search.value||'').trim().toLowerCase();
-    if(q){
-      var hay=(el.getAttribute('data-name')||'')+' '+(el.getAttribute('data-market')||'');
-      if(hay.indexOf(q)===-1) return false;
+    if(state.status!=="all" && el.dataset.status!==state.status) return false;
+    var s = el.dataset.start, e = el.dataset.end;
+    if(state.startMin && (!s || s < state.startMin)) return false;
+    if(state.startMax && (!s || s > state.startMax)) return false;
+    if(state.endMin && (!e || e < state.endMin)) return false;
+    if(state.endMax && (!e || e > state.endMax)) return false;
+    if(state.q){
+      var hay = (el.dataset.name+" "+el.dataset.market).toLowerCase();
+      if(hay.indexOf(state.q.toLowerCase())===-1) return false;
     }
     return true;
   }
-  function apply(){
-    var n=0;
-    rows.forEach(function(r){ var ok=matches(r); r.classList.toggle('hide',!ok); if(ok)n++; });
-    cards.forEach(function(c){ c.classList.toggle('hide',!matches(c)); });
-    shown.textContent=n;
-    noResult.style.display = n? 'none':'block';
+  function applyFilters(){
+    var rows = document.querySelectorAll("#tbody .trow");
+    var shown = 0;
+    rows.forEach(function(r){ var ok = matches(r); r.style.display = ok?"":"none"; if(ok) shown++; });
+    document.getElementById("emptyRow").style.display = shown? "none":"";
+    document.querySelectorAll(".test").forEach(function(s){ s.style.display = matches(s)?"":"none"; });
+    var c = document.getElementById("count");
+    c.innerHTML = "<b>"+shown+"</b> of "+rows.length+" tests shown";
   }
 
-  document.getElementById('statusChips').addEventListener('click',function(e){
-    var b=e.target.closest('.fchip'); if(!b) return;
-    statusFilter=b.getAttribute('data-status');
-    this.querySelectorAll('.fchip').forEach(function(c){c.classList.remove('on');});
-    b.classList.add('on'); apply();
-  });
-  [startFrom,startTo,endFrom,endTo].forEach(function(i){i.addEventListener('change',apply);});
-  search.addEventListener('input',apply);
+  function sortBy(th){
+    var ths = Array.prototype.slice.call(th.parentNode.children);
+    var idx = ths.indexOf(th);
+    var type = th.dataset.type;
+    var cur = th.getAttribute("aria-sort");
+    var dir = cur==="ascending" ? "descending" : "ascending";
+    ths.forEach(function(h){ h.removeAttribute("aria-sort"); var a=h.querySelector(".arr"); if(a)a.textContent="▲"; });
+    th.setAttribute("aria-sort", dir);
+    th.querySelector(".arr").textContent = dir==="ascending"?"▲":"▼";
 
-  window.clearFilters=function(){
-    statusFilter='all';
-    document.querySelectorAll('#statusChips .fchip').forEach(function(c){c.classList.toggle('on',c.getAttribute('data-status')==='all');});
-    startFrom.value=startTo.value=endFrom.value=endTo.value='';
-    search.value=''; apply();
-  };
-
-  var sortState={col:-1,dir:1};
-  var tbody=document.getElementById('testsBody');
-  document.querySelectorAll('#testsTable th.sortable').forEach(function(th){
-    th.addEventListener('click',function(){
-      var col=+th.getAttribute('data-col');
-      sortState.dir=(sortState.col===col)? -sortState.dir : 1;
-      sortState.col=col;
-      document.querySelectorAll('#testsTable th.sortable').forEach(function(h){h.classList.remove('asc','desc');});
-      th.classList.add(sortState.dir>0?'asc':'desc');
-      rows.slice().sort(function(a,b){
-        var av=a.children[col].getAttribute('data-sort'), bv=b.children[col].getAttribute('data-sort');
-        var an=parseFloat(av), bn=parseFloat(bv), cmp;
-        if(!isNaN(an)&&!isNaN(bn)) cmp=an-bn;
-        else cmp=(av<bv?-1:av>bv?1:0);
-        return cmp*sortState.dir;
-      }).forEach(function(r){tbody.appendChild(r);});
+    var tb = document.getElementById("tbody");
+    var empty = document.getElementById("emptyRow");
+    var rows = Array.prototype.slice.call(tb.querySelectorAll(".trow"));
+    rows.sort(function(a,b){
+      var va = a.children[idx].dataset.sort, vb = b.children[idx].dataset.sort;
+      var ea = (va===""||va==null), eb = (vb===""||vb==null);
+      if(ea && eb) return 0;
+      if(ea) return 1;   // empties always last
+      if(eb) return -1;
+      var cmp;
+      if(type==="num"){ cmp = parseFloat(va)-parseFloat(vb); }
+      else { cmp = va<vb?-1:(va>vb?1:0); }
+      return dir==="ascending" ? cmp : -cmp;
     });
+    rows.forEach(function(r){ tb.insertBefore(r, empty); });
+  }
+
+  /* --------------------------------------------------------------- WIRE UI */
+  document.getElementById("statusSeg").addEventListener("click", function(e){
+    var b = e.target.closest("button"); if(!b) return;
+    this.querySelectorAll("button").forEach(function(x){ x.setAttribute("aria-pressed","false"); });
+    b.setAttribute("aria-pressed","true");
+    state.status = b.dataset.status; applyFilters();
+  });
+  function bindDate(id, key){ document.getElementById(id).addEventListener("change", function(){ state[key]=this.value; applyFilters(); }); }
+  bindDate("startMin","startMin"); bindDate("startMax","startMax"); bindDate("endMin","endMin"); bindDate("endMax","endMax");
+  document.getElementById("search").addEventListener("input", function(){ state.q=this.value; applyFilters(); });
+  document.getElementById("clearBtn").addEventListener("click", function(){
+    state = { status:"all", startMin:"", startMax:"", endMin:"", endMax:"", q:"" };
+    document.querySelectorAll(".dates input, #search").forEach(function(i){ i.value=""; });
+    document.querySelectorAll("#statusSeg button").forEach(function(x){ x.setAttribute("aria-pressed", x.dataset.status==="all"?"true":"false"); });
+    applyFilters();
+  });
+  document.querySelectorAll("table.tests thead th").forEach(function(th){
+    th.addEventListener("click", function(){ sortBy(th); });
   });
 
-  window.toggleCard=function(btn){
-    var sec=btn.closest('.test');
-    var open=sec.classList.toggle('open');
-    btn.setAttribute('aria-expanded',open?'true':'false');
-  };
-  window.setAllCards=function(open){
-    cards.forEach(function(c){
-      c.classList.toggle('open',open);
-      var b=c.querySelector('.thead'); if(b) b.setAttribute('aria-expanded',open?'true':'false');
+  /* ----------------------------------------------------------------- CHARTS */
+  function charts(){
+    if(!window.Chart) return;
+    Chart.defaults.font.family = "Archivo, system-ui, sans-serif";
+    Chart.defaults.color = "#615849";
+    Chart.defaults.font.size = 12;
+    var INK="#1c1813", GRID="#ece5d9", MUTE="#978c7c";
+    var tip = {
+      backgroundColor:"#1c1813", padding:11, cornerRadius:8, titleFont:{weight:"700",size:12.5},
+      bodyFont:{size:12.5}, displayColors:true, boxPadding:5, usePointStyle:true
+    };
+
+    // Hero — back-load curve
+    var cv = document.getElementById("curveChart").getContext("2d");
+    var grad = cv.createLinearGradient(0,0,0,300);
+    grad.addColorStop(0,"rgba(231,111,60,.22)"); grad.addColorStop(1,"rgba(231,111,60,0)");
+    new Chart(cv,{
+      type:"line",
+      data:{ labels:D.curve.labels, datasets:[
+        { label:"Planned ramp", data:D.curve.planned, borderColor:MUTE, borderWidth:2, borderDash:[6,5], pointRadius:0, tension:.25, fill:false },
+        { label:"Executed", data:D.curve.executed, borderColor:"#e76f3c", borderWidth:3, pointRadius:0, pointHoverRadius:5, pointBackgroundColor:"#e76f3c", tension:.25, fill:true, backgroundColor:grad, spanGaps:false }
+      ]},
+      options:{ responsive:true, maintainAspectRatio:false, animation:false, interaction:{mode:"index",intersect:false},
+        plugins:{ legend:{display:false}, tooltip:Object.assign({},tip,{ callbacks:{ label:function(c){ return (c.dataset.label||"")+": $"+(c.parsed.y||0).toLocaleString(); } } }) },
+        scales:{
+          x:{ grid:{display:false}, ticks:{maxRotation:0, autoSkip:false, color:MUTE, font:{size:11}} },
+          y:{ grid:{color:GRID}, border:{display:false}, ticks:{ color:MUTE, callback:function(v){ return "$"+(v/1000)+"k"; } } }
+        } }
     });
-  };
 
-  document.getElementById('testsBody').addEventListener('click',function(e){
-    var a=e.target.closest('a[href^="#test-"]'); if(!a) return;
-    var sec=document.querySelector(a.getAttribute('href'));
-    if(sec){ sec.classList.remove('hide'); sec.classList.add('open'); var b=sec.querySelector('.thead'); if(b)b.setAttribute('aria-expanded','true'); }
-  });
+    // Spend by active test
+    var spendTests = D.tests.filter(function(t){ return t.status==="active" && t.spend!=null; })
+      .sort(function(a,b){ return b.spend-a.spend; });
+    new Chart(document.getElementById("spendChart").getContext("2d"),{
+      type:"bar",
+      data:{ labels:spendTests.map(function(t){ return t.name.replace(/ \(.*\)/,"").replace("Server-Side Tracking","CAPI"); }),
+        datasets:[{ data:spendTests.map(function(t){return t.spend;}),
+          backgroundColor:["#e76f3c","#ee9156","#f2b34b","#d9cdbb"].slice(0,spendTests.length),
+          borderRadius:6, barThickness:18, maxBarThickness:22 }] },
+      options:{ indexAxis:"y", responsive:true, maintainAspectRatio:false, animation:false,
+        plugins:{ legend:{display:false}, tooltip:Object.assign({},tip,{ callbacks:{ label:function(c){ return "$"+c.parsed.x.toLocaleString()+" to date"; } } }) },
+        scales:{ x:{ grid:{color:GRID}, border:{display:false}, ticks:{ color:MUTE, callback:function(v){ return "$"+(v/1000)+"k"; } } },
+          y:{ grid:{display:false}, border:{display:false}, ticks:{ color:INK, font:{size:11.5,weight:"600"} } } } }
+    });
 
-  apply();
+    // Status doughnut
+    var counts = {active:0,planning:0,paused:0,complete:0};
+    D.tests.forEach(function(t){ counts[t.status]++; });
+    new Chart(document.getElementById("statusChart").getContext("2d"),{
+      type:"doughnut",
+      data:{ labels:["Active","Planning","Paused","Complete"],
+        datasets:[{ data:[counts.active,counts.planning,counts.paused,counts.complete],
+          backgroundColor:["#1f8f57","#5560d8","#bd720c","#5d6675"], borderColor:"#fff", borderWidth:3, hoverOffset:6 }] },
+      options:{ responsive:true, maintainAspectRatio:false, animation:false, cutout:"68%",
+        plugins:{ legend:{ display:false },
+          tooltip:Object.assign({},tip,{ callbacks:{ label:function(c){ return c.label+": "+c.parsed+" tests"; } } }) } }
+    });
+  }
+
+  /* ------------------------------------------------------- SUMMARY COUNTS */
+  function renderSummary(){
+    var c = {active:0,planning:0,paused:0,complete:0};
+    D.tests.forEach(function(t){ c[t.status]++; });
+    var total = D.tests.length;
+    var order = [["active","Active","--active"],["planning","Planning","--planning"],["paused","Paused","--paused"],["complete","Complete","--complete"]];
+    function set(id,v){ var e=document.getElementById(id); if(e) e.textContent=v; }
+    set("kpi-total",total); set("dn-total",total); set("kpi-active",c.active);
+    // KPI portfolio split bar + chips (non-zero only)
+    document.getElementById("kpi-splitbar").innerHTML = order.filter(function(o){return c[o[0]]>0;}).map(function(o){
+      return '<i style="width:'+(c[o[0]]/total*100).toFixed(1)+'%;background:var('+o[2]+')"></i>';
+    }).join("");
+    document.getElementById("kpi-splitlegend").innerHTML = order.filter(function(o){return c[o[0]]>0;}).map(function(o){
+      return '<span><i class="dot" style="background:var('+o[2]+')"></i><b>'+c[o[0]]+'</b> '+o[1]+'</span>';
+    }).join("");
+    // Doughnut full-width legend with share bars
+    document.getElementById("statusLegend").innerHTML = order.map(function(o){
+      var n=c[o[0]], pct=Math.round(n/total*100);
+      return '<li class="sl-row"><span class="sl-key"><i style="background:var('+o[2]+')"></i>'+o[1]+'</span>'+
+        '<span class="sl-val"><b>'+n+'</b> '+(n===1?"test":"tests")+' · '+pct+'%</span>'+
+        '<span class="sl-bar"><i style="width:'+pct+'%;background:var('+o[2]+')"></i></span></li>';
+    }).join("");
+  }
+
+  /* --------------------------------------------------- META / STATIC SPOTS */
+  function renderMeta(){
+    function set(id,v){ var e=document.getElementById(id); if(e!=null && v!=null) e.innerHTML=v; }
+    set("mast-date", D.generated);
+    set("foot-stamp", "Last updated " + D.generated);
+    set("mast-count", D.tests.length);
+    var m = D.meta || {};
+    if(m.window) set("mast-window", m.window);
+    if(m.hero){
+      set("hero-label", m.hero.label);
+      if(m.hero.pace!=null) set("hero-pace", m.hero.pace + "<small>%</small>");
+      var g = document.getElementById("hero-gauge");
+      if(g && m.hero.gauge_left!=null) g.style.left = m.hero.gauge_left + "%";
+      set("hero-sub", m.hero.sub);
+    }
+    if(m.reads){
+      if(m.reads.count!=null) set("kpi-reads", m.reads.count);
+      set("reads-sub", m.reads.sub);
+    }
+  }
+
+  /* --------------------------------------------------------------- INIT */
+  buildRows();
+  buildCards();
+  renderMeta();
+  renderSummary();
+  applyFilters();
+  // open the hero test by default — instantly (no transition) so the in-card
+  // chart measures a fully expanded container before it draws.
+  var first = document.getElementById("test-greenville_backload");
+  if(first){
+    first.classList.add("no-anim","open");
+    first.querySelector(".test-header").setAttribute("aria-expanded","true");
+    void first.offsetHeight; // force reflow at full height
+  }
+  charts();
+  requestAnimationFrame(function(){ if(first) first.classList.remove("no-anim"); });
 })();
+
 </script>
 </body>
 </html>
