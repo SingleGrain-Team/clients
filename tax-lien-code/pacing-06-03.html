@@ -118,6 +118,28 @@
   .activations .upcoming .ttl{color:#94a3b8;font-size:10.5px;letter-spacing:0.08em;margin-bottom:6px}
   .activations .upcoming li{color:#cbd5e1;font-size:12.5px;border-bottom:none;padding:2px 0}
   .activations .desc{color:#94a3b8;font-size:11.5px;display:block;margin-top:2px}
+.analysis{margin-top:18px;border-top:1px solid #2e3350;padding-top:16px}
+  .analysis-title{font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#94a3b8;margin-bottom:12px}
+  .analysis-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+  .analysis-col{background:#22263a;border-radius:8px;padding:13px 15px;border-top:2px solid #2e3350}
+  .analysis-col.good{border-top-color:#34d399}
+  .analysis-col.bad{border-top-color:#f87171}
+  .analysis-col.doing{border-top-color:#818cf8}
+  .analysis-col h4{font-size:11px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;margin-bottom:9px}
+  .analysis-col.good h4{color:#34d399}
+  .analysis-col.bad h4{color:#f87171}
+  .analysis-col.doing h4{color:#818cf8}
+  .analysis-col ul{list-style:none;padding:0;margin:0}
+  .analysis-col li{font-size:12.5px;color:#cbd5e1;line-height:1.5;padding:5px 0 5px 14px;position:relative;border-bottom:1px solid #2a2f44}
+  .analysis-col li:last-child{border-bottom:none}
+  .analysis-col li::before{content:'';position:absolute;left:2px;top:12px;width:5px;height:5px;border-radius:50%;background:#475569}
+  .analysis-col.good li::before{background:#34d399}
+  .analysis-col.bad li::before{background:#f87171}
+  .analysis-col.doing li::before{background:#818cf8}
+  .test-chip{display:inline-block;font-size:9.5px;font-weight:700;letter-spacing:0.04em;text-transform:uppercase;padding:1px 6px;border-radius:999px;margin-left:5px;vertical-align:middle}
+  .test-chip.live{background:rgba(52,211,153,0.12);color:#34d399;border:1px solid rgba(52,211,153,0.35)}
+  .test-chip.planned{background:rgba(251,191,36,0.12);color:#fbbf24;border:1px solid rgba(251,191,36,0.35)}
+  .test-chip.paused{background:rgba(148,163,184,0.12);color:#94a3b8;border:1px solid rgba(148,163,184,0.35)}
 </style>
 </head>
 <body>
@@ -274,6 +296,15 @@
           </tbody>
         </table>
       </div>
+      <div class="analysis">
+        <div class="analysis-title">Read &amp; actions</div>
+        <div class="analysis-grid">
+          <div class="analysis-col good"><h4>What's working</h4><ul><li>710 registrations in, with five of six venues delivering before the Meta issues hit.</li><li>Core lookalike audiences held steady daily delivery through the mid-window stretch.</li></ul></div>
+          <div class="analysis-col bad"><h4>What's not</h4><ul><li>Spend pacing to $81,013 against the $55,000 plan, while registrations project to just 760 of the 1,200 goal.</li><li>CPL at $107, well above the $68 blended average. Root cause was Meta cross-loading creative and copy from other markets.</li><li>Launched before the new playbook, so it never received bold copy, lead forms, the Conversions API, or unified lookalikes.</li></ul></div>
+          <div class="analysis-col doing"><h4>What we're doing</h4><ul><li>Final-days all-in: concentrating spend on the top-performing creatives only.<span class="test-chip live">Live</span></li><li>Expanding interests, putting lead forms on all ads, and raising frequency to defend volume.</li><li>Deploying the bold claims now, ahead of test close, to re-energize CTR.<span class="test-chip live">Live</span></li></ul></div>
+        </div>
+      </div>
+
     </section>
     </div><div id="ev-SBA">
     <section class="event">
@@ -357,6 +388,15 @@
           </tbody>
         </table>
       </div>
+      <div class="analysis">
+        <div class="analysis-title">Read &amp; actions</div>
+        <div class="analysis-grid">
+          <div class="analysis-col good"><h4>What's working</h4><ul><li>686 registrations in, with consistent core-audience delivery.</li></ul></div>
+          <div class="analysis-col bad"><h4>What's not</h4><ul><li>Spend pacing to $73,309 versus the $55,000 plan; registrations project to 734 of the 1,200 goal.</li><li>CPL at $100 against the $68 blended, same root cause as Billings: Meta loaded wrong-region creative and copy.</li><li>Ran on the old setup, before bold copy, lead forms, API, and unified lookalikes.</li></ul></div>
+          <div class="analysis-col doing"><h4>What we're doing</h4><ul><li>Same final-days rescue: concentrate spend on winners, expand interests, lead forms on all ads, raise frequency.<span class="test-chip live">Live</span></li><li>Bold claims deploying now to lift engagement into the close.<span class="test-chip live">Live</span></li></ul></div>
+        </div>
+      </div>
+
     </section>
     </div><div id="ev-CDR">
     <section class="event">
@@ -447,6 +487,15 @@
           </tbody>
         </table>
       </div>
+      <div class="analysis">
+        <div class="analysis-title">Read &amp; actions</div>
+        <div class="analysis-grid">
+          <div class="analysis-col good"><h4>What's working</h4><ul><li>Projecting 1,120 of the 1,200 goal, tracking close to target.</li><li>CPL at $67, right on the $68 blended average.</li></ul></div>
+          <div class="analysis-col bad"><h4>What's not</h4><ul><li>Spend pacing slightly hot at $74,687 versus plan, so efficiency is the watch item for the back half.</li><li>Just under the registration goal; needs steady delivery to close the gap.</li></ul></div>
+          <div class="analysis-col doing"><h4>What we're doing</h4><ul><li>Standard twice-weekly optimization, audience expansion and creative rotation.<span class="test-chip live">Live</span></li></ul></div>
+        </div>
+      </div>
+
     </section>
     </div><div id="ev-CLT">
     <section class="event">
@@ -537,6 +586,15 @@
           </tbody>
         </table>
       </div>
+      <div class="analysis">
+        <div class="analysis-title">Read &amp; actions</div>
+        <div class="analysis-grid">
+          <div class="analysis-col good"><h4>What's working</h4><ul><li>Projecting 1,077 of the 1,200 goal; CPL at $69, in line with the blended average.</li></ul></div>
+          <div class="analysis-col bad"><h4>What's not</h4><ul><li>Spend pacing to $74,636 versus the $55,000 plan; tightening efficiency for the final stretch.</li><li>Slightly under the registration goal.</li></ul></div>
+          <div class="analysis-col doing"><h4>What we're doing</h4><ul><li>Twice-weekly optimization live.<span class="test-chip live">Live</span></li><li>Bold claims scheduled for June 7th.<span class="test-chip planned">Jun 7</span></li></ul></div>
+        </div>
+      </div>
+
     </section>
     </div><div id="ev-GSP">
     <section class="event">
@@ -620,6 +678,15 @@
           </tbody>
         </table>
       </div>
+      <div class="analysis">
+        <div class="analysis-title">Read &amp; actions</div>
+        <div class="analysis-grid">
+          <div class="analysis-col good"><h4>What's working</h4><ul><li>402 registrations already in, ahead of the day-12 checkpoint of 395, and that is with spend deliberately throttled in the first two phases.</li><li>CPL at $60 and inside the test guardrail.</li></ul></div>
+          <div class="analysis-col bad"><h4>What's not</h4><ul><li>Full-window projection of 741 looks light, but that is by design. The heavy 60% spend phase has not deployed yet.</li></ul></div>
+          <div class="analysis-col doing"><h4>What we're doing</h4><ul><li>Back-load spend curve live, 15/25/60 weighting; phase three (heavy spend) starts June 7th.<span class="test-chip live">Live</span></li><li>Bold claims deploying June 7th alongside the ramp.<span class="test-chip planned">Jun 7</span></li></ul></div>
+        </div>
+      </div>
+
     </section>
     </div><div id="ev-ORD">
     <section class="event">
@@ -724,6 +791,15 @@
           </tbody>
         </table>
       </div>
+      <div class="analysis">
+        <div class="analysis-title">Read &amp; actions</div>
+        <div class="analysis-grid">
+          <div class="analysis-col good"><h4>What's working</h4><ul><li>Projecting 1,461 of the 1,200 goal, well over target; CPL at $42, comfortably under blended.</li><li>New aggressive copy is already outperforming the previous set in early reads.</li></ul></div>
+          <div class="analysis-col bad"><h4>What's not</h4><ul><li>Hold CPL in check as we scale spend into the heavier phase.</li></ul></div>
+          <div class="analysis-col doing"><h4>What we're doing</h4><ul><li>Bold and fear-based copy test live.<span class="test-chip live">Live</span></li><li>Bold claims deploy June 7th; twice-weekly optimization and creative rotation ongoing.<span class="test-chip planned">Jun 7</span></li></ul></div>
+        </div>
+      </div>
+
     </section>
     </div><div id="ev-CAE">
     <section class="event">
@@ -807,6 +883,15 @@
           </tbody>
         </table>
       </div>
+      <div class="analysis">
+        <div class="analysis-title">Read &amp; actions</div>
+        <div class="analysis-grid">
+          <div class="analysis-col good"><h4>What's working</h4><ul><li>Best market on the board: CPL at $19, projecting 1,771 of the 1,200 goal, with 392 registrations already in the first three days.</li><li>Built on the new structure from day one: unified lookalikes plus bottom-funnel lead forms.</li></ul></div>
+          <div class="analysis-col bad"><h4>What's not</h4><ul><li>Very early at 22% of window, so the focus is holding lead quality as we expand the forms to top-funnel.</li></ul></div>
+          <div class="analysis-col doing"><h4>What we're doing</h4><ul><li>Lead forms live on bottom-funnel, expanding to top-funnel next.<span class="test-chip live">Live</span></li><li>Ugly landing page test launched yesterday.<span class="test-chip live">Live</span></li><li>Bold claims deploy June 7th.<span class="test-chip planned">Jun 7</span></li></ul></div>
+        </div>
+      </div>
+
     </section>
     </div><div id="ev-DCA">
     <section class="event">
@@ -904,6 +989,15 @@
           </tbody>
         </table>
       </div>
+      <div class="analysis">
+        <div class="analysis-title">Read &amp; actions</div>
+        <div class="analysis-grid">
+          <div class="analysis-col good"><h4>What's working</h4><ul><li>CPL dropping day over day, now under $50 at $42; daily registrations climbing steadily.</li><li>Same new structure as Columbia, applied from launch.</li></ul></div>
+          <div class="analysis-col bad"><h4>What's not</h4><ul><li>Started slower, projecting 687 of the 1,200 goal, so it needs the ramp to close the gap.</li></ul></div>
+          <div class="analysis-col doing"><h4>What we're doing</h4><ul><li>Lead forms live on bottom-funnel; ugly LP test running.<span class="test-chip live">Live</span></li><li>Twice-weekly optimization to accelerate pace; bold claims June 7th.<span class="test-chip planned">Jun 7</span></li></ul></div>
+        </div>
+      </div>
+
     </section>
     </div>
 
