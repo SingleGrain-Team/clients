@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hyperdrive Paid Media Funnel - Phase 1</title>
+<style>
+  :root{
+    --lav:#e9edfb; --ink:#1b2440; --muted:#5c6a8c;
+    --wire:#aab4da;
+    --start:#ec4899;
+    --aware:#16b3a4; --aware-d:#0f8f83;
+    --lead:#3d8ad6; --lead-d:#2f72b8;
+    --intent:#f0a93a; --intent-d:#d68f23;
+    --remarket:#ef6a39; --remarket-d:#d6541f;
+    --outcome:#27a35a; --outcome-d:#1d8649;
+    --brand:#7a4fc0; --brand-d:#6539ad;
+    --card:#ffffff; --line:#dfe4f3;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  body{
+    font-family:-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:var(--lav);color:var(--ink);line-height:1.4;
+    padding:30px 20px 50px;
+  }
+  .scaler{width:100%}
+  .sheet{width:1180px;margin:0 auto;transform-origin:top left}
+
+  /* ---- header ---- */
+  .head{margin:0 4px 8px}
+  .eyebrow{display:flex;align-items:center;gap:9px;font-size:12px;font-weight:800;letter-spacing:.10em;text-transform:uppercase;color:var(--muted)}
+  .eyebrow .mark{width:22px;height:22px;flex:0 0 auto}
+  h1{font-size:27px;line-height:1.12;letter-spacing:-.4px;margin-top:6px;font-weight:800}
+  .sub{color:var(--muted);font-size:13px;margin-top:7px;max-width:960px}
+  .sub b{color:var(--ink);font-weight:700}
+
+  /* ---- budget strip ---- */
+  .budget{display:flex;gap:12px;justify-content:center;margin:20px auto 2px;flex-wrap:wrap}
+  .bcard{display:flex;align-items:center;gap:10px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:9px 16px;box-shadow:0 3px 10px rgba(40,52,100,.08)}
+  .bcard .bdot{width:12px;height:12px;border-radius:4px;flex:0 0 auto}
+  .bcard .bl{font-size:11.5px;font-weight:700;color:var(--muted)}
+  .bcard .bv{font-size:14px;font-weight:800;color:var(--ink);font-variant-numeric:tabular-nums;margin-left:2px}
+  .bcard.tot{background:var(--ink);border-color:var(--ink)}
+  .bcard.tot .bl{color:rgba(255,255,255,.72)}
+  .bcard.tot .bv{color:#fff}
+
+  /* ---- diagram canvas ---- */
+  .diagram{position:relative;width:1180px;height:1275px;margin:14px auto 0}
+  .wires{position:absolute;inset:0;width:1180px;height:1275px;z-index:1;overflow:visible}
+
+  .node{position:absolute;z-index:2;border-radius:16px;padding:13px 16px;text-align:center;
+        box-shadow:0 5px 16px rgba(40,52,100,.13)}
+  .node.term{border-radius:44px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+  .node.white{color:#fff}
+
+  .n-title{font-size:14.5px;font-weight:800;letter-spacing:.1px;line-height:1.25}
+  .n-meta{font-size:11px;font-weight:600;opacity:.92;margin-top:3px}
+  .term .n-title{font-size:16px;letter-spacing:.2px}
+  .term .n-meta{font-size:11.5px;margin-top:4px}
+  .kicker{font-size:10.5px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;opacity:.85}
+
+  .chips{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin-top:8px}
+  .chip{display:inline-flex;align-items:center;font-size:10.5px;font-weight:600;border-radius:8px;padding:3px 9px;white-space:nowrap;
+        background:rgba(255,255,255,.17);border:1px solid rgba(255,255,255,.42);color:#fff}
+  .chip.bud{background:#fff;color:var(--ink);font-weight:800;border-color:#fff;font-variant-numeric:tabular-nums}
+
+  /* messaging inset */
+  .msg{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.30);border-radius:10px;padding:8px 11px;margin-top:10px;text-align:left}
+  .msg .ml{font-size:8.5px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;opacity:.74;margin-bottom:4px}
+  .msg .mt{font-size:10.5px;line-height:1.42;font-weight:600}
+  .msg .persona{display:block;font-size:10px;line-height:1.5}
+  .msg .persona .pk{display:inline-block;min-width:20px;font-weight:800;opacity:.95}
+  .msg .persona i{opacity:.78;font-style:normal;font-weight:700}
+
+  /* two-campaign inset cards */
+  .icards{display:flex;gap:10px;margin-top:9px}
+  .icard{flex:1;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.30);border-radius:10px;padding:9px 9px;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center}
+  .icard h6{font-size:11px;font-weight:800;line-height:1.25;margin-bottom:7px}
+
+  /* funnel header bar */
+  .fhead{background:var(--ink)}
+  .fhead .badge-n{display:inline-block;font-size:9.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.34);border-radius:20px;padding:2px 10px;margin-bottom:5px}
+
+  /* edge labels */
+  .elabel{position:absolute;z-index:3;font-size:10.5px;font-weight:800;color:var(--brand-d);
+          background:var(--lav);padding:2px 8px;border-radius:6px;text-align:center;line-height:1.25}
+
+  /* ---- legend card ---- */
+  .legend{background:#fff;border:1px solid var(--line);border-radius:18px;margin:22px auto 0;width:1180px;
+          padding:22px 26px;box-shadow:0 6px 20px rgba(40,52,100,.10);
+          display:grid;grid-template-columns:392px 1fr;gap:34px}
+  .legend .brandrow{display:flex;align-items:center;gap:11px;margin-bottom:14px}
+  .legend .brandrow .mark{width:30px;height:30px}
+  .legend .brandrow .bn{font-size:13px;font-weight:800;letter-spacing:.10em;text-transform:uppercase;color:var(--ink)}
+  .swatches{display:flex;flex-direction:column;gap:8px}
+  .sw{display:grid;grid-template-columns:auto 1fr;align-items:start;gap:10px;font-size:12px}
+  .sw .dot{width:15px;height:15px;border-radius:5px;flex:0 0 auto;margin-top:2px}
+  .sw .lab{line-height:1.3;color:var(--muted)}
+  .sw .lab b{color:var(--ink);font-weight:800}
+  .leg-sub{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);margin:14px 0 8px}
+  .shp{width:26px;height:15px;flex:0 0 auto;margin-top:1px;background:#9aa6c8}
+  .shp.pill{border-radius:999px}
+  .shp.rect{border-radius:5px}
+  .shp.band{border-radius:4px;height:11px;margin-top:3px}
+  .notes{font-size:11.5px;line-height:1.5;color:var(--muted)}
+  .notes p{margin-bottom:9px}
+  .notes b{color:var(--ink)}
+
+  @media print{
+    body{background:#fff;padding:0}
+    .scaler{height:auto !important}
+    .sheet{transform:none !important}
+  }
+</style>
+</head>
+<body>
+<template id="__bundler_thumbnail" data-bg-color="#e9edfb">
+  <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+    <g fill="none" stroke="#aab4da" stroke-width="6">
+      <path d="M600 130 V170 M360 170 H840 M360 170 V230 M840 170 V230"/>
+      <path d="M360 360 V410 M840 360 V410"/>
+      <path d="M360 540 V590 M840 540 V590"/>
+    </g>
+    <rect x="470" y="80" width="260" height="56" rx="28" fill="#ec4899"/>
+    <rect x="250" y="230" width="220" height="120" rx="16" fill="#16b3a4"/>
+    <rect x="730" y="230" width="220" height="120" rx="16" fill="#16b3a4"/>
+    <rect x="250" y="410" width="220" height="120" rx="16" fill="#f0a93a"/>
+    <rect x="730" y="410" width="220" height="120" rx="16" fill="#3d8ad6"/>
+    <rect x="250" y="590" width="220" height="90" rx="14" fill="#ef6a39"/>
+    <rect x="730" y="590" width="220" height="90" rx="14" fill="#ef6a39"/>
+    <rect x="350" y="710" width="500" height="56" rx="14" fill="#7a4fc0"/>
+  </svg>
+</template>
+<div class="scaler">
+<div class="sheet">
+
+  <div class="head">
+    <div class="eyebrow">
+      <svg class="mark" viewBox="0 0 24 24" fill="none"><circle cx="5" cy="6" r="3" fill="#16b3a4"/><circle cx="5" cy="18" r="3" fill="#3d8ad6"/><circle cx="19" cy="12" r="3" fill="#ef6a39"/><path d="M7.5 7.3 16.5 11M7.5 16.7 16.5 13" stroke="#aab4da" stroke-width="1.6"/></svg>
+      Hyperdrive &middot; Phase 1 - Chris Drago
+    </div>
+    <h1>Phase 1 - Optimize the Structure We Already Have</h1>
+    <div class="sub">Spend lands mid-journey with nothing feeding the top and no warm audience being worked, so creative fatigues and leads dry up. Phase 1 fixes this on the platforms we already run - <b>Google Search and LinkedIn</b>. Three moves per funnel: a video top of funnel to fill the pool, search to catch intent, and a dedicated remarketing campaign to convert the warm audience. Headlines below are the Round 2 copy in review with your team.</div>
+  </div>
+
+  <div class="budget">
+    <div class="bcard"><span class="bdot" style="background:var(--aware)"></span><span class="bl">Funnel 1 - AI Training</span><span class="bv">$5,500</span></div>
+    <div class="bcard"><span class="bdot" style="background:var(--lead)"></span><span class="bl">Funnel 2 - Business Transformation</span><span class="bv">$3,500</span></div>
+    <div class="bcard"><span class="bdot" style="background:var(--brand)"></span><span class="bl">Brand layer</span><span class="bv">$1,000</span></div>
+    <div class="bcard tot"><span class="bl">Total, Phase 1</span><span class="bv">$10,000 / mo</span></div>
+  </div>
+
+  <div class="diagram">
+
+    <!-- ============ CONNECTORS ============ -->
+    <svg class="wires" viewBox="0 0 1180 1275" preserveAspectRatio="xMidYMid meet">
+      <defs>
+        <marker id="arw" markerWidth="9" markerHeight="9" refX="6.5" refY="3" orient="auto">
+          <path d="M0 0 L7 3 L0 6 Z" fill="var(--wire)"/>
+        </marker>
+      </defs>
+      <g fill="none" stroke="var(--wire)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round">
+        <path d="M590 84 L590 122"/>
+        <path d="M300 122 L880 122"/>
+        <path d="M300 122 L300 158" marker-end="url(#arw)"/>
+        <path d="M880 122 L880 158" marker-end="url(#arw)"/>
+        <!-- funnel 1 spine (3 phases) -->
+        <path d="M300 242 L300 270" marker-end="url(#arw)"/>
+        <path d="M300 420 L300 480" marker-end="url(#arw)"/>
+        <path d="M300 685 L300 745" marker-end="url(#arw)"/>
+        <path d="M300 950 L300 1025" marker-end="url(#arw)"/>
+        <!-- funnel 2 spine (4 phases) -->
+        <path d="M880 242 L880 270" marker-end="url(#arw)"/>
+        <path d="M880 422 L880 456" marker-end="url(#arw)"/>
+        <path d="M880 621 L880 655" marker-end="url(#arw)"/>
+        <path d="M880 805 L880 839" marker-end="url(#arw)"/>
+        <path d="M880 989 L880 1025" marker-end="url(#arw)"/>
+      </g>
+      <!-- brand: always-on capture layer (dashed, secondary) -->
+      <g fill="none" stroke="var(--brand)" stroke-width="2" stroke-dasharray="6 5" stroke-linejoin="round" stroke-linecap="round" opacity="0.55">
+        <path d="M300 1113 L300 1141 L360 1141 L360 1163"/>
+        <path d="M880 1113 L880 1141 L820 1141 L820 1163"/>
+      </g>
+    </svg>
+
+    <!-- ============ NODES ============ -->
+
+    <!-- START -->
+    <div class="node term white" style="left:380px;top:0;width:420px;height:84px;background:var(--start)">
+      <div class="kicker">START &middot; Monthly budget</div>
+      <div class="n-title">Phase 1 - $10,000 / month</div>
+    </div>
+
+    <!-- ===== FUNNEL 1 : AI TRAINING ===== -->
+    <div class="node white fhead" style="left:60px;top:158px;width:480px;height:84px">
+      <span class="badge-n">Funnel 1</span>
+      <div class="n-title">AI Training &middot; $5,500 / mo</div>
+      <div class="n-meta">Lower ticket and transactional - the faster path to visible results</div>
+    </div>
+
+    <!-- F1 / Awareness -->
+    <div class="node white" style="left:60px;top:270px;width:480px;height:150px;background:var(--aware)">
+      <span class="kicker">Awareness</span>
+      <div class="n-title" style="margin-top:4px">Demand gen videos &middot; team</div>
+      <div class="chips"><span class="chip">LinkedIn &middot; TL Ads</span><span class="chip bud">$2,000</span></div>
+      <div class="msg"><div class="ml">Messaging</div><div class="mt">Video featuring Stacey and Sherian. Hook scripted with Chris.</div></div>
+    </div>
+
+    <!-- F1 / Intent -->
+    <div class="node white" style="left:60px;top:480px;width:480px;height:205px;background:var(--intent)">
+      <span class="kicker">Intent</span>
+      <div class="n-title" style="margin-top:4px">High-intent demand capture</div>
+      <div class="icards">
+        <div class="icard"><h6>LinkedIn Document Ads</h6><div class="chips"><span class="chip">LinkedIn</span><span class="chip bud">$1,000</span></div></div>
+        <div class="icard"><h6>Workshop high-intent search</h6><div class="chips"><span class="chip">Google Search</span><span class="chip bud">$1,000</span></div></div>
+      </div>
+      <div class="msg"><div class="ml">Messaging</div><div class="mt">Google search is keyword-matched to each course page.</div></div>
+    </div>
+
+    <!-- F1 / Remarketing -->
+    <div class="node white" style="left:60px;top:745px;width:480px;height:205px;background:var(--remarket)">
+      <span class="kicker">Remarketing</span>
+      <div class="n-title" style="margin-top:4px">Workshop static ads &middot; accreditation-led</div>
+      <div class="chips"><span class="chip">LinkedIn</span><span class="chip bud">$1,500</span></div>
+      <div class="msg"><div class="ml">Messaging &middot; by persona</div>
+        <span class="persona"><span class="pk">SM</span>Get Your Monday Mornings Back</span>
+        <span class="persona"><span class="pk">PO</span>Cut backlog grooming to minutes</span>
+        <span class="persona"><span class="pk">SH</span>Brief your stakeholders in half the time</span>
+        <span class="persona"><span class="pk">PM</span>Turn product data into board-ready decisions</span>
+      </div>
+    </div>
+
+    <!-- F1 OUTCOME -->
+    <div class="node term white" style="left:80px;top:1025px;width:440px;height:88px;background:var(--outcome)">
+      <div class="kicker">Outcome</div>
+      <div class="n-title">Workshop signups</div>
+      <div class="n-meta">Enrollments converted from the warm audience</div>
+    </div>
+
+    <!-- ===== FUNNEL 2 : BUSINESS TRANSFORMATION ===== -->
+    <div class="node white fhead" style="left:640px;top:158px;width:480px;height:84px">
+      <span class="badge-n">Funnel 2</span>
+      <div class="n-title">Business Transformation &middot; $3,500 / mo</div>
+      <div class="n-meta">High ticket and longer cycle - kept funded in parallel</div>
+    </div>
+
+    <!-- F2 / Awareness -->
+    <div class="node white" style="left:640px;top:270px;width:480px;height:152px;background:var(--aware)">
+      <span class="kicker">Awareness</span>
+      <div class="n-title" style="margin-top:4px">Thought Leader Ads &middot; CEO video</div>
+      <div class="chips"><span class="chip">LinkedIn &middot; TL Ads</span><span class="chip bud">$1,000</span></div>
+      <div class="msg"><div class="ml">Messaging</div><div class="mt">CEO thought-leadership video. Scripted with Chris.</div></div>
+    </div>
+
+    <!-- F2 / Lead magnet -->
+    <div class="node white" style="left:640px;top:456px;width:480px;height:165px;background:var(--lead)">
+      <span class="kicker">Lead magnet</span>
+      <div class="n-title" style="margin-top:4px">Playbook Document Ad &middot; A/B test</div>
+      <div class="chips"><span class="chip">LinkedIn</span><span class="chip bud">$1,000</span></div>
+      <div class="msg"><div class="ml">Messaging &middot; A/B test</div>
+        <span class="persona"><span class="pk">A</span>Count the AI pilots you never scaled <i>(pain)</i></span>
+        <span class="persona"><span class="pk">B</span>The A in AI Stands for Agile <i>(thesis)</i></span>
+      </div>
+    </div>
+
+    <!-- F2 / Intent -->
+    <div class="node white" style="left:640px;top:655px;width:480px;height:150px;background:var(--intent)">
+      <span class="kicker">Intent</span>
+      <div class="n-title" style="margin-top:4px">Business Performance search</div>
+      <div class="chips"><span class="chip">Google Search</span><span class="chip bud">$500</span></div>
+      <div class="msg"><div class="ml">Messaging</div><div class="mt">Transformation advisory / consulting terms.</div></div>
+    </div>
+
+    <!-- F2 / Remarketing -->
+    <div class="node white" style="left:640px;top:839px;width:480px;height:150px;background:var(--remarket)">
+      <span class="kicker">Remarketing</span>
+      <div class="n-title" style="margin-top:4px">Book a strategy session</div>
+      <div class="chips"><span class="chip">LinkedIn</span><span class="chip bud">$1,000</span></div>
+      <div class="msg"><div class="ml">Messaging</div><div class="mt">Retarget playbook downloaders and site visitors: Book a strategy session.</div></div>
+    </div>
+
+    <!-- F2 OUTCOME -->
+    <div class="node term white" style="left:660px;top:1025px;width:440px;height:88px;background:var(--outcome)">
+      <div class="kicker">Outcome</div>
+      <div class="n-title">Strategy sessions booked</div>
+      <div class="n-meta">Qualified pipeline converted from the warm audience</div>
+    </div>
+
+    <!-- ===== BRAND LAYER ===== -->
+    <div class="elabel" style="left:470px;top:1127px;width:240px">Branded search captures demand from both funnels</div>
+    <div class="node white" style="left:160px;top:1163px;width:860px;height:92px;background:var(--brand);display:flex;flex-direction:column;justify-content:center">
+      <div class="kicker" style="margin-bottom:5px">Capture demand &middot; Brand layer &middot; $1,000 / mo</div>
+      <div class="n-title">Branded Search &middot; Google Search</div>
+      <div class="n-meta">Always-on. Captures the high-intent Hyperdrive brand terms both funnels generate and routes that demand to the workshop and strategy-session pages.</div>
+    </div>
+
+  </div>
+
+  <!-- ============ LEGEND ============ -->
+  <div class="legend">
+    <div>
+      <div class="brandrow">
+        <svg class="mark" viewBox="0 0 24 24" fill="none"><circle cx="5" cy="6" r="3" fill="#16b3a4"/><circle cx="5" cy="18" r="3" fill="#3d8ad6"/><circle cx="19" cy="12" r="3" fill="#ef6a39"/><path d="M7.5 7.3 16.5 11M7.5 16.7 16.5 13" stroke="#aab4da" stroke-width="1.6"/></svg>
+        <div class="bn">Reading the chart</div>
+      </div>
+      <div class="leg-sub">Colors (funnel phase)</div>
+      <div class="swatches">
+        <div class="sw"><span class="dot" style="background:var(--aware)"></span><span class="lab"><b>Awareness</b> &middot; fills the audience pool</span></div>
+        <div class="sw"><span class="dot" style="background:var(--lead)"></span><span class="lab"><b>Lead magnet</b> &middot; captures contacts (Funnel 2)</span></div>
+        <div class="sw"><span class="dot" style="background:var(--intent)"></span><span class="lab"><b>Intent</b> &middot; catches active search demand</span></div>
+        <div class="sw"><span class="dot" style="background:var(--remarket)"></span><span class="lab"><b>Remarketing</b> &middot; converts the warm audience</span></div>
+        <div class="sw"><span class="dot" style="background:var(--outcome)"></span><span class="lab"><b>Outcome</b> &middot; signups and booked sessions</span></div>
+        <div class="sw"><span class="dot" style="background:var(--brand)"></span><span class="lab"><b>Brand layer</b> &middot; always-on demand capture</span></div>
+      </div>
+      <div class="leg-sub">Shapes</div>
+      <div class="swatches">
+        <div class="sw"><span class="shp pill"></span><span class="lab"><b>Terminator</b> &middot; budget start and funnel outcome (pill)</span></div>
+        <div class="sw"><span class="shp rect"></span><span class="lab"><b>Process</b> &middot; one campaign, with platform, spend and messaging</span></div>
+        <div class="sw"><span class="shp band" style="background:var(--brand)"></span><span class="lab"><b>Layer</b> &middot; always-on band across both funnels (dashed link)</span></div>
+      </div>
+    </div>
+    <div class="notes">
+      <p><b>How a funnel works, in plain terms.</b> Awareness creates demand and fills the audience pool (the demand-gen video). Intent catches people already searching (Google) and warm prospects (LinkedIn document ads). Remarketing converts the warm audience the first two build - site visitors, video viewers and playbook downloaders. Remarketing is the piece most missing today, and it is where accreditation proof does the heavy lifting.</p>
+      <p><b>Funnel 1 - AI Training ($5,500/mo).</b> Lower ticket and transactional, so it is the faster path to visible results. Now weighted toward the top: $2,000 of demand-gen video, a doubled intent layer ($1,000 LinkedIn document ads + $1,000 Google search), and $1,500 of accreditation-led remarketing.</p>
+      <p><b>Funnel 2 - Business Transformation ($3,500/mo).</b> High ticket with a longer cycle, kept funded in parallel and adds a lead-magnet step before intent. Trimmed this round: lead magnet to $1,000, Business Performance search to $500, and the strategy-session remarketing to $1,000.</p>
+      <p><b>Brand layer ($1,000/mo).</b> Branded Search on Google captures the high-intent demand both funnels generate, protecting it at the moment of search. Always-on, shown as the dashed band linking into both columns.</p>
+      <p><b>Phase 1 total: $10,000/mo</b> - $5,500 + $3,500 + $1,000.</p>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<script>
+  function fit(){
+    var sheet=document.querySelector('.sheet');
+    var scaler=document.querySelector('.scaler');
+    var avail=document.documentElement.clientWidth-40;
+    var scale=Math.min(1, avail/1180);
+    sheet.style.transform='scale('+scale+')';
+    scaler.style.height=(sheet.offsetHeight*scale)+'px';
+  }
+  window.addEventListener('resize',fit);
+  window.addEventListener('load',fit);
+  fit();
+</script>
+</body>
+</html>
