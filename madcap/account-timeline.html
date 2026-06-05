@@ -76,10 +76,13 @@
   .ribrail{position:absolute;top:22px;left:0;height:2px;background:var(--line)}
   .mk{position:absolute;top:8px;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;cursor:pointer;z-index:3}
   .mk .n{width:30px;height:30px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:13px;color:#fff;border:2.5px solid var(--surface);box-shadow:0 4px 10px -4px rgba(28,24,19,.5);transition:transform .2s}
-  .mk .d{font-size:10.5px;font-weight:800;color:var(--ink-2);margin-top:7px;white-space:nowrap}
-  .mk .ti{font-size:9.5px;font-weight:600;color:var(--ink-3);margin-top:1px;white-space:nowrap;max-width:120px;overflow:hidden;text-overflow:ellipsis}
-  .mk.on .n{transform:scale(1.28)}
-  .mk:not(.on){opacity:.62}
+  .mk .d{font-size:11.5px;font-weight:800;color:var(--ink);margin-top:9px;white-space:nowrap;display:none}
+  .mk .ti{display:none}
+  .mk.on .n{transform:scale(1.32)}
+  .mk.on .d{display:block}
+  .mk:not(.on){opacity:.5}
+  .mk:not(.on):hover{opacity:1}
+  .mk:not(.on):hover .d{display:block}
 
   .detail{margin:18px 0 0;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);padding:22px 26px;min-height:172px;position:relative;overflow:hidden;display:flex}
   .detail .accentbar{position:absolute;left:0;top:0;bottom:0;width:6px}
@@ -275,7 +278,7 @@ const LABELS=CLICKS.map((_,i)=>lbl(i));
 const CRASH=36, N=CLICKS.length;
 
 /* ===== CHART (wide: one bar per day) ===== */
-const dayW=36, chartW=N*dayW;
+const dayW=46, chartW=N*dayW;
 const chartlane=document.getElementById('chartlane'), ribbon=document.getElementById('ribbon'), inner=document.getElementById('inner');
 chartlane.style.width=chartW+'px'; ribbon.style.width=chartW+'px';
 document.getElementById('ribrail').style.width=chartW+'px';
