@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MadCap — Account Timeline · April–May 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,500&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+  :root{
+    --ink:#1c1813; --ink-2:#615849; --ink-3:#978c7c; --ink-4:#bcb3a4;
+    --paper:#f2ece1; --surface:#fffdf9; --surface-2:#f8f3ea;
+    --line:#e4dccd; --line-2:#d7cdba;
+    --brand:#e76f3c; --brand-light:#f2b34b; --brand-ink:#b1521f;
+    --red:#d6342a; --redbg:#f7e2dd;
+    --tan:#cdc4b4; --black:#1a1714;
+    --launch:#e76f3c; --crit:#d6342a; --change:#bd720c; --ext:#5560d8; --plan:#5d6675; --read:#978c7c; --good:#1f8f57;
+    --r:16px; --r-sm:11px;
+    --shadow:0 1px 2px rgba(28,24,19,.04), 0 8px 26px -14px rgba(28,24,19,.18);
+    --shadow-lg:0 2px 6px rgba(28,24,19,.05), 0 24px 60px -26px rgba(28,24,19,.32);
+    --maxw:1180px; --font:'Archivo',system-ui,sans-serif;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;color:var(--ink);font-family:var(--font);font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased;background:var(--paper);
+    background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);
+    background-size:34px 34px;background-position:-1px -1px;background-attachment:fixed}
+  body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+    background:radial-gradient(1100px 520px at 88% -8%,rgba(231,111,60,.10),transparent 60%),radial-gradient(900px 460px at -5% 4%,rgba(85,96,216,.06),transparent 55%)}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 30px;position:relative;z-index:1}
+  ::selection{background:var(--brand-light);color:var(--ink)}
+
+  #prog{position:fixed;top:0;left:0;height:3px;width:0;z-index:60;background:linear-gradient(90deg,var(--brand-light),var(--brand),var(--red))}
+  .topbar{position:sticky;top:0;z-index:50;border-bottom:1px solid var(--line);background:rgba(242,236,225,.78);backdrop-filter:blur(10px)}
+  .topbar .in{max-width:var(--maxw);margin:0 auto;padding:12px 30px;display:flex;align-items:center;gap:14px}
+  .wm{font-weight:700;letter-spacing:.24em;font-size:12.5px;color:var(--ink-2);text-transform:uppercase}
+  .dot{width:7px;height:7px;border-radius:50%;background:var(--brand);flex:none}
+  .div{width:1px;height:18px;background:var(--line-2)}
+  .client{font-weight:700;font-size:13px;color:var(--ink)}
+  .fresh{margin-left:auto;display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:700;color:var(--good);background:#e6f3ea;border:1px solid #cfe6d8;padding:5px 11px;border-radius:999px}
+  .fresh .pip{width:7px;height:7px;border-radius:50%;background:var(--good)}
+
+  .eyebrow{font-size:11.5px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-3);display:inline-flex;align-items:center;gap:9px}
+  .eyebrow .d{width:7px;height:7px;border-radius:50%;background:var(--brand)}
+
+  /* nav + legend bar above chart */
+  .legendbar{display:flex;align-items:center;justify-content:space-between;gap:16px;margin:0 24px 10px;flex-wrap:wrap}
+  .legend{display:flex;flex-wrap:wrap;gap:18px;align-items:center;font-size:12.5px;color:var(--ink-2);font-weight:600}
+  .legend .k{display:inline-flex;align-items:center;gap:8px}
+  .legend .sw{width:16px;height:11px;border-radius:3px}
+  .legend .sw.clk{background:var(--tan)} .legend .sw.clk2{background:var(--red)}
+  .legend .ln{width:22px;height:0;border-top:3px solid var(--black);border-radius:3px}
+  .legend .ln.mql{border-top:3px dashed #3b49d9}
+  .tlnav{display:flex;align-items:center;gap:10px}
+  .tlnav .count{font-size:12.5px;font-weight:800;color:var(--ink-3);letter-spacing:.04em}
+  .navbtn{width:40px;height:40px;border-radius:50%;border:1px solid var(--line-2);background:var(--surface);color:var(--ink);font-size:17px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.16s;box-shadow:var(--shadow)}
+  .navbtn:hover{border-color:var(--ink-3);transform:translateY(-1px)} .navbtn:active{transform:translateY(0)}
+  .navbtn:disabled{opacity:.35;cursor:default;transform:none;box-shadow:none}
+
+  .stagewrap{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow-lg);padding:18px 0 10px;position:relative;overflow:hidden;margin-top:34px}
+  .scrub{position:relative}
+  .playhead{position:absolute;top:6px;bottom:14px;left:24%;width:0;border-left:2px dashed rgba(28,24,19,.32);z-index:6;pointer-events:none;transform:translateX(-50%)}
+  .playhead::before{content:"NOW VIEWING";position:absolute;top:-2px;left:50%;transform:translateX(-50%);font-size:9px;font-weight:800;letter-spacing:.12em;color:var(--ink-3);background:var(--surface);padding:2px 7px;border-radius:999px;border:1px solid var(--line)}
+  .edge{position:absolute;top:0;bottom:0;width:60px;z-index:5;pointer-events:none}
+  .edge.l{left:0;background:linear-gradient(90deg,var(--surface),transparent)}
+  .edge.r{right:0;background:linear-gradient(270deg,var(--surface),transparent)}
+  .stage{overflow-x:auto;overflow-y:hidden;scrollbar-width:thin;scrollbar-color:var(--line-2) transparent;padding-bottom:6px}
+  .stage::-webkit-scrollbar{height:9px}
+  .stage::-webkit-scrollbar-thumb{background:var(--line-2);border-radius:999px}
+  .inner{position:relative}
+  .chartlane{position:relative;height:316px}
+  .band{position:absolute;top:8px;height:268px;background:rgba(231,111,60,.10);border-left:1px solid rgba(231,111,60,.4);border-right:1px solid rgba(231,111,60,.4);transform:translateX(-50%);transition:left .26s cubic-bezier(.3,.8,.3,1),opacity .2s;z-index:1;pointer-events:none;border-radius:3px}
+  .ribbon{position:relative;height:118px;margin-top:2px}
+  .ribrail{position:absolute;top:22px;left:0;height:2px;background:var(--line)}
+  .mk{position:absolute;top:8px;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;cursor:pointer;z-index:3}
+  .mk .n{width:30px;height:30px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:13px;color:#fff;border:2.5px solid var(--surface);box-shadow:0 4px 10px -4px rgba(28,24,19,.5);transition:transform .2s}
+  .mk .d{font-size:10.5px;font-weight:800;color:var(--ink-2);margin-top:7px;white-space:nowrap}
+  .mk .ti{font-size:9.5px;font-weight:600;color:var(--ink-3);margin-top:1px;white-space:nowrap;max-width:120px;overflow:hidden;text-overflow:ellipsis}
+  .mk.on .n{transform:scale(1.28)}
+  .mk:not(.on){opacity:.62}
+
+  .detail{margin:18px 0 0;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);padding:22px 26px;min-height:172px;position:relative;overflow:hidden;display:flex}
+  .detail .accentbar{position:absolute;left:0;top:0;bottom:0;width:6px}
+  .dcard{opacity:0;transform:translateY(12px);transition:opacity .3s,transform .3s;width:100%;display:flex;flex-direction:column;justify-content:center}
+  .dcard.in{opacity:1;transform:none}
+  .dhead{display:flex;align-items:center;gap:14px}
+  .dnum{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:17px;color:#fff;flex:none}
+  .dtype{font-size:10.5px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+  .dwhen{font-size:12px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3)}
+  .detail h3{margin:3px 0 0;font-size:22px;font-weight:900;letter-spacing:-.02em;line-height:1.15}
+  .detail p{margin:11px 0 0;font-size:14.3px;color:var(--ink-2);line-height:1.58;max-width:90ch}
+  .chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:14px}
+  .chips b{font-size:11.5px;font-weight:700;background:var(--surface-2);border:1px solid var(--line);border-radius:8px;padding:4px 9px;color:var(--ink)}
+  .chips b.bad{background:var(--redbg);border-color:#eccabf;color:var(--red)}
+  .chips b.good{background:#e6f3ea;border-color:#cfe6d8;color:var(--good)}
+  .flag{margin-top:13px;font-size:12px;font-weight:700;color:var(--brand-ink);background:#fbeede;border:1px solid #f2d9bd;border-radius:9px;padding:9px 12px;line-height:1.45}
+  .hint{margin:12px 2px 0;font-size:12px;color:var(--ink-3);font-weight:600;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .hint .k{font-family:var(--font);font-weight:800;border:1px solid var(--line-2);border-radius:6px;padding:1px 7px;background:var(--surface);font-size:11px}
+
+  .mqlnote{margin:14px 0 0;font-size:13px;color:var(--brand-ink);background:#fbeede;border:1px solid #f2d9bd;border-radius:var(--r-sm);padding:12px 15px;line-height:1.5}
+  .mqlnote b{color:var(--ink)} .mqlnote code{background:#fff;border:1px solid var(--line-2);border-radius:5px;padding:1px 6px;font-size:12px}
+
+  .shead{margin:60px 0 18px}
+  .shead h2{font-size:clamp(24px,3vw,34px);font-weight:900;letter-spacing:-.025em;margin:10px 0 0;line-height:1.05}
+  .shead .s{font-size:14px;color:var(--ink-2);margin:9px 0 0;max-width:72ch}
+
+  .ctab{width:100%;border-collapse:collapse;font-size:13.5px}
+  .ctab th{background:var(--surface-2);text-align:left;padding:11px 18px;font-size:11px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-3);border-bottom:1px solid var(--line)}
+  .ctab th.r,.ctab td.r{text-align:right}
+  .ctab td{padding:10px 18px;border-bottom:1px solid var(--line);font-weight:600}
+  .ctab tr:last-child td{border-bottom:none}
+  .ctab tr.tot td{background:var(--black);color:#fff;font-weight:800}
+  .ctab tbody tr:not(.tot):hover td{background:#fbf7ef}
+  .upcoming{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin:18px 0 0}
+  .up{background:var(--surface-2);border:1px dashed var(--line-2);border-radius:var(--r-sm);padding:16px 18px}
+  .up .tag{font-size:10.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--plan)}
+  .up h4{margin:6px 0 0;font-size:16px;font-weight:900;letter-spacing:-.01em}
+  .up p{margin:8px 0 0;font-size:13px;color:var(--ink-2)}
+
+  .summary{background:var(--black);color:#f3ede2;border-radius:var(--r);padding:26px 30px;margin:46px 0 0;box-shadow:var(--shadow-lg)}
+  .reveal{opacity:0;transform:translateY(26px);transition:opacity .6s cubic-bezier(.2,.7,.2,1),transform .6s cubic-bezier(.2,.7,.2,1)}
+  .reveal.in{opacity:1;transform:none}
+  .summary .tag{display:inline-block;font-size:11px;font-weight:800;letter-spacing:.18em;color:var(--brand);text-transform:uppercase;margin-bottom:10px}
+  .summary h3{margin:0 0 6px;font-size:22px;font-weight:900;letter-spacing:-.02em;color:#fff}
+  .summary p{margin:8px 0 0;font-size:14.5px;color:#d9d2c6;line-height:1.55;max-width:84ch}
+  .summary p b{color:#fff}
+  .summary code{background:rgba(255,255,255,.12);border-radius:5px;padding:1px 6px;font-size:13px;color:#ffd9bf}
+
+  /* CONTEXT block (moved to the end) */
+  .context{margin:60px 0 0;padding-top:30px;border-top:1px solid var(--line)}
+  .context h1{font-size:clamp(30px,4.4vw,48px);font-weight:900;letter-spacing:-.03em;line-height:1.04;margin:14px 0 0;max-width:18ch}
+  .context h1 .accent{color:var(--brand)}
+  .context .lede{margin:18px 0 0;font-size:16.5px;line-height:1.5;color:var(--ink-2);max-width:70ch}
+  .context .lede b{color:var(--ink)}
+  .meta{display:flex;flex-wrap:wrap;gap:9px 16px;margin-top:20px;font-size:13px;color:var(--ink-2);font-weight:600;align-items:center}
+  .meta .sep{width:4px;height:4px;border-radius:50%;background:var(--ink-4)}
+  .kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin:26px 0 0}
+  .kpi{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px 18px 16px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+  .kpi::before{content:"";position:absolute;inset:0 0 auto 0;height:4px;background:linear-gradient(90deg,var(--brand-light),var(--brand))}
+  .kpi .l{font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3)}
+  .kpi .v{font-size:30px;font-weight:900;letter-spacing:-.03em;margin:10px 0 0;line-height:1}
+  .kpi .v small{font-size:13px;font-weight:700;color:var(--ink-3);letter-spacing:0;display:block;margin-top:5px}
+  .kpi .d{font-size:12px;font-weight:800;margin-top:8px;color:var(--ink-3)}
+
+  .src{font-size:11.5px;color:var(--ink-3);margin:22px 0 0;line-height:1.65}
+  footer{margin:40px 0 30px;padding-top:16px;border-top:1px solid var(--line);display:flex;justify-content:space-between;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);font-weight:700}
+  @media(max-width:880px){.kpis{grid-template-columns:repeat(2,1fr)}.wrap{padding:0 16px}.upcoming{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div id="prog"></div>
+
+<div class="topbar"><div class="in">
+  <span class="dot"></span><span class="wm">MadCap · Paid Media Review</span>
+  <span class="div"></span><span class="client">Account Timeline · Apr–May 2026</span>
+  <span class="fresh"><span class="pip"></span>Pulled Jun 4, 2026 · live</span>
+</div></div>
+
+<div class="wrap">
+
+  <!-- CHART FIRST (nothing above it) -->
+  <div class="stagewrap">
+    <div class="legendbar">
+      <div class="legend">
+        <span class="k"><span class="sw clk"></span> Clicks — April</span>
+        <span class="k"><span class="sw clk2"></span> Clicks — May onward</span>
+        <span class="k"><span class="ln"></span> Conversions / day</span>
+        <span class="k"><span class="ln mql"></span> Paid MQLs / day (HubSpot)</span>
+      </div>
+      <div class="tlnav">
+        <span class="count" id="tcount">01 / 21</span>
+        <button class="navbtn" id="prev" aria-label="Previous">‹</button>
+        <button class="navbtn" id="next" aria-label="Next">›</button>
+      </div>
+    </div>
+    <div class="scrub">
+      <div class="playhead"></div>
+      <div class="edge l"></div><div class="edge r"></div>
+      <div class="stage" id="stage">
+        <div class="inner" id="inner">
+          <div class="chartlane" id="chartlane"><div class="band" id="band"></div><canvas id="chart"></canvas></div>
+          <div class="ribbon" id="ribbon"><div class="ribrail" id="ribrail"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="hint"><span class="k">←</span><span class="k">→</span> arrow keys · the ‹ › buttons · scroll left-to-right from Apr 1 to Jun 4 · or click a marker — the chart slides and the note below follows.</div>
+
+  <div class="detail" id="detail"><span class="accentbar" id="accentbar"></span><div class="dcard" id="dcard"></div></div>
+
+  <div class="mqlnote" id="mqlnote" style="display:none"></div>
+
+  <section class="shead">
+    <span class="eyebrow"><span class="d"></span>HubSpot · Paid Search</span>
+    <h2>MQLs &amp; SALs by campaign</h2>
+    <p class="s">Paid-search MQLs and Sales Accepted Leads from MadCap's HubSpot, by campaign (the campaign sits in Lead Source Drill-Down 1, bucketed by the date each contact entered the stage). May: 150 MQLs → 109 SALs (73%). Cross-month timing can make a stage's monthly count differ slightly from the prior stage.</p>
+  </section>
+  <div class="card" style="padding:0;overflow:hidden">
+    <table class="ctab">
+      <thead><tr><th>Campaign</th><th class="r">MQL · Apr</th><th class="r">MQL · May</th><th class="r">SAL · May</th></tr></thead>
+      <tbody>
+        <tr><td>GS_NB_AI</td><td class="r">115</td><td class="r">79</td><td class="r">59</td></tr>
+        <tr><td>Content-Development</td><td class="r">32</td><td class="r">38</td><td class="r">24</td></tr>
+        <tr><td>Brand</td><td class="r">21</td><td class="r">12</td><td class="r">8</td></tr>
+        <tr><td>LCMS-TechDocs US</td><td class="r">7</td><td class="r">6</td><td class="r">4</td></tr>
+        <tr><td>Consolidated US</td><td class="r">3</td><td class="r">5</td><td class="r">4</td></tr>
+        <tr><td>LCMS-TechDocs EU</td><td class="r">5</td><td class="r">3</td><td class="r">3</td></tr>
+        <tr><td>Flare US</td><td class="r">0</td><td class="r">2</td><td class="r">2</td></tr>
+        <tr><td>AI Tools</td><td class="r">4</td><td class="r">2</td><td class="r">2</td></tr>
+        <tr><td>Syndicate US</td><td class="r">4</td><td class="r">1</td><td class="r">0</td></tr>
+        <tr><td>Create US</td><td class="r">7</td><td class="r">1</td><td class="r">2</td></tr>
+        <tr><td>Auto-tagged PPC</td><td class="r">0</td><td class="r">1</td><td class="r">1</td></tr>
+        <tr><td>PMAX Syndicate</td><td class="r">4</td><td class="r">0</td><td class="r">0</td></tr>
+        <tr><td>Consolidated EU</td><td class="r">1</td><td class="r">0</td><td class="r">0</td></tr>
+        <tr><td>NB US/CA (legacy)</td><td class="r">1</td><td class="r">0</td><td class="r">0</td></tr>
+        <tr class="tot"><td>TOTAL — Paid Search</td><td class="r">204</td><td class="r">150</td><td class="r">109</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <section class="shead"><span class="eyebrow"><span class="d"></span>Scheduled · June</span><h2>Two planned pauses</h2></section>
+  <div class="upcoming">
+    <div class="up reveal"><span class="tag">● Scheduled · Jun 15</span><h4>Pause — GS_NB_AI</h4><p>GS_NB_AI is scheduled to pause; its budget reallocates to Flare + Syndicate. GS_NB_AI recorded 178 conversions in May.</p></div>
+    <div class="up reveal"><span class="tag">● Scheduled · Jun 22</span><h4>Pause — Content-Development</h4><p>Content-Development is scheduled to pause, staggered one week after GS_NB_AI. It recorded 81 conversions in May.</p></div>
+  </div>
+
+  <div class="summary reveal">
+    <span class="tag">● Summary</span>
+    <h3>Impressions up, clicks down</h3>
+    <p>Through May 6 the account tracked with April. From May 7, clicks and conversions stepped down while spend continued. From May 14, Brand impressions rose while Brand clicks fell and Brand CPC increased — an impressions-up / clicks-down (auction-position) pattern. The final week of May was a deliberate budget reduction, which accounts for part of the month-end low.</p>
+    <p style="margin-top:14px">Exact account configuration changes and their dates are available in the Google Ads Change History: account <code>6333716782</code> → Changes → May 1 to date.</p>
+  </div>
+
+  <!-- CONTEXT moved to the end -->
+  <section class="context reveal">
+    <span class="eyebrow"><span class="d"></span>April–May 2026 · Google Ads · Account 6333716782</span>
+    <h1>Account timeline, <span class="accent">day by day</span>.</h1>
+    <p class="lede">A factual day-by-day record from April 1 to June 4. The chart and the event markers move together on one date axis. Metrics tracked with April through May 6; from May 7, clicks and conversions stepped down while impressions held.</p>
+    <div class="meta">
+      <span>Daily granularity · 65 days</span><span class="sep"></span>
+      <span>21 dated events on chart</span><span class="sep"></span>
+      <span>Conversions = Google Ads conversion actions</span><span class="sep"></span>
+      <span>Config-change dates: see Change History</span>
+    </div>
+    <div class="kpis">
+      <div class="kpi"><div class="l">Spend · May</div><div class="v">$68.5k<small>April $76.5k</small></div><div class="d">−10% MoM</div></div>
+      <div class="kpi"><div class="l">Clicks · May</div><div class="v">4,957<small>April 7,189</small></div><div class="d">−31% MoM</div></div>
+      <div class="kpi"><div class="l">Conversions · May</div><div class="v">323<small>April ~509</small></div><div class="d">−36% MoM</div></div>
+      <div class="kpi"><div class="l">CPA · May</div><div class="v">$212<small>April $150</small></div><div class="d">+41% MoM</div></div>
+      <div class="kpi"><div class="l">Brand CPC · May</div><div class="v">$24.35<small>April $11.40</small></div><div class="d">+114% MoM</div></div>
+    </div>
+  </section>
+
+  <p class="src">Sources: <code style="background:#fff;border:1px solid var(--line-2);border-radius:4px;padding:1px 5px">googleads_query</code> daily customer + Brand campaign (23198678590), account 6333716782, pulled 4/Jun/2026. Brand auction metrics (share lost to rank, top-of-page) from the 6/3 brand slide. MQL line = Paid Advertising MQLs from MadCap's HubSpot, bucketed by "Date entered Marketing Qualified Lead" (203 in April, 150 in May; campaign held in Lead Source Drill-Down 1).</p>
+  <footer><span>MadCap · Paid Media Review</span><span>Daily data · pulled Jun 4, 2026</span></footer>
+</div>
+
+<script>
+/* ===== DATA (Apr 1 → Jun 4, 2026 · 65 days) ===== */
+const CLICKS=[251,236,206,202,147,263,246,294,316,223,207,199,265,245,232,250,233,199,303,311,246,219,184,224,235,216,273,275,252,237,
+202,188,185,314,346,181,71,130,176,172,210,212,211,198,139,115,118,192,217,171,150,152,117,145,149,121,77,63,89,69,77,
+121,199,167,140];
+const CONV=[24,18,17,10,10,23,7,19,11,18,9,18,10,18,16,18,14,16,15,12,29,18,17,24,16,26,21,22,18,16,
+11,15,24,10,40,19,0,4,11,9,16,14,9,12,0,2,6,8,12,17,8,10,12,8,7,3,4,6,10,7,10,
+8,5,7,8];
+/* ===== MQL PER DAY — Paid-Search MQLs from MadCap HubSpot ("Date entered MQL"), Apr 1 → Jun 4 (204 Apr / 150 May / 15 Jun). ===== */
+const MQL=[2,2,0,0,1,3,26,10,5,10,1,1,1,16,8,9,6,7,5,5,15,9,5,10,9,7,8,10,7,6,6,5,11,2,15,8,0,2,5,4,5,8,2,5,1,1,4,5,5,7,4,8,6,4,7,2,2,3,4,4,5,4,2,3,6];
+
+const START=new Date(2026,3,1);
+const MN=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+function lbl(i){const d=new Date(START);d.setDate(d.getDate()+i);return MN[d.getMonth()]+" "+d.getDate();}
+const LABELS=CLICKS.map((_,i)=>lbl(i));
+const CRASH=36, N=CLICKS.length;
+
+/* ===== CHART (wide: one bar per day) ===== */
+const dayW=36, chartW=N*dayW;
+const chartlane=document.getElementById('chartlane'), ribbon=document.getElementById('ribbon'), inner=document.getElementById('inner');
+chartlane.style.width=chartW+'px'; ribbon.style.width=chartW+'px';
+document.getElementById('ribrail').style.width=chartW+'px';
+
+const C={ink:'#1c1813',ink3:'#978c7c',tan:'#cdc4b4',red:'#d6342a',black:'#1a1714',brand:'#e76f3c',line:'#e4dccd'};
+const barColors=CLICKS.map((_,i)=> i>=CRASH ? C.red : C.tan);
+const hasMQL=MQL.some(v=>v!=null);
+document.getElementById('mqlnote').style.display = hasMQL ? 'none' : 'block';
+
+const chart=new Chart(document.getElementById('chart'),{
+  data:{labels:LABELS,datasets:[
+    {type:'bar',label:'Clicks',data:CLICKS,yAxisID:'y',backgroundColor:barColors,borderRadius:3,borderSkipped:false,categoryPercentage:.78,barPercentage:.9,order:3},
+    {type:'line',label:'Conversions',data:CONV,yAxisID:'y1',borderColor:C.black,backgroundColor:C.black,borderWidth:2.4,tension:.32,pointRadius:0,pointHoverRadius:5,order:1},
+    {type:'line',label:'MQLs',data:MQL,yAxisID:'y1',borderColor:'#3b49d9',backgroundColor:'#3b49d9',borderWidth:3,borderDash:[5,3],tension:.32,pointRadius:0,pointHoverRadius:5,spanGaps:true,order:0}
+  ]},
+  options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},layout:{padding:{top:6}},
+    scales:{
+      x:{grid:{display:false},border:{color:C.line},ticks:{color:C.ink3,font:{family:'Archivo',size:11},autoSkip:false,maxRotation:0,callback:(v,i)=> i%2===0?LABELS[i].split(' ')[1]:'' }},
+      y:{position:'left',beginAtZero:true,suggestedMax:360,grid:{color:'rgba(28,24,19,.06)'},border:{display:false},ticks:{color:C.ink3,font:{family:'Archivo',size:11}}},
+      y1:{position:'right',beginAtZero:true,suggestedMax:48,grid:{display:false},border:{display:false},ticks:{color:C.ink3,font:{family:'Archivo',size:11}}}
+    },
+    plugins:{legend:{display:false},
+      tooltip:{backgroundColor:'#1c1813',padding:11,cornerRadius:9,titleFont:{family:'Archivo',weight:'800',size:12.5},bodyFont:{family:'Archivo',size:12.5},
+        callbacks:{title:(it)=>LABELS[it[0].dataIndex]+', 2026',label:(it)=>{const v=it.raw;if(v==null)return null;return '  '+it.dataset.label+': '+v;}}}}
+  }
+});
+
+/* ===== EVENTS — factual notes only (di = chart day index) ===== */
+const T={launch:'#e76f3c',crit:'#d6342a',change:'#bd720c',ext:'#5560d8',plan:'#5d6675',read:'#978c7c'};
+const TL={launch:'Launch',crit:'Notable change',change:'Change',ext:'Cross-channel',plan:'Planned',read:'Reading'};
+const EVENTS=[
+ {n:1,di:2,when:'Apr 1–6',type:'read',t:'April baseline',
+  b:'April ran steady. Daily clicks averaged about 240, with 15–24 conversions per day and CPA near $150. Brand CPC was about $11.40. These April figures are the reference for the month-over-month comparisons in this report.',c:['~240 clicks/day','CPA ~$150','Brand CPC ~$11']},
+ {n:2,di:8,when:'Apr 8–9',type:'read',t:'Two high-volume days',
+  b:'Back-to-back high-volume days: 294 then 316 clicks, with conversions tracking alongside spend.',c:['294 & 316 clicks','19 conv (Apr 8)']},
+ {n:3,di:14,when:'Apr 15',type:'launch',t:'IXIA Competitors launches',
+  b:'New competitor campaign launched at $200/day on Heretto, RWS Tridion, Vasont and Bluestream terms. April: $1,039 spend, 0 conversions during its initial learning period.',c:['$200/day','Apr $1,039','0 conv']},
+ {n:4,di:20,when:'Apr 21',type:'read',t:'Highest conversion day in April',
+  b:'29 conversions on 246 clicks — the highest single-day conversion count in April.',c:['29 conversions','246 clicks'],g:[true,false]},
+ {n:5,di:29,when:'Apr 30',type:'read',t:'April close',
+  b:'April totals: $76,527 spend, 7,189 clicks, about 509 conversions, CPA about $150.',c:['$76,527','7,189 clicks','~509 conv','CPA $150']},
+ {n:6,di:31,when:'May 1–3',type:'read',t:'May opens',
+  b:'First days of May: 185–202 clicks/day. May 3 recorded 24 conversions.',c:['185–202 clicks','May 3: 24 conv']},
+ {n:7,di:34,when:'May 4–5',type:'read',t:'Highest-spend and peak-click days',
+  b:'May 4 was the highest-spend day of the window at $4,441 (314 clicks). May 5 recorded the period\'s highest daily clicks (346) and about 40 conversions.',c:['May 4: $4,441','May 5: 346 clicks','~40 conv']},
+ {n:8,di:35,when:'May 6',type:'read',t:'May 6',
+  b:'181 clicks, 19 conversions, Brand CPC about $11.',c:['181 clicks','19 conv','Brand CPC ~$11']},
+ {n:9,di:36,when:'May 7',type:'crit',t:'Clicks and conversions step down',
+  b:'Account clicks moved from about 250 to 71, with 0 conversions; spend was $1,369. Brand recorded 6 clicks. See Change History for the account changes logged around this window.',c:['71 clicks','0 conversions','Brand 6 clicks','$1,369'],bad:[true,true,false,false],
+  },
+ {n:10,di:37,when:'May 8',type:'change',t:'Negative-keyword list applied',
+  b:'The negative-keyword list was implemented on May 8. Daily metrics that day: 130 clicks and 4 conversions. Per the 6/3 call, the Google rep noted some high-traffic terms were among the negatives.',c:['Negative-keyword list','130 clicks','4 conv'],bad:[false,false,false],
+  },
+ {n:11,di:39,when:'May 9–10',type:'crit',t:'Brand: zero clicks May 9–10',
+  b:'Brand recorded 0 clicks on both days (7–11 impressions). The rest of the account ran at about 175 clicks/day.',c:['Brand 0 clicks ×2 days','Account ~175/day']},
+ {n:12,di:41,when:'May 11–13',type:'read',t:'May 11–13',
+  b:'Account clicks about 210/day; conversions 9–16/day; Brand under 10 clicks/day.',c:['Account ~210/day','Conv 9–16','Brand <10/day']},
+ {n:13,di:43,when:'May 14+',type:'crit',t:'Brand impressions rise, clicks fall',
+  b:'From May 14, Brand impressions rose to 303–745/day while Brand clicks were 2–15/day, and Brand CPC rose over the same period. Impressions up with clicks down is an auction-position pattern.',c:['Impr up to 745/day','Clicks 2–15/day','~0 Brand conv'],
+  flag:'⚑ This matches the auction metrics on the 6/3 slide: share lost to rank 12% → 49%, top-of-page 42% → 22%.'},
+ {n:14,di:44,when:'May 15',type:'change',t:'Second zero-conversion day',
+  b:'0 conversions on 139 clicks, $2,625 spend — the second zero-conversion day in the month after May 7.',c:['0 conversions','139 clicks','$2,625'],bad:[true,false,false]},
+ {n:15,di:46,when:'May 16–17',type:'read',t:'May 16–17',
+  b:'Daily clicks of 115 and 118 — about half of April\'s daily rate.',c:['115–118 clicks/day']},
+ {n:16,di:47,when:'May 18–19',type:'change',t:'High-spend days',
+  b:'Spend of $3,237 then $3,971 for about 200 clicks each; account CPC near $18 vs April\'s $10.64. Brand days in this window ran $40–$140 per click.',c:['$3,971 (May 19)','~200 clicks','CPC ~$18']},
+ {n:17,di:50,when:'May 20–22',type:'crit',t:'Brand CPC up to $141',
+  b:'May 20: 5 Brand clicks for $706 ($141 CPC). May 22: 8 Brand clicks for $700 against 298 impressions.',c:['$141 CPC (May 20)','5 clicks / $706','298 impr → 8 clicks']},
+ {n:18,di:54,when:'May 23–26',type:'read',t:'May 23–26',
+  b:'Daily clicks of 117–149; conversions of 3–12 per day.',c:['117–149 clicks/day','Conv 3–12']},
+ {n:19,di:58,when:'May 27–31',type:'change',t:'Budgets reduced in the final week',
+  b:'Daily spend was reduced from about $2,500 to $500–$790, and clicks were 63–89/day. The reduction was a deliberate budget pullback.',c:['~$600/day (was ~$2,500)','~75 clicks/day','Deliberate pullback']},
+ {n:20,di:60,when:'May 31',type:'read',t:'May vs April',
+  b:'May totals: $68,545 spend, 4,957 clicks, 323 conversions, CPA $212. Month-over-month: spend −10%, clicks −31%, conversions −36%, CPA +41%. Changes concentrated in Brand and Syndicate; Content-Development and GS_NB_AI held.',c:['$68,545','4,957 clicks','323 conv','CPA $212']},
+ {n:21,di:62,when:'Jun 1–4',type:'read',t:'Early June',
+  b:'Daily spend about $1,800–$2,900; conversions 5–8/day; weekly CPA about $363. Brand: high impressions, single-digit clicks, 0 conversions.',c:['~$2,500/day','5–8 conv/day','Brand 0 conv']}
+];
+
+/* ===== build ribbon markers ===== */
+const ribFrag=document.createDocumentFragment();
+EVENTS.forEach((e,idx)=>{
+  const col=T[e.type];
+  const mk=document.createElement('div');
+  mk.className='mk'; mk.dataset.idx=idx;
+  mk.innerHTML='<div class="n" style="background:'+col+'">'+e.n+'</div><div class="d">'+e.when+'</div><div class="ti">'+e.t+'</div>';
+  mk.addEventListener('click',()=>goTo(idx));
+  ribFrag.appendChild(mk);
+});
+ribbon.appendChild(ribFrag);
+const MKS=[...ribbon.querySelectorAll('.mk')];
+
+/* ===== positioning — half-viewport pad on both ends so scroll runs Apr 1 → Jun 4 end-to-end ===== */
+const stage=document.getElementById('stage'), band=document.getElementById('band');
+let EVX=[];
+function place(){
+  if(!chart.scales||!chart.scales.x)return;
+  const sx=chart.scales.x;
+  const cw=stage.clientWidth, padL=Math.round(cw*0.24), padR=cw-padL; // playhead sits at 24% → smaller left lead-in, still reaches first & last day
+  inner.style.width=(chartW+cw)+'px'; // explicit width so scrollWidth includes the right pad (reaches the last event)
+  inner.style.paddingLeft=padL+'px';
+  inner.style.paddingRight=padR+'px';
+  EVX=EVENTS.map(e=>sx.getPixelForValue(e.di));     // coords inside chartlane / ribbon
+  MKS.forEach((mk,i)=>mk.style.left=EVX[i]+'px');
+  band.style.width=Math.max(14,(sx.getPixelForValue(1)-sx.getPixelForValue(0)))+'px';
+  onScroll();
+}
+
+/* ===== active tracking ===== */
+const detail=document.getElementById('detail'), dcard=document.getElementById('dcard'), accentbar=document.getElementById('accentbar');
+let active=-1;
+function render(idx){
+  const e=EVENTS[idx], col=T[e.type];
+  let chips=e.c.map((ch,j)=>{let cls='';if(e.bad&&e.bad[j])cls='bad';if(e.g&&e.g[j])cls='good';return '<b class="'+cls+'">'+ch+'</b>';}).join('');
+  accentbar.style.background=col;
+  dcard.classList.remove('in');
+  dcard.innerHTML=
+    '<div class="dhead"><div class="dnum" style="background:'+col+'">'+e.n+'</div>'+
+    '<div><div class="dtype" style="color:'+col+'">'+TL[e.type]+'</div><div class="dwhen">'+e.when+'</div></div></div>'+
+    '<h3>'+e.t+'</h3><p>'+e.b+'</p>'+
+    '<div class="chips">'+chips+'</div>'+'';
+  requestAnimationFrame(()=>dcard.classList.add('in'));
+}
+function setActive(idx){
+  if(idx===active)return; active=idx;
+  MKS.forEach((mk,i)=>mk.classList.toggle('on',i===idx));
+  band.style.left=EVX[idx]+'px';
+  document.getElementById('tcount').textContent=String(idx+1).padStart(2,'0')+' / 21';
+  render(idx);
+}
+function onScroll(){
+  /* playhead is at viewport centre; with the half-viewport pad, the active event is the one whose EVX is nearest scrollLeft */
+  const target=stage.scrollLeft;
+  let cur=0,best=1e9;
+  EVX.forEach((x,i)=>{const d=Math.abs(x-target);if(d<best){best=d;cur=i;}});
+  setActive(cur);
+  const max=stage.scrollWidth-stage.clientWidth;
+  document.getElementById('prev').disabled=stage.scrollLeft<=2;
+  document.getElementById('next').disabled=stage.scrollLeft>=max-2;
+}
+function goTo(idx){
+  idx=Math.max(0,Math.min(EVENTS.length-1,idx));
+  stage.scrollTo({left:EVX[idx],behavior:'smooth'});
+}
+
+document.getElementById('next').addEventListener('click',()=>goTo(active+1));
+document.getElementById('prev').addEventListener('click',()=>goTo(active-1));
+document.addEventListener('keydown',e=>{if(e.key==='ArrowRight')goTo(active+1);if(e.key==='ArrowLeft')goTo(active-1);});
+stage.addEventListener('wheel',e=>{
+  if(Math.abs(e.deltaY)<=Math.abs(e.deltaX))return;
+  const max=stage.scrollWidth-stage.clientWidth, canR=stage.scrollLeft<max-1, canL=stage.scrollLeft>1;
+  if((e.deltaY>0&&canR)||(e.deltaY<0&&canL)){stage.scrollLeft+=e.deltaY;e.preventDefault();}
+},{passive:false});
+stage.addEventListener('scroll',onScroll,{passive:true});
+window.addEventListener('resize',()=>{place();});
+
+place();
+requestAnimationFrame(()=>setTimeout(()=>{place();stage.scrollLeft=0;onScroll();},160)); /* start at the very beginning */
+
+const io=new IntersectionObserver((es)=>{es.forEach(en=>{if(en.isIntersecting){en.target.classList.add('in');io.unobserve(en.target);}});},{threshold:.15});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+const prog=document.getElementById('prog');
+function pageProg(){const h=document.documentElement;const m=h.scrollHeight-h.clientHeight;prog.style.width=(m>0?h.scrollTop/m*100:0)+'%';}
+document.addEventListener('scroll',pageProg,{passive:true});pageProg();
+</script>
+</body>
+</html>
