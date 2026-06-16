@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tax Lien Code — Google Demand Gen Evergreen Funnel</title>
+<style>
+  :root{
+    --ink:#1d2433; --muted:#5b6577; --line:#d8dee9; --paper:#ffffff;
+    --ever:#1f9d8f; --ever-bg:#e8f6f4;
+    --pool:#e8a33d; --pool-bg:#fdf3e3;
+    --event:#e2603b; --event-bg:#fbeae4;
+    --search:#3b6fb6; --search-bg:#e9f0fa;
+    --launch:#2f9e57; --launch-bg:#e7f5ec;
+    --rule:#7a4fc0; --rule-bg:#f0e9fb;
+    --chip:#f1f4f9;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:#eef1f5;color:var(--ink);padding:32px;line-height:1.4}
+  .sheet{max-width:1180px;margin:0 auto;background:var(--paper);border-radius:14px;box-shadow:0 8px 30px rgba(20,30,50,.10);padding:34px 40px 44px;border-top:7px solid var(--ever)}
+  h1{font-size:23px;letter-spacing:-.2px}
+  .sub{color:var(--muted);font-size:13.5px;margin-top:5px}
+
+  .budget{display:flex;gap:14px;flex-wrap:wrap;margin:22px 0 6px}
+  .bcard{flex:1;min-width:150px;border:1px solid var(--line);border-radius:10px;padding:13px 15px;background:#fafbfd}
+  .bcard .lab{font-size:11px;text-transform:uppercase;letter-spacing:.6px;color:var(--muted);font-weight:700}
+  .bcard .val{font-size:20px;font-weight:800;margin-top:4px}
+  .bcard .note{font-size:11.5px;color:var(--muted);margin-top:3px}
+  .bcard.total{background:var(--ink);border-color:var(--ink)}
+  .bcard.total .lab{color:#aeb7c7}
+  .bcard.total .val{color:#fff}
+  .bcard.total .note{color:#9fb0c9}
+
+  .rulebar{margin:20px 0 4px;border:2px solid var(--rule);background:var(--rule-bg);border-radius:12px;padding:13px 18px;display:flex;gap:16px;flex-wrap:wrap}
+  .rulebar .half{flex:1;min-width:300px}
+  .rulebar .rt{font-weight:800;font-size:13px;color:var(--rule);display:flex;align-items:center;gap:7px}
+  .rulebar .rs{font-size:12.5px;margin-top:4px;color:var(--ink)}
+
+  .funnel{margin-top:24px;display:flex;flex-direction:column;align-items:center;gap:0}
+  .arrow{width:0;height:0;border-left:13px solid transparent;border-right:13px solid transparent;border-top:15px solid var(--line);margin:11px 0}
+  .arrow.flow{border-top-color:var(--pool)}
+
+  .stage{width:100%;border:2px solid;border-radius:13px;padding:0;overflow:hidden}
+  .stage-head{padding:11px 18px;display:flex;align-items:center;justify-content:space-between;color:#fff;gap:10px;flex-wrap:wrap}
+  .stage-head .title{font-size:15px;font-weight:800;letter-spacing:.2px}
+  .stage-head .meta{font-size:12px;font-weight:600;opacity:.95}
+  .pill{font-size:10.5px;font-weight:800;letter-spacing:.3px;padding:3px 9px;border-radius:20px;background:rgba(255,255,255,.22);border:1px solid rgba(255,255,255,.5)}
+  .stage-body{padding:16px 18px;background:#fff}
+
+  .lane{display:flex;gap:14px;flex-wrap:wrap}
+  .adset{flex:1;min-width:300px;border:1px solid var(--line);border-radius:10px;padding:13px 14px;background:#fcfdfe}
+  .adset h4{font-size:13px;margin-bottom:8px;display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+  .badge{font-size:10.5px;font-weight:800;padding:2px 7px;border-radius:20px;color:#fff;letter-spacing:.3px}
+  .row{font-size:12.5px;margin:5px 0;display:flex;gap:7px}
+  .row .k{color:var(--muted);font-weight:700;min-width:78px;flex-shrink:0}
+  .chips{display:flex;gap:6px;flex-wrap:wrap}
+  .chip{background:var(--chip);border:1px solid var(--line);border-radius:7px;padding:3px 8px;font-size:11.5px;white-space:nowrap}
+  .chip.aud{background:#eef6ff;border-color:#cfe2fa}
+  .chip.cre{background:#f3eafb;border-color:#e2cdf5}
+  .chip.warn{background:#fff3cd;border-color:#f3e0a3;color:#8a6d00;font-weight:700}
+  .single{border:1px dashed var(--line);border-radius:10px;padding:12px 14px;background:#fcfdfe;font-size:12.5px}
+  .stage-foot{font-size:12px;color:var(--muted);margin-top:12px;padding-top:10px;border-top:1px dashed var(--line)}
+  .stage-foot b{color:var(--ink)}
+
+  .diamond-wrap{display:flex;justify-content:center;margin:6px 0}
+  .diamond{background:var(--rule-bg);border:2px solid var(--rule);color:#4a2f86;border-radius:12px;padding:13px 22px;text-align:center;max-width:680px}
+  .diamond .d-t{font-weight:800;font-size:13.5px;color:var(--rule)}
+  .diamond .d-s{font-size:12px;margin-top:3px}
+
+  .launchbar{width:100%;background:var(--launch);color:#fff;border-radius:13px;padding:15px 18px;text-align:center}
+  .launchbar .t{font-size:16px;font-weight:800}
+  .launchbar .s{font-size:12.5px;opacity:.95;margin-top:3px}
+
+  h2{font-size:16px;margin:34px 0 4px;letter-spacing:-.2px}
+  .h2sub{font-size:12.5px;color:var(--muted);margin-bottom:12px}
+  table{width:100%;border-collapse:collapse;font-size:12.5px}
+  th,td{text-align:left;padding:9px 11px;border-bottom:1px solid var(--line)}
+  th{background:#f6f8fb;font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:var(--muted)}
+  td b{color:var(--ink)}
+  tr:last-child td{border-bottom:none}
+  .tag{display:inline-block;font-size:10.5px;font-weight:800;padding:2px 7px;border-radius:6px}
+  .tag.on{background:var(--launch-bg);color:#1f7a40;border:1px solid #b7e2c5}
+  .tag.soon{background:var(--pool-bg);color:#8a5d00;border:1px solid #f0d9a8}
+  .geomark{background:#fff3cd;color:#8a6d00;border:1px solid #f3e0a3;border-radius:6px;padding:1px 6px;font-size:10.5px;font-weight:700}
+
+  .legend{margin-top:28px;font-size:11.5px;color:var(--muted);border-top:1px solid var(--line);padding-top:14px}
+  .legend b{color:var(--ink)}
+  @media print{body{background:#fff;padding:0}.sheet{box-shadow:none;border-radius:0}}
+</style>
+</head>
+<body>
+<div class="sheet">
+
+  <h1>Tax Lien Code — Google Demand Gen evergreen funnel</h1>
+  <div class="sub">Google restructure proposal under a <b>$100K/month SG cap</b>. Spine: one always-on evergreen prospecting engine consolidates the top-of-funnel that today is duplicated event by event, feeds a continuous remarketing pool, and each event only switches on a lean bottom-of-funnel layer ~18 days out. Spend data: Google Ads account 8019545382, live pull June 16, 2026. Assets: RIC market Drive folder (Richmond, July 12 event).</div>
+
+  <!-- BUDGET ENVELOPE -->
+  <div class="budget">
+    <div class="bcard" style="border-color:var(--ever)">
+      <div class="lab">Evergreen Prospecting</div>
+      <div class="val">~$25K</div>
+      <div class="note">1 always-on engine · consolidates TOFU across all events</div>
+    </div>
+    <div class="bcard" style="border-color:var(--event)">
+      <div class="lab">Per-event activation</div>
+      <div class="val">~$70K</div>
+      <div class="note">~8–10 events in-flight · ~$7–8K each in its active window</div>
+    </div>
+    <div class="bcard">
+      <div class="lab">Buffer / &lt;14d lever</div>
+      <div class="val">~$5K</div>
+      <div class="note">Reinforcement for an event below target near close</div>
+    </div>
+    <div class="bcard total">
+      <div class="lab">SG cap / month</div>
+      <div class="val">$100K</div>
+      <div class="note">May ran $145K · June pacing ~$101K — without a cut it doesn't fit</div>
+    </div>
+  </div>
+
+  <!-- TWO-SPEED RULE -->
+  <div class="rulebar">
+    <div class="half">
+      <div class="rt">⟲ Speed 1 — Evergreen NEVER pauses</div>
+      <div class="rs">The prospecting engine stays on at all times. It holds the Demand Gen learning and keeps the pool warm. Pausing it destroys the efficiency that makes $100K fit. Geo = only metros with an event in ≤90 days (rolling list), so there's always an open registration to optimize toward.</div>
+    </div>
+    <div class="half">
+      <div class="rt">⏻ Speed 2 — Event layer is the TOGGLE</div>
+      <div class="rs">The bottom-of-funnel groups stay <b>pre-built and paused</b>. Switch on ~18 days before the event (E-18), switch off ~3 days after (E+3). Learning cost is low because it's remarketing to an already-warm pool and small audiences. This is the answer to "build everything in groups and just activate them."</div>
+    </div>
+  </div>
+
+  <div class="funnel">
+
+    <!-- STAGE 1: EVERGREEN PROSPECTING -->
+    <div class="stage" style="border-color:var(--ever)">
+      <div class="stage-head" style="background:var(--ever)">
+        <span class="title">1 · Evergreen Prospecting — builds demand in advance</span>
+        <span class="meta">Type: Demand Gen · 1 campaign, 2 ad groups · ~$25K/mo · Obj: Complete Registration</span>
+        <span class="pill">NEVER PAUSES</span>
+      </div>
+      <div class="stage-body" style="background:var(--ever-bg)">
+        <div class="lane">
+          <div class="adset">
+            <h4><span class="badge" style="background:var(--ever)">AD GROUP A</span> Lookalike + Customer Match</h4>
+            <div class="row"><span class="k">Audience</span><span class="chips"><span class="chip aud">LLA-WB-10</span><span class="chip aud">All WB (Customer Match 540d)</span><span class="chip aud">All Converters 180d</span></span></div>
+            <div class="row"><span class="k">Geo</span><span>Metros with an event in ≤90 days (rolling list, moves with the calendar)</span></div>
+          </div>
+          <div class="adset">
+            <h4><span class="badge" style="background:var(--ever)">AD GROUP B</span> In-market + Competitors</h4>
+            <div class="row"><span class="k">Audience</span><span class="chips"><span class="chip aud">In-market: Financial Planning / Investing</span><span class="chip aud">Custom: competitor &amp; tax-lien intent</span></span></div>
+            <div class="row"><span class="k">Geo</span><span>Same rolling set of metros</span></div>
+          </div>
+        </div>
+        <div class="row" style="margin-top:12px"><span class="k">Creative</span><span class="chips"><span class="chip cre">Brian — Direct Call Out</span><span class="chip cre">Aspirational — Legacy</span><span class="chip cre">Bold Claims — Safe &amp; Lucrative</span><span class="chip cre">Static — 401k Angle</span><span class="chip cre">Static — Brian Crowd Trustpilot</span></span></div>
+        <div class="row"><span class="k">Placements</span><span class="chips"><span class="chip">In-feed</span><span class="chip">Discover</span><span class="chip">Shorts</span><span class="chip warn">In-stream needs more 16x9 cuts</span></span></div>
+        <div class="stage-foot">This layer <b>replaces the two TOFU lines (WB-LAL + Competitors) that today run inside every event</b>. Instead of paying for cold prospecting 8× a month, you pay for one continuous engine. Evergreen creatives only (no dates / countdowns) — anything time-bound moves to the event layer.</div>
+      </div>
+    </div>
+
+    <div class="arrow flow"></div>
+
+    <!-- ENGAGEMENT / REMARKETING POOL -->
+    <div class="stage" style="border-color:var(--pool)">
+      <div class="stage-head" style="background:var(--pool)">
+        <span class="title">⟳ Engagement &amp; remarketing pool</span>
+        <span class="meta">Not a campaign — audiences / data segments · no spend</span>
+      </div>
+      <div class="stage-body" style="background:var(--pool-bg)">
+        <div class="single">Every YouTube video viewer (channel already linked), site visitor and registration-page visitor flows in here. It's the asset that makes event activation cheap. Two key lists come out of it:
+        <div class="chips" style="margin-top:9px"><span class="chip aud">21d+ remarketing = <b>All Website Visitors L90</b> &nbsp;−&nbsp; <b>Visitors L21</b> &nbsp;−&nbsp; <b>All Converters</b></span><span class="chip aud">YouTube Video Viewers (unlocked with the linked channel)</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="arrow"></div>
+    <div class="diamond-wrap">
+      <div class="diamond">
+        <div class="d-t">◆ E-18 — switch on the event layer</div>
+        <div class="d-s">18 days before each event, the pre-built groups come out of pause. Geo locks to the event city + radius. The &lt;14-day below-target lever pulls the buffer. Switches off at E+3.</div>
+      </div>
+    </div>
+    <div class="arrow"></div>
+
+    <!-- STAGE 2: EVENT-ACTIVATED -->
+    <div class="stage" style="border-color:var(--event)">
+      <div class="stage-head" style="background:var(--event)">
+        <span class="title">2 · Event layer — local activation (pre-built)</span>
+        <span class="meta">2 campaigns/event: 1 Demand Gen (2 ad groups) + 1 Search AI Max · ~$7–8K · E-18→E+3</span>
+        <span class="pill">TOGGLE ON/OFF</span>
+      </div>
+      <div class="stage-body" style="background:var(--event-bg)">
+        <div class="lane">
+          <div class="adset" style="border-color:var(--event)">
+            <h4><span class="badge" style="background:var(--event)">CAMPAIGN · DEMAND GEN</span> [SG] {date}_{MKT} BOFU DG</h4>
+            <div class="row"><span class="k">Ad group 1</span><span><b>BOFU Pool</b> — site visitors + video viewers · exclude Leads 30d + Workshop Buyers</span></div>
+            <div class="row"><span class="k">Ad group 2</span><span><b>Remarketing 21d+</b> — engaged ≥21d (L90 − L21 − Converters) · geo city + radius</span></div>
+            <div class="row"><span class="k">Creative</span><span class="chips"><span class="chip cre">Still Thinking About The Event</span><span class="chip cre">Standard Retargeting Evergreen</span><span class="chip cre">Full Funnel Evergreen</span></span></div>
+          </div>
+          <div class="adset" style="border-color:var(--search)">
+            <h4><span class="badge" style="background:var(--search)">CAMPAIGN · SEARCH (AI MAX)</span> [SG] NB {date}_{MKT} Search AI Max</h4>
+            <div class="row"><span class="k">Ad group</span><span><b>NB local</b> — local search intent + event brand</span></div>
+            <div class="row"><span class="k">Geo</span><span>Event city + radius</span></div>
+            <div class="row"><span class="k">Creative</span><span class="chips"><span class="chip cre">RSA + urgency sitelinks</span></span></div>
+          </div>
+        </div>
+        <div class="row" style="margin-top:12px"><span class="k">Statics</span><span class="chips"><span class="chip cre">Seats Filling Fast</span><span class="chip cre">Urgency</span><span class="chip cre">Blue Event Dates</span></span></div>
+        <div class="stage-foot">The three groups stay created and paused the whole time — you only change status and budget at E-18. <b>Do not rebuild per event.</b> Because they remarket to a warm pool from the evergreen engine, they ramp fast and spend little.</div>
+      </div>
+    </div>
+
+    <div class="arrow flow"></div>
+
+    <!-- LAUNCH -->
+    <div class="launchbar">
+      <div class="t">★ Event Saturday — registrations close</div>
+      <div class="s">Post-event, the audience migrates to Lead Nurture (already running on Meta as evergreen). The event layer switches off at E+3 and returns to pause, ready for the next cycle.</div>
+    </div>
+
+  </div>
+
+  <!-- CAMPAIGN INVENTORY -->
+  <h2>Campaign inventory — the type at each stage</h2>
+  <div class="h2sub">This is what gets built in the account. Demand Gen (channel_type 14) is already the account's default type today; Search AI Max is a Search campaign. The pool is not a campaign.</div>
+  <table>
+    <thead>
+      <tr><th>Stage</th><th>Campaign (name pattern)</th><th>Google Ads type</th><th>Ad groups</th><th>Count</th><th>On/Off</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><b>Evergreen</b></td><td>[SG] EVERGREEN DG — Prospecting</td><td><b>Demand Gen</b></td><td>A: LAL+CM · B: In-market+Competitors</td><td>1 (shared)</td><td><span class="tag on">Always-on</span></td></tr>
+      <tr><td><b>Pool</b></td><td>—</td><td>Audiences / data segments</td><td>Remarketing lists + video viewers</td><td>—</td><td>Continuous</td></tr>
+      <tr><td><b>Event</b></td><td>[SG] {date}_{MKT} BOFU DG</td><td><b>Demand Gen</b></td><td>BOFU Pool · Remarketing 21d+</td><td>1 per event</td><td><span class="tag soon">Toggle E-18 / E+3</span></td></tr>
+      <tr><td><b>Event</b></td><td>[SG] NB {date}_{MKT} Search AI Max</td><td><b>Search (AI Max)</b></td><td>NB local intent + brand</td><td>1 per event</td><td><span class="tag soon">Toggle E-18 / E+3</span></td></tr>
+    </tbody>
+  </table>
+
+  <!-- TOGGLE MATRIX -->
+  <h2>Calendar matrix — event × layer × switch-on date</h2>
+  <div class="h2sub">SG events with Google active today (pull June 16). E-90 = metro enters the evergreen geo · E-18 = switch on the event layer · E+3 = switch off. Cities: GSP Greenville · ORD Chicago · DCA Washington DC · CAE Columbia · RIC Richmond.</div>
+  <table>
+    <thead>
+      <tr><th>Event</th><th>City</th><th>Event date</th><th>Evergreen covers from (E-90)</th><th>Switch on event (E-18)</th><th>Switch off (E+3)</th><th>Status today</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><b>20260615_GSP</b></td><td>Greenville</td><td>Jun 21</td><td>Mar 23</td><td>Jun 3</td><td>Jun 24</td><td><span class="tag on">layer ON</span></td></tr>
+      <tr><td><b>20260615_ORD</b></td><td>Chicago</td><td>Jun 21</td><td>Mar 23</td><td>Jun 3</td><td>Jun 24</td><td><span class="tag on">layer ON</span></td></tr>
+      <tr><td><b>20260622_DCA</b></td><td>Washington DC</td><td>Jun 28</td><td>Mar 30</td><td>Jun 10</td><td>Jul 1</td><td><span class="tag on">layer ON</span> <span class="geomark">exclude CAE geo (30 mi)</span></td></tr>
+      <tr><td><b>20260622_CAE</b></td><td>Columbia</td><td>Jun 28</td><td>Mar 30</td><td>Jun 10</td><td>Jul 1</td><td><span class="tag on">layer ON</span> <span class="geomark">exclude DCA geo (30 mi)</span></td></tr>
+      <tr><td><b>20260706_KEN</b></td><td>KEN</td><td>Jul 12</td><td>Apr 13</td><td>Jun 24</td><td>Jul 15</td><td><span class="tag soon">on Jun 24</span></td></tr>
+      <tr><td><b>20260706_RIC</b></td><td>Richmond</td><td>Jul 12</td><td>Apr 13</td><td>Jun 24</td><td>Jul 15</td><td><span class="tag soon">on Jun 24</span></td></tr>
+    </tbody>
+  </table>
+
+  <!-- BEFORE / AFTER -->
+  <h2>Why this fits in $100K</h2>
+  <div class="h2sub">Consolidation swaps duplicated cold prospecting for one continuous engine + lean activation.</div>
+  <table>
+    <thead>
+      <tr><th>&nbsp;</th><th>Current model (per event)</th><th>Proposed model</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><b>Prospecting (TOFU)</b></td><td>2 lines inside every event (WB-LAL + Competitors) — peak ~$4K each per half-month</td><td>1 shared evergreen engine (~$25K/mo total)</td></tr>
+      <tr><td><b>Cost per event</b></td><td>~$13–18K full lifecycle</td><td>~$7–8K (bottom-of-funnel activation only)</td></tr>
+      <tr><td><b>Learning</b></td><td>Resets every event</td><td>Evergreen holds the learning; event ramps warm</td></tr>
+      <tr><td><b>SG spend result</b></td><td>May $145K · June ~$101K — over/at the cap</td><td>~$25K + ~$70K + ~$5K = <b>$100K</b></td></tr>
+    </tbody>
+  </table>
+
+  <div class="legend">
+    <b>Reading the funnel:</b> teal = evergreen prospecting (never pauses), amber = pool, orange = event layer (toggle), blue = Search AI Max, green = event close, purple = rule / gate.
+    <br><b>The core move:</b> consolidate the prospecting that today is duplicated event by event into one always-on engine geo-locked to metros with an event in ≤90 days. This frees ~$45K vs May and is what makes the architecture fit $100K SG.
+    <br><b>21d+ remarketing:</b> Google has no exact 21-day window — the build is <b>All Website Visitors L90 minus Visitors L21 minus All Converters</b>. YouTube video viewers are already available (channel linked).
+    <br><b>Creative gap:</b> the Brian Videos are mostly 9x16. In-feed/Discover/Shorts run now; YouTube in-stream wants 16x9 — unlock scale as horizontal cuts arrive (flag to Chloe).
+    <br><b>Sources:</b> spend and structure — Google Ads account 8019545382, live pull June 16, 2026 (SG vs other-agency split by [SG] prefix). Assets — RIC market Drive folder. Calendar and DCA/CAE geo-exclusion rule — TLC 2026 events calendar.
+  </div>
+
+</div>
+</body>
+</html>
