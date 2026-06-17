@@ -251,7 +251,7 @@
     <div class="lever"><h4>Product campaigns: Flare · Create · Syndicate <span class="st ramp">Ramping</span></h4><p>Tightly targeted phrase/exact keywords, replacing the broad junk with better-fit leads. Volume is building.</p></div>
     <div class="lever"><h4>Sales-Accepted-Lead optimization <span class="st ramp">Evaluating</span></h4><p>SAL data started flowing into Google on May 7. Before we shift campaigns to optimize on SALs, we're gathering SAL volume by campaign — today most SALs come from the two broad campaigns, so a blanket shift would just chase those. We move each campaign over once it has the SAL volume to support it.</p></div>
     <div class="lever"><h4>Brand recovery <span class="st fix">In progress</span></h4><p>Repair the brand conversion tracking and block the generic "syndicate" search that was draining budget at zero conversions — so brand spend works again.</p></div>
-    <div class="lever"><h4>Negative-keyword rescope <span class="st live">Done</span></h4><p>Over-broad negatives were blocking good searches like "documentation software." Rescoped to phrase/exact so they cut the junk without blocking the good.</p></div>
+    <div class="lever"><h4>Negative-keyword rescope <span class="st live">Done · Jun 9</span></h4><p>Over-broad negatives were blocking good searches like "documentation software." Rescoped to phrase/exact on June 9 so they cut the junk without blocking the good.</p></div>
     <div class="lever"><h4>LinkedIn <span class="st ramp">Shifting</span></h4><p>Moving from single-image demo ads to engagement and thought-leadership video.</p></div>
     <div class="lever"><h4>Competitor — Flare vs Paligo <span class="st live">Live · May 20</span></h4><p>A stronger comparison landing page to convert competitor-intent traffic.</p></div>
   </div>
@@ -300,7 +300,7 @@
         <span class="k"><span class="ln mql"></span> MQLs / day</span>
       </div>
       <div class="tlnav">
-        <span class="count" id="tcount">01 / 12</span>
+        <span class="count" id="tcount">01 / 14</span>
         <button class="navbtn" id="prev" aria-label="Previous">‹</button>
         <button class="navbtn" id="next" aria-label="Next">›</button>
       </div>
@@ -340,8 +340,11 @@
         <tr><td>7 May 2026</td><td>HubSpot Sales Accepted Lead data integrated into Google (SAL-based optimization being evaluated by campaign)</td></tr>
         <tr><td>Early May 2026</td><td>Junk-search negative-keyword cleanup begins</td></tr>
         <tr><td>20 May 2026</td><td>Flare-vs-Paligo competitor landing page live</td></tr>
-        <tr><td>~27 May 2026</td><td>Microsoft narrowed to Brand + Flare; over-broad negatives rescoped to phrase/exact</td></tr>
-        <tr><td>Jun 2026</td><td>Demand Gen + YouTube and product campaigns ramping; broad AI campaign wind-down sequenced after new channels backfill</td></tr>
+        <tr><td>~27 May 2026</td><td>Microsoft narrowed to Brand + Flare</td></tr>
+        <tr><td>9 Jun 2026</td><td>Over-broad negative keywords rescoped to phrase/exact (freed good searches like "documentation software" that were being blocked)</td></tr>
+        <tr><td>15 Jun 2026</td><td>EU targeting added to the Syndicate and IXIA campaigns</td></tr>
+        <tr><td>15 Jun 2026</td><td>LCMS landing page added to the LCMS &amp; LMS related keywords</td></tr>
+        <tr><td>Through June 2026</td><td>Demand Gen + YouTube and product campaigns ramping; broad AI campaign wind-down sequenced after new channels backfill</td></tr>
       </tbody>
     </table>
   </div>
@@ -468,20 +471,24 @@ const EVENTS=[
  {n:4,di:36,when:'May 7',type:'change',t:'Sales Accepted Lead data goes live',
   b:'From May 7, Sales Accepted Lead data started flowing back into Google. The goal is to optimize toward the leads sales actually accepts — but first we are gathering SAL volume by campaign. Today most SALs come from the two broad campaigns, so we shift each campaign to SAL-based optimization only once it has the volume to support it.',c:['SAL data live','Optimization being evaluated','SAL volume by campaign first']},
  {n:5,di:37,when:'Early May',type:'change',t:'Junk-search cleanup begins',
-  b:'In early May we cut a list of broad searches that were disqualifying about 80% of the time (mostly generic "AI" queries). Fewer leads from here — by design. We later caught a few of these blocking good searches too, and rescoped them.',c:['~80% were disqualifying','Volume down by design','Rescoped over-blocks']},
+  b:'In early May we cut a list of broad searches that were disqualifying about 80% of the time (mostly generic "AI" queries). Fewer leads from here — by design. We later found some of these were also blocking good searches, and rescoped them to phrase/exact on June 9 (below).',c:['~80% were disqualifying','Volume down by design','Rescoped Jun 9']},
  {n:6,di:43,when:'May 14+',type:'crit',t:'Brand auction turns; "syndicate" leak',
   b:'From mid-May, competitors bid the brand auction up and a generic "syndicate" search (a common word other firms use) quietly drained the brand budget with zero conversions. Brand cost per click jumped from about $11 to $38–65 a week, and we lost 45–62% of impressions to rank. The fix: block the generic "syndicate" as an exact negative (without touching "madcap syndicate"), tighten broad terms, and repair brand tracking.',c:['CPC ~$11 → $38–65','Lost to rank 45–62%','"syndicate" drained budget'],bad:[true,true,true]},
  {n:7,di:49,when:'May 20',type:'launch',t:'Stronger Flare-vs-Paligo page',
   b:'A stronger competitor landing page went live to convert Flare-vs-Paligo comparison traffic into qualified leads.',c:['New competitor page','Live May 20']},
- {n:8,di:56,when:'~May 27',type:'change',t:'Microsoft added; negatives rescoped',
-  b:'Around May 27 we focused Microsoft Ads on Brand + Flare for incremental reach at a lower cost, and rescoped over-broad negatives to phrase/exact so they stop blocking good searches like "documentation software." (A Microsoft tracking fix is in progress before we read results.)',c:['Microsoft: Brand + Flare','Negatives → phrase/exact','MS tracking fix in progress']},
+ {n:8,di:56,when:'~May 27',type:'change',t:'Microsoft narrowed to Brand + Flare',
+  b:'Around May 27 we focused Microsoft Ads on Brand + Flare for incremental reach at a lower cost. (A Microsoft tracking fix is in progress before we read results.)',c:['Microsoft: Brand + Flare','MS tracking fix in progress']},
  {n:9,di:60,when:'May 31',type:'read',t:'May vs April',
   b:'May closed with 159 MQLs versus 221 in April — about 28% fewer, as expected from the cleanup. But roughly 70% were accepted by sales, and on Flare qualified leads more than doubled (~24 → ~56) while disqualifications fell (~80 → ~20). Fewer leads, far better fit.',c:['MQLs 221 → 159','~70% accepted by sales','Qualified leads >2x'],g:[false,true,true]},
  {n:10,di:62,when:'Jun 1–4',type:'plan',t:'What\'s next',
   b:'Into June we are ramping Demand Gen + YouTube, Microsoft, and the product campaigns (Flare, Create, Syndicate) to rebuild volume — and we will wind the broad AI campaign down only after those backfill it, so there is no cliff.',c:['Demand Gen + YouTube','Products ramping','No cliff — sequenced']},
- {n:11,di:69,when:'Jun 8–12',type:'read',t:'The rebound shows up',
+ {n:11,di:68,when:'Jun 8',type:'read',t:'The rebound shows up',
   b:'The week of June 8 was the strongest in weeks — daily clicks back near April levels and MQLs rebuilding, with sales acceptance holding around 70–77%. This is the recovery arriving in real data, not just a forecast.',c:['Clicks near April level','MQLs rebuilding','Acceptance ~70–77%'],g:[true,true,true]},
- {n:12,di:76,when:'Jun 16',type:'read',t:'Where we are now',
+ {n:12,di:69,when:'Jun 9',type:'change',t:'Over-broad negatives rescoped',
+  b:'On June 9 we rescoped the over-broad negative keywords to phrase/exact. Some broad negatives (like "software" and "lms") had been blocking good searches such as "documentation software" and "technical writing software" — this frees those back up while still cutting the junk.',c:['Rescoped Jun 9','Phrase/exact','Frees good searches']},
+ {n:13,di:75,when:'Jun 15',type:'launch',t:'EU targeting + LCMS landing page expanded',
+  b:'On June 15 we added EU targeting to the Syndicate and IXIA campaigns, and added the LCMS landing page to the LCMS and LMS related keywords — both aimed at extending qualified reach.',c:['EU added: Syndicate + IXIA','LCMS landing page → LCMS/LMS','Extending reach']},
+ {n:14,di:76,when:'Jun 16',type:'read',t:'Where we are now',
   b:'Through mid-June the account is pacing even with or above May on MQLs, with far better fit. Demand Gen, Microsoft, and the product campaigns keep ramping to carry the volume before the broad AI campaign winds down.',c:['Pacing even / above May','Better fit','Channels ramping'],g:[true,true,false]}
 ];
 const NTOT=String(EVENTS.length).padStart(2,'0');
