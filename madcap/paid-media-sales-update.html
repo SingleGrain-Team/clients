@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MadCap — Paid Media: What Changed & What's Next (for Sales)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,500&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+  :root{
+    --ink:#1c1813; --ink-2:#615849; --ink-3:#978c7c; --ink-4:#bcb3a4;
+    --paper:#f2ece1; --surface:#fffdf9; --surface-2:#f8f3ea;
+    --line:#e4dccd; --line-2:#d7cdba;
+    --brand:#e76f3c; --brand-light:#f2b34b; --brand-ink:#b1521f;
+    --red:#d6342a; --redbg:#f7e2dd;
+    --tan:#cdc4b4; --black:#1a1714;
+    --launch:#e76f3c; --crit:#d6342a; --change:#bd720c; --ext:#5560d8; --plan:#5d6675; --read:#978c7c; --good:#1f8f57;
+    --r:16px; --r-sm:11px;
+    --shadow:0 1px 2px rgba(28,24,19,.04), 0 8px 26px -14px rgba(28,24,19,.18);
+    --shadow-lg:0 2px 6px rgba(28,24,19,.05), 0 24px 60px -26px rgba(28,24,19,.32);
+    --maxw:1180px; --font:'Archivo',system-ui,sans-serif;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;color:var(--ink);font-family:var(--font);font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased;background:var(--paper);
+    background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);
+    background-size:34px 34px;background-position:-1px -1px;background-attachment:fixed}
+  body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+    background:radial-gradient(1100px 520px at 88% -8%,rgba(231,111,60,.10),transparent 60%),radial-gradient(900px 460px at -5% 4%,rgba(85,96,216,.06),transparent 55%)}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 30px;position:relative;z-index:1}
+  ::selection{background:var(--brand-light);color:var(--ink)}
+
+  #prog{position:fixed;top:0;left:0;height:3px;width:0;z-index:60;background:linear-gradient(90deg,var(--brand-light),var(--brand),var(--red))}
+  .topbar{position:sticky;top:0;z-index:50;border-bottom:1px solid var(--line);background:rgba(242,236,225,.78);backdrop-filter:blur(10px)}
+  .topbar .in{max-width:var(--maxw);margin:0 auto;padding:12px 30px;display:flex;align-items:center;gap:14px}
+  .wm{font-weight:700;letter-spacing:.24em;font-size:12.5px;color:var(--ink-2);text-transform:uppercase}
+  .dot{width:7px;height:7px;border-radius:50%;background:var(--brand);flex:none}
+  .div{width:1px;height:18px;background:var(--line-2)}
+  .client{font-weight:700;font-size:13px;color:var(--ink)}
+  .fresh{margin-left:auto;display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:700;color:var(--good);background:#e6f3ea;border:1px solid #cfe6d8;padding:5px 11px;border-radius:999px}
+  .fresh .pip{width:7px;height:7px;border-radius:50%;background:var(--good)}
+
+  .eyebrow{font-size:11.5px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-3);display:inline-flex;align-items:center;gap:9px}
+  .eyebrow .d{width:7px;height:7px;border-radius:50%;background:var(--brand)}
+
+  /* hero */
+  .hero{margin:34px 0 0}
+  .hero h1{font-size:clamp(30px,4.4vw,48px);font-weight:900;letter-spacing:-.03em;line-height:1.04;margin:14px 0 0;max-width:20ch}
+  .hero h1 .accent{color:var(--brand)}
+  .hero .lede{margin:18px 0 0;font-size:16.5px;line-height:1.55;color:var(--ink-2);max-width:74ch}
+  .hero .lede b{color:var(--ink)}
+
+  /* hypothesis strip */
+  .hypo{display:grid;grid-template-columns:repeat(3,1fr);background:var(--black);border-radius:var(--r);overflow:hidden;margin:26px 0 0;box-shadow:var(--shadow-lg)}
+  .hypo .h{padding:20px 22px;border-right:1px solid rgba(255,255,255,.09)}
+  .hypo .h:last-child{border-right:none}
+  .hypo .l{font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#bdae9b}
+  .hypo .v{font-size:26px;font-weight:900;letter-spacing:-.02em;margin:8px 0 0;color:#fff;line-height:1.05}
+  .hypo .v.down{color:#ffb9a3} .hypo .v.same{color:#bfe6cd} .hypo .v.cut{color:#bfe6cd}
+  .hypo .s{font-size:12.5px;color:#d9d2c6;margin:6px 0 0}
+  .hypocap{margin:12px 2px 0;font-size:13px;font-weight:600;color:var(--brand-ink);background:#fbeede;border:1px solid #f2d9bd;border-radius:var(--r-sm);padding:11px 15px;line-height:1.5}
+
+  /* sections */
+  .shead{margin:54px 0 16px}
+  .shead h2{font-size:clamp(22px,3vw,32px);font-weight:900;letter-spacing:-.025em;margin:10px 0 0;line-height:1.06}
+  .shead .s{font-size:14px;color:var(--ink-2);margin:9px 0 0;max-width:78ch}
+
+  .prongs{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  .prong{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px 20px;box-shadow:var(--shadow)}
+  .prong .tag{font-size:10.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase}
+  .prong.bad .tag{color:var(--red)} .prong.did .tag{color:var(--brand-ink)} .prong.next .tag{color:var(--good)}
+  .prong h4{margin:9px 0 0;font-size:16px;font-weight:900;letter-spacing:-.01em}
+  .prong p{margin:9px 0 0;font-size:13.4px;color:var(--ink-2);line-height:1.55}
+
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow)}
+  .cardpad{padding:22px 26px}
+
+  .levers{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+  .lever{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-sm);padding:15px 17px;box-shadow:var(--shadow);position:relative}
+  .lever h4{margin:0 0 0;font-size:15px;font-weight:900;letter-spacing:-.01em;display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+  .lever p{margin:8px 0 0;font-size:13px;color:var(--ink-2);line-height:1.5}
+  .st{font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:2px 8px;border-radius:999px;white-space:nowrap}
+  .st.new{background:#fbeede;color:var(--brand-ink);border:1px solid #f2d9bd}
+  .st.live{background:#e6f3ea;color:var(--good);border:1px solid #cfe6d8}
+  .st.ramp{background:#fdf3e1;color:var(--change);border:1px solid #f0dcb6}
+  .st.fix{background:var(--redbg);color:var(--red);border:1px solid #eccabf}
+
+  .phases{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+  .phase{background:var(--surface-2);border:1px solid var(--line);border-radius:var(--r-sm);padding:16px 18px}
+  .phase .p{font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--plan)}
+  .phase h4{margin:6px 0 0;font-size:16px;font-weight:900}
+  .phase p{margin:8px 0 0;font-size:13px;color:var(--ink-2);line-height:1.5}
+
+  .qa{display:flex;flex-direction:column;gap:0}
+  .qa .item{padding:16px 0;border-bottom:1px solid var(--line)}
+  .qa .item:last-child{border-bottom:none}
+  .qa .q{font-size:15px;font-weight:900;letter-spacing:-.01em;display:flex;gap:10px}
+  .qa .q .m{color:var(--brand)}
+  .qa .a{margin:7px 0 0 26px;font-size:13.8px;color:var(--ink-2);line-height:1.55}
+
+  /* chart / scrubber */
+  .legendbar{display:flex;align-items:center;justify-content:space-between;gap:16px;margin:0 24px 10px;flex-wrap:wrap}
+  .legend{display:flex;flex-wrap:wrap;gap:18px;align-items:center;font-size:12.5px;color:var(--ink-2);font-weight:600}
+  .legend .k{display:inline-flex;align-items:center;gap:8px}
+  .legend .sw{width:16px;height:11px;border-radius:3px}
+  .legend .sw.clk{background:var(--tan)} .legend .sw.clk2{background:var(--red)}
+  .legend .ln{width:22px;height:0;border-top:3px solid var(--black);border-radius:3px}
+  .legend .ln.mql{border-top:3px dashed #3b49d9}
+  .tlnav{display:flex;align-items:center;gap:10px}
+  .tlnav .count{font-size:12.5px;font-weight:800;color:var(--ink-3);letter-spacing:.04em}
+  .navbtn{width:40px;height:40px;border-radius:50%;border:1px solid var(--line-2);background:var(--surface);color:var(--ink);font-size:17px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.16s;box-shadow:var(--shadow)}
+  .navbtn:hover{border-color:var(--ink-3);transform:translateY(-1px)} .navbtn:active{transform:translateY(0)}
+  .navbtn:disabled{opacity:.35;cursor:default;transform:none;box-shadow:none}
+
+  .stagewrap{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow-lg);padding:18px 0 10px;position:relative;overflow:hidden;margin-top:18px}
+  .scrub{position:relative}
+  .playhead{position:absolute;top:6px;bottom:14px;left:24%;width:0;border-left:2px dashed rgba(28,24,19,.32);z-index:6;pointer-events:none;transform:translateX(-50%)}
+  .playhead::before{content:"NOW VIEWING";position:absolute;top:-2px;left:50%;transform:translateX(-50%);font-size:9px;font-weight:800;letter-spacing:.12em;color:var(--ink-3);background:var(--surface);padding:2px 7px;border-radius:999px;border:1px solid var(--line)}
+  .edge{position:absolute;top:0;bottom:0;width:60px;z-index:5;pointer-events:none}
+  .edge.l{left:0;background:linear-gradient(90deg,var(--surface),transparent)}
+  .edge.r{right:0;background:linear-gradient(270deg,var(--surface),transparent)}
+  .stage{overflow-x:auto;overflow-y:hidden;scrollbar-width:thin;scrollbar-color:var(--line-2) transparent;padding-bottom:6px}
+  .stage::-webkit-scrollbar{height:9px}
+  .stage::-webkit-scrollbar-thumb{background:var(--line-2);border-radius:999px}
+  .inner{position:relative}
+  .chartlane{position:relative;height:316px}
+  .band{position:absolute;top:8px;height:268px;background:rgba(231,111,60,.10);border-left:1px solid rgba(231,111,60,.4);border-right:1px solid rgba(231,111,60,.4);transform:translateX(-50%);transition:left .26s cubic-bezier(.3,.8,.3,1),opacity .2s;z-index:1;pointer-events:none;border-radius:3px}
+  .ribbon{position:relative;height:118px;margin-top:2px}
+  .ribrail{position:absolute;top:22px;left:0;height:2px;background:var(--line)}
+  .mk{position:absolute;top:8px;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;cursor:pointer;z-index:3}
+  .mk .n{width:30px;height:30px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:13px;color:#fff;border:2.5px solid var(--surface);box-shadow:0 4px 10px -4px rgba(28,24,19,.5);transition:transform .2s}
+  .mk .d{font-size:11.5px;font-weight:800;color:var(--ink);margin-top:9px;white-space:nowrap;display:none}
+  .mk .ti{display:none}
+  .mk.on .n{transform:scale(1.32)}
+  .mk.on .d{display:block}
+  .mk:not(.on){opacity:.5}
+  .mk:not(.on):hover{opacity:1}
+  .mk:not(.on):hover .d{display:block}
+
+  .detail{margin:18px 0 0;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);padding:22px 26px;min-height:172px;position:relative;overflow:hidden;display:flex}
+  .detail .accentbar{position:absolute;left:0;top:0;bottom:0;width:6px}
+  .dcard{opacity:0;transform:translateY(12px);transition:opacity .3s,transform .3s;width:100%;display:flex;flex-direction:column;justify-content:center}
+  .dcard.in{opacity:1;transform:none}
+  .dhead{display:flex;align-items:center;gap:14px}
+  .dnum{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:17px;color:#fff;flex:none}
+  .dtype{font-size:10.5px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+  .dwhen{font-size:12px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3)}
+  .detail h3{margin:3px 0 0;font-size:22px;font-weight:900;letter-spacing:-.02em;line-height:1.15}
+  .detail p{margin:11px 0 0;font-size:14.3px;color:var(--ink-2);line-height:1.58;max-width:90ch}
+  .chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:14px}
+  .chips b{font-size:11.5px;font-weight:700;background:var(--surface-2);border:1px solid var(--line);border-radius:8px;padding:4px 9px;color:var(--ink)}
+  .chips b.bad{background:var(--redbg);border-color:#eccabf;color:var(--red)}
+  .chips b.good{background:#e6f3ea;border-color:#cfe6d8;color:var(--good)}
+  .hint{margin:12px 2px 0;font-size:12px;color:var(--ink-3);font-weight:600;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .hint .k{font-family:var(--font);font-weight:800;border:1px solid var(--line-2);border-radius:6px;padding:1px 7px;background:var(--surface);font-size:11px}
+
+  .ctab{width:100%;border-collapse:collapse;font-size:13.5px}
+  .ctab th{background:var(--surface-2);text-align:left;padding:11px 18px;font-size:11px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-3);border-bottom:1px solid var(--line)}
+  .ctab th.r,.ctab td.r{text-align:right}
+  .ctab td{padding:10px 18px;border-bottom:1px solid var(--line);font-weight:600}
+  .ctab tr:last-child td{border-bottom:none}
+  .ctab tr.tot td{background:var(--black);color:#fff;font-weight:800}
+  .ctab tbody tr:not(.tot):hover td{background:#fbf7ef}
+
+  .summary{background:var(--black);color:#f3ede2;border-radius:var(--r);padding:26px 30px;margin:46px 0 0;box-shadow:var(--shadow-lg)}
+  .reveal{opacity:0;transform:translateY(26px);transition:opacity .6s cubic-bezier(.2,.7,.2,1),transform .6s cubic-bezier(.2,.7,.2,1)}
+  .reveal.in{opacity:1;transform:none}
+  .summary .tag{display:inline-block;font-size:11px;font-weight:800;letter-spacing:.18em;color:var(--brand);text-transform:uppercase;margin-bottom:10px}
+  .summary h3{margin:0 0 6px;font-size:22px;font-weight:900;letter-spacing:-.02em;color:#fff}
+  .summary p{margin:8px 0 0;font-size:14.5px;color:#d9d2c6;line-height:1.55;max-width:84ch}
+  .summary p b{color:#fff}
+
+  .kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin:18px 0 0}
+  .kpi{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px 18px 16px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+  .kpi::before{content:"";position:absolute;inset:0 0 auto 0;height:4px;background:linear-gradient(90deg,var(--brand-light),var(--brand))}
+  .kpi .l{font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3)}
+  .kpi .v{font-size:30px;font-weight:900;letter-spacing:-.03em;margin:10px 0 0;line-height:1}
+  .kpi .v small{font-size:13px;font-weight:700;color:var(--ink-3);letter-spacing:0;display:block;margin-top:5px}
+  .kpi .d{font-size:12px;font-weight:800;margin-top:8px;color:var(--ink-3)}
+
+  .src{font-size:11.5px;color:var(--ink-3);margin:22px 0 0;line-height:1.65}
+  footer{margin:40px 0 30px;padding-top:16px;border-top:1px solid var(--line);display:flex;justify-content:space-between;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);font-weight:700}
+  @media(max-width:880px){.kpis{grid-template-columns:repeat(2,1fr)}.prongs,.levers,.phases,.hypo{grid-template-columns:1fr}.wrap{padding:0 16px}}
+</style>
+</head>
+<body>
+<div id="prog"></div>
+
+<div class="topbar"><div class="in">
+  <span class="dot"></span><span class="wm">MadCap · Paid Media</span>
+  <span class="div"></span><span class="client">For the Sales Team</span>
+  <span class="fresh"><span class="pip"></span>Updated Jun 16, 2026</span>
+</div></div>
+
+<div class="wrap">
+
+  <!-- HERO -->
+  <section class="hero">
+    <span class="eyebrow"><span class="d"></span>What changed · why · what to expect</span>
+    <h1>Fewer leads on purpose. <span class="accent">Better-fit pipeline.</span></h1>
+    <p class="lede">Over the last month we deliberately cut the paid searches that were sending leads which <b>disqualified about 80% of the time</b>. Lead volume is down by design while we clean things up and bring new channels online. This page walks through what changed, why, and what to expect — with answers for the questions reps and prospects will ask.</p>
+  </section>
+
+  <!-- HYPOTHESIS -->
+  <div class="hypo">
+    <div class="h"><div class="l">Lead volume</div><div class="v down">Down ↓</div><div class="s">Intended — we cut the junk searches.</div></div>
+    <div class="h"><div class="l">Real pipeline</div><div class="v same">Holds →</div><div class="s">Quality is up; acceptance is strong.</div></div>
+    <div class="h"><div class="l">Disqualifications</div><div class="v cut">Down sharply ↓</div><div class="s">Far fewer leads sales has to reject.</div></div>
+  </div>
+  <p class="hypocap">Short-term, the top-line numbers won't look impressive. That is the plan working — not breaking. We're trading raw volume for leads that sales can actually use.</p>
+
+  <!-- THREE-PRONG -->
+  <section class="shead"><span class="eyebrow"><span class="d"></span>The short version</span><h2>What was wrong → what we did → what's next</h2></section>
+  <div class="prongs">
+    <div class="prong bad">
+      <span class="tag">● What was wrong</span>
+      <h4>Half the leads were junk</h4>
+      <p>About half of paid leads came from broad "AI" searches that disqualified roughly 80% of the time. A generic "syndicate" search and a brand tracking break were quietly draining the brand campaign, and a few over-broad negative keywords were blocking good searches too.</p>
+    </div>
+    <div class="prong did">
+      <span class="tag">● What we did</span>
+      <h4>Cleaned up and re-aimed</h4>
+      <p>Cut the junk searches, started feeding Sales Accepted Lead data back into Google so we can optimize toward the leads sales accepts, rescoped negatives to protect good keywords, added Microsoft and a stronger competitor page, and began ramping tightly-targeted product campaigns (Flare, Create, Syndicate).</p>
+    </div>
+    <div class="prong next">
+      <span class="tag">● What's next</span>
+      <h4>Rebuild volume, keep the fit</h4>
+      <p>Bring on Demand Gen + YouTube to rebuild awareness and a retargeting pool, scale the product campaigns, fix the brand tracking and the "syndicate" leak, and move LinkedIn to thought-leadership video. The broad AI campaign winds down only after these backfill it — no cliff.</p>
+    </div>
+  </div>
+
+  <!-- QUALITY STORY -->
+  <section class="shead"><span class="eyebrow"><span class="d"></span>The cleanup</span><h2>Fewer leads, far better fit</h2>
+    <p class="s">The volume drop is the intended result of cutting searches that almost never turned into real opportunities. On our top product, the trade looks like this:</p></section>
+  <div class="kpis">
+    <div class="kpi"><div class="l">Qualified leads · Flare</div><div class="v" style="color:var(--good)">~56<small>April ~24</small></div><div class="d" style="color:var(--good)">more than doubled</div></div>
+    <div class="kpi"><div class="l">Disqualifications · Flare</div><div class="v" style="color:var(--good)">~20<small>April ~80</small></div><div class="d" style="color:var(--good)">−75%</div></div>
+    <div class="kpi"><div class="l">Accepted by sales · May</div><div class="v">~70%<small>of May MQLs</small></div><div class="d">strong acceptance</div></div>
+    <div class="kpi"><div class="l">MQLs · May</div><div class="v">159<small>April 221</small></div><div class="d">−28% · by design</div></div>
+    <div class="kpi"><div class="l">Brand CPC · May</div><div class="v">~$24<small>April ~$11</small></div><div class="d">+114% · auction (fixing)</div></div>
+  </div>
+
+  <!-- LEVERS -->
+  <section class="shead"><span class="eyebrow"><span class="d"></span>The offense</span><h2>How we're bringing volume back</h2>
+    <p class="s">Each lever adds qualified volume from a different angle, so we're not relying on any single campaign.</p></section>
+  <div class="levers">
+    <div class="lever"><h4>Demand Gen + YouTube <span class="st ramp">Planned</span></h4><p>A future strategy, in planning — not live yet. Video will build awareness and a retargeting audience to backfill traffic and feed the funnel. (We have a branded all-product video today; a Flare-specific video is needed before we launch product-level targeting.)</p></div>
+    <div class="lever"><h4>Microsoft Ads — Brand + Flare <span class="st live">Live</span> <span class="st fix">Tracking fix</span></h4><p>Incremental reach at a lower cost than Google. A tracking break since around May 27 is being repaired before we read results.</p></div>
+    <div class="lever"><h4>Product campaigns: Flare · Create · Syndicate <span class="st ramp">Ramping</span></h4><p>Tightly targeted phrase/exact keywords, replacing the broad junk with better-fit leads. Volume is building.</p></div>
+    <div class="lever"><h4>Sales-Accepted-Lead optimization <span class="st ramp">Evaluating</span></h4><p>SAL data started flowing into Google on May 7. Before we shift campaigns to optimize on SALs, we're gathering SAL volume by campaign — today most SALs come from the two broad campaigns, so a blanket shift would just chase those. We move each campaign over once it has the SAL volume to support it.</p></div>
+    <div class="lever"><h4>Brand recovery <span class="st fix">In progress</span></h4><p>Repair the brand conversion tracking and block the generic "syndicate" search that was draining budget at zero conversions — so brand spend works again.</p></div>
+    <div class="lever"><h4>Negative-keyword rescope <span class="st live">Done · Jun 9</span></h4><p>Over-broad negatives were blocking good searches like "documentation software." Rescoped to phrase/exact on June 9 so they cut the junk without blocking the good.</p></div>
+    <div class="lever"><h4>LinkedIn <span class="st ramp">Shifting</span></h4><p>Moving from single-image demo ads to engagement and thought-leadership video.</p></div>
+    <div class="lever"><h4>Competitor — Flare vs Paligo <span class="st live">Live · May 20</span></h4><p>A stronger comparison landing page to convert competitor-intent traffic.</p></div>
+  </div>
+
+  <!-- 30/60/90 -->
+  <section class="shead"><span class="eyebrow"><span class="d"></span>Bear with us</span><h2>The 30 / 60 / 90 recovery</h2>
+    <p class="s">A dip while the account relearns, then volume climbs back as the new channels ramp. The pattern below is what we expect, not an exact forecast.</p></section>
+  <div class="phases">
+    <div class="phase"><div class="p">Now · 0–30 days</div><h4>Relearn &amp; warm up</h4><p>The account re-optimizes after the cleanup. Volume dips while the new channels warm. We watch acceptance rate and disqualifications, not raw lead count.</p></div>
+    <div class="phase"><div class="p">30–60 days</div><h4>Traction</h4><p>Product campaigns, Microsoft, and Demand Gen gain traction. Qualified volume starts climbing back, with better fit than before.</p></div>
+    <div class="phase"><div class="p">60–90 days</div><h4>Backfill &amp; wind-down</h4><p>New channels reach enough scale to backfill the broad-AI volume. Only then do we wind that campaign down — no cliff, better overall mix.</p></div>
+  </div>
+
+  <!-- JUNE RECOVERY -->
+  <section class="shead"><span class="eyebrow"><span class="d"></span>It's already starting</span><h2>June so far: the climb is back</h2>
+    <p class="s">The recovery isn't just a promise — it's showing up in the data. The week of June 8 was the strongest in weeks, and June is pacing even with or above May at the halfway mark, with acceptance holding strong.</p></section>
+  <div class="kpis" style="grid-template-columns:repeat(3,1fr)">
+    <div class="kpi"><div class="l">Week of Jun 8 · MQLs</div><div class="v" style="color:var(--good)">42<small>strongest in weeks</small></div><div class="d" style="color:var(--good)">above all of late May</div></div>
+    <div class="kpi"><div class="l">June MQLs · through 16th</div><div class="v">~94<small>about half the month</small></div><div class="d">pacing even / above May</div></div>
+    <div class="kpi"><div class="l">SAL acceptance · June</div><div class="v">~70–77%<small>holding</small></div><div class="d">quality staying high</div></div>
+  </div>
+  <div class="card" style="overflow:hidden;margin-top:14px">
+    <table class="ctab">
+      <thead><tr><th>Metric</th><th>Weekly goal</th><th class="r">W23 · Jun 1–7</th><th class="r">W24 · Jun 8–14</th><th class="r">WoW Δ</th></tr></thead>
+      <tbody>
+        <tr><td>MQLs</td><td>Less than 15% dip, quality improving</td><td class="r">31</td><td class="r">42</td><td class="r" style="color:var(--good)">+11</td></tr>
+        <tr><td>SALs</td><td>—</td><td class="r">24</td><td class="r">29</td><td class="r" style="color:var(--good)">+5</td></tr>
+        <tr><td>SQLs</td><td>—</td><td class="r">0</td><td class="r">0</td><td class="r">—</td></tr>
+        <tr><td>Opportunities</td><td>5 or more / month</td><td class="r">0</td><td class="r">0</td><td class="r">—</td></tr>
+        <tr><td>Disqualified leads</td><td>≤90 / month</td><td class="r">2</td><td class="r">6</td><td class="r">+4</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="src">Week of June 8: ~42 MQLs / ~29 SALs — higher than any week in late May. Through June 16 (about half the month) the account is at roughly 94 MQLs (HubSpot source of truth) with SAL acceptance around 70–77%. Disqualified leads stay far under the monthly ceiling. SQLs and Opportunities are the next stages to build as these SALs progress.</p>
+
+  <!-- INTERACTIVE TIMELINE -->
+  <section class="shead"><span class="eyebrow"><span class="d"></span>The story, day by day</span><h2>What happened, and when</h2>
+    <p class="s">Daily clicks (bars), conversions and MQLs (lines) from April 1 to June 16 — pulled live from Google Ads. The green bars on the right are June's recovery. Scroll the chart, use the ‹ › buttons or arrow keys, or click a marker.</p></section>
+  <div class="stagewrap">
+    <div class="legendbar">
+      <div class="legend">
+        <span class="k"><span class="sw clk"></span> Clicks — before cleanup</span>
+        <span class="k"><span class="sw clk2"></span> Clicks — cleanup dip (May)</span>
+        <span class="k"><span class="sw" style="background:#1f8f57"></span> Clicks — June recovery</span>
+        <span class="k"><span class="ln"></span> Conversions / day</span>
+        <span class="k"><span class="ln mql"></span> MQLs / day</span>
+      </div>
+      <div class="tlnav">
+        <span class="count" id="tcount">01 / 14</span>
+        <button class="navbtn" id="prev" aria-label="Previous">‹</button>
+        <button class="navbtn" id="next" aria-label="Next">›</button>
+      </div>
+    </div>
+    <div class="scrub">
+      <div class="playhead"></div>
+      <div class="edge l"></div><div class="edge r"></div>
+      <div class="stage" id="stage">
+        <div class="inner" id="inner">
+          <div class="chartlane" id="chartlane"><div class="band" id="band"></div><canvas id="chart"></canvas></div>
+          <div class="ribbon" id="ribbon"><div class="ribrail" id="ribrail"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="hint"><span class="k">←</span><span class="k">→</span> arrow keys · the ‹ › buttons · scroll left-to-right from Apr 1 to Jun 16 · or click a marker.</div>
+  <div class="detail" id="detail"><span class="accentbar" id="accentbar"></span><div class="dcard" id="dcard"></div></div>
+
+  <!-- CHANGE LOG -->
+  <section class="shead"><span class="eyebrow"><span class="d"></span>Every dated change</span><h2>Full change log</h2>
+    <p class="s">Every account change with a date, from campaign records and the Google Ads change history.</p></section>
+  <div class="card" style="overflow:hidden">
+    <table class="ctab">
+      <thead><tr><th>Date</th><th>Change</th></tr></thead>
+      <tbody>
+        <tr><td>27 Oct 2025</td><td>Brand search campaign created</td></tr>
+        <tr><td>20 Nov 2025</td><td>LCMS / TechDocs (US &amp; EU) created</td></tr>
+        <tr><td>7 Jan 2026</td><td>Consolidated (US &amp; EU) created</td></tr>
+        <tr><td>16 Feb 2026</td><td>Flare and Syndicate product campaigns launched</td></tr>
+        <tr><td>23 Feb 2026</td><td>Syndicate brand campaign paused</td></tr>
+        <tr><td>4 Mar 2026</td><td>Current Create campaign launched</td></tr>
+        <tr><td>9 Mar 2026</td><td>Optimize Search (broad) paused</td></tr>
+        <tr><td>31 Mar 2026</td><td>Syndicate competitor targeting launched</td></tr>
+        <tr><td>~15 Apr 2026</td><td>Leadership plan review — quality-over-volume approach greenlit</td></tr>
+        <tr><td>2 May 2026</td><td>Flare US resumed spending</td></tr>
+        <tr><td>~6 May 2026</td><td>Brand conversion tracking break (under repair)</td></tr>
+        <tr><td>7 May 2026</td><td>HubSpot Sales Accepted Lead data integrated into Google (SAL-based optimization being evaluated by campaign)</td></tr>
+        <tr><td>Early May 2026</td><td>Junk-search negative-keyword cleanup begins</td></tr>
+        <tr><td>20 May 2026</td><td>Flare-vs-Paligo competitor landing page live</td></tr>
+        <tr><td>~27 May 2026</td><td>Microsoft narrowed to Brand + Flare</td></tr>
+        <tr><td>9 Jun 2026</td><td>Over-broad negative keywords rescoped to phrase/exact (freed good searches like "documentation software" that were being blocked)</td></tr>
+        <tr><td>15 Jun 2026</td><td>EU targeting added to the Syndicate and IXIA campaigns</td></tr>
+        <tr><td>15 Jun 2026</td><td>LCMS landing page added to the LCMS &amp; LMS related keywords</td></tr>
+        <tr><td>Through June 2026</td><td>Product campaigns ramping and Microsoft live; Demand Gen + YouTube planned (not live yet); broad AI campaign wind-down sequenced after new channels backfill</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- CONCENTRATION -->
+  <section class="shead"><span class="eyebrow"><span class="d"></span>Where the leads come from</span><h2>Lead concentration (May)</h2>
+    <p class="s">Most of May's MQLs still came from two broad campaigns. That concentration is exactly why we're building the product campaigns and new channels <b>before</b> winding the broad AI campaign down.</p></section>
+  <div class="card" style="overflow:hidden">
+    <table class="ctab">
+      <thead><tr><th>Campaign</th><th class="r">MQLs · May</th><th class="r">Share</th></tr></thead>
+      <tbody>
+        <tr><td>GS_NB_AI (broad)</td><td class="r">88</td><td class="r">55%</td></tr>
+        <tr><td>Content-Development</td><td class="r">40</td><td class="r">25%</td></tr>
+        <tr><td>LCMS-TechDocs US</td><td class="r">7</td><td class="r">4%</td></tr>
+        <tr><td>Consolidated US</td><td class="r">7</td><td class="r">4%</td></tr>
+        <tr><td>Brand</td><td class="r">6</td><td class="r">4%</td></tr>
+        <tr><td>LCMS-TechDocs EU</td><td class="r">4</td><td class="r">3%</td></tr>
+        <tr><td>Flare</td><td class="r">3</td><td class="r">2%</td></tr>
+        <tr><td>Syndicate</td><td class="r">2</td><td class="r">1%</td></tr>
+        <tr><td>AI Tools</td><td class="r">2</td><td class="r">1%</td></tr>
+        <tr class="tot"><td>TOTAL</td><td class="r">159</td><td class="r">100%</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="src">GS_NB_AI alone is about 55% of May MQLs, and with Content-Development it's roughly 80% (128 of 159). Brand MQLs are understated here because of the tracking break around May 6 — treat brand as directional until that's fixed.</p>
+
+  <!-- BRAND AUCTION -->
+  <section class="shead"><span class="eyebrow"><span class="d"></span>Brand search</span><h2>Why brand got expensive</h2>
+    <p class="s">Through April, brand search held top position at a normal cost per click. From the week of May 11 competitors bid it up and a generic "syndicate" search drained the budget — cost per click jumped 3–6×, and we lost most impressions to rank, not to budget. Repairing the tracking and blocking that generic search are part of brand recovery.</p></section>
+  <div class="card" style="overflow:hidden">
+    <table class="ctab">
+      <thead><tr><th>Week of</th><th class="r">Avg CPC</th><th class="r">Lost to rank</th><th class="r">Top-of-page</th></tr></thead>
+      <tbody>
+        <tr><td>Apr 6</td><td class="r">$12.63</td><td class="r">27%</td><td class="r">43%</td></tr>
+        <tr><td>Apr 20</td><td class="r">$11.22</td><td class="r">8%</td><td class="r">41%</td></tr>
+        <tr><td>May 4</td><td class="r">$10.09</td><td class="r">23%</td><td class="r">29%</td></tr>
+        <tr style="background:#fbe9e4"><td><b>May 11</b></td><td class="r"><b>$38.29</b></td><td class="r" style="color:var(--red)"><b>62%</b></td><td class="r" style="color:var(--red)"><b>18%</b></td></tr>
+        <tr style="background:#fbe9e4"><td><b>May 18</b></td><td class="r"><b>$64.76</b></td><td class="r" style="color:var(--red)"><b>45%</b></td><td class="r" style="color:var(--red)"><b>21%</b></td></tr>
+        <tr style="background:#fbe9e4"><td><b>May 25</b></td><td class="r"><b>$52.87</b></td><td class="r" style="color:var(--red)"><b>54%</b></td><td class="r" style="color:var(--red)"><b>23%</b></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Q&A -->
+  <section class="shead"><span class="eyebrow"><span class="d"></span>For the conversation</span><h2>Questions you'll get — and answers</h2></section>
+  <div class="card cardpad">
+    <div class="qa">
+      <div class="item"><div class="q"><span class="m">Q</span>"Where did our leads go?"</div><div class="a">We cut junk searches that disqualified about 80% of the time. Those leads weren't reaching sales as real opportunities anyway. The actual pipeline is intact.</div></div>
+      <div class="item"><div class="q"><span class="m">Q</span>"Fewer leads — isn't that bad?"</div><div class="a">Quality is up. Qualified leads more than doubled on Flare (~24 → ~56), and about 70% of May's MQLs were accepted by sales. Fewer leads, far better fit.</div></div>
+      <div class="item"><div class="q"><span class="m">Q</span>"Won't turning off the AI campaign hurt us?"</div><div class="a">It's about half our leads, but mostly junk. We're bringing new channels up first — Microsoft and the product campaigns now, with Demand Gen + YouTube planned next — so qualified volume holds. We only wind the AI campaign down once those backfill it.</div></div>
+      <div class="item"><div class="q"><span class="m">Q</span>"When does volume come back?"</div><div class="a">Over 30 / 60 / 90 days as the new channels ramp. We review weekly on Sales Accepted Leads and disqualifications, and adjust if quality slips.</div></div>
+    </div>
+  </div>
+
+  <!-- SUMMARY -->
+  <div class="summary reveal">
+    <span class="tag">● The bottom line</span>
+    <h3>Down on purpose, then back up — with a better mix</h3>
+    <p>We deliberately traded raw lead volume for fit: cut the junk searches, started measuring the leads sales actually accept, and fixed what was quietly draining brand. <b>Volume is down ~28% by design while qualified leads more than doubled on our top product and ~70% of leads were accepted by sales.</b></p>
+    <p style="margin-top:14px">The recovery is sequenced so there's no cliff — Microsoft and the product campaigns ramp first, with Demand Gen + YouTube planned next, and the broad AI campaign only winds down once they backfill the volume. <b>And it's already turning: June is pacing back up, with the week of June 8 the strongest in weeks.</b></p>
+  </div>
+
+  <p class="src">Lead figures are MQLs from HubSpot (imported into Google Ads), pulled June 16, 2026, full calendar months; HubSpot is the source of truth and these are directional. Disqualified / qualified figures are for Flare Online (top product), from the team's HubSpot view, and are approximate. Brand cost-per-click and auction metrics are from Google Ads. The 30 / 60 / 90 recovery is the expected pattern, not a forecast of exact numbers; "pipeline holds" is the working hypothesis (pipeline visibility is limited). Spend and cost-per-acquisition figures are intentionally not shown on this page.</p>
+  <footer><span>MadCap · Paid Media · SingleGrain</span><span>For the sales team · Updated Jun 16, 2026</span></footer>
+</div>
+
+<script>
+/* ===== DAILY DATA (Apr 1 → Jun 16, 2026 · 77 days) — clicks / conversions / MQLs. Pulled live from Google Ads (account 6333716782) Jun 16. No spend. ===== */
+const CLICKS=[251,236,206,202,147,263,246,294,316,223,207,199,265,245,232,250,233,199,303,311,246,219,184,224,235,216,273,275,252,237,
+202,188,185,314,346,181,71,130,176,172,210,212,211,198,139,115,118,192,217,171,150,152,117,145,149,121,77,63,89,69,77,
+121,199,167,198,171,148,153,189,204,221,237,208,145,176,228,203];
+const CONV=[24,18,17,10,10,23,7,19,11,18,9,18,10,18,16,18,14,16,15,12,29,18,17,24,16,26,21,22,18,16,
+11,15,24,10,40,19,0,4,11,9,16,14,9,12,0,2,6,8,12,17,8,10,12,8,7,3,4,6,10,7,10,
+8,5,7,14,2,18,10,6,9,12,20,20,8,12,15,13];
+/* Daily MQL = "HubSpot - Marketing Qualified Lead" conversion, pulled from Google Ads Jun 16. Monthly source-of-truth (HubSpot) figures: 221 (Apr) / 159 (May) / 94 (Jun through 16th). The daily line is Google-imported and directional; it runs slightly under the HubSpot total on recent days due to conversion-import lag. */
+const MQL=[11,7,7,3,5,11,2,2,1,3,1,8,4,9,8,9,7,8,8,5,15,9,8,11,8,13,10,11,9,8,
+5,7,12,4,20,10,0,2,6,4,8,7,3,6,0,1,3,4,6,9,4,5,6,4,3,2,2,3,5,3,5,
+4,2,3,7,1,9,5,2,4,6,10,10,4,6,8,10];
+
+const START=new Date(2026,3,1);
+const MN=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+function lbl(i){const d=new Date(START);d.setDate(d.getDate()+i);return MN[d.getMonth()]+" "+d.getDate();}
+const LABELS=CLICKS.map((_,i)=>lbl(i));
+const CRASH=36, N=CLICKS.length;
+
+/* ===== CHART (wide: one bar per day) ===== */
+const dayW=46, chartW=N*dayW;
+const chartlane=document.getElementById('chartlane'), ribbon=document.getElementById('ribbon'), inner=document.getElementById('inner');
+chartlane.style.width=chartW+'px'; ribbon.style.width=chartW+'px';
+document.getElementById('ribrail').style.width=chartW+'px';
+
+const C={ink:'#1c1813',ink3:'#978c7c',tan:'#cdc4b4',red:'#d6342a',black:'#1a1714',brand:'#e76f3c',line:'#e4dccd',good:'#1f8f57'};
+const JUNE=61; /* index of Jun 1 — June bars color green for the recovery */
+const barColors=CLICKS.map((_,i)=> i>=JUNE ? C.good : (i>=CRASH ? C.red : C.tan));
+
+const chart=new Chart(document.getElementById('chart'),{
+  data:{labels:LABELS,datasets:[
+    {type:'bar',label:'Clicks',data:CLICKS,yAxisID:'y',backgroundColor:barColors,borderRadius:3,borderSkipped:false,categoryPercentage:.78,barPercentage:.9,order:3},
+    {type:'line',label:'Conversions',data:CONV,yAxisID:'y1',borderColor:C.black,backgroundColor:C.black,borderWidth:2.4,tension:.32,pointRadius:0,pointHoverRadius:5,order:1},
+    {type:'line',label:'MQLs',data:MQL,yAxisID:'y1',borderColor:'#3b49d9',backgroundColor:'#3b49d9',borderWidth:3,borderDash:[5,3],tension:.32,pointRadius:0,pointHoverRadius:5,spanGaps:true,order:0}
+  ]},
+  options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},layout:{padding:{top:6}},
+    scales:{
+      x:{grid:{display:false},border:{color:C.line},ticks:{color:C.ink3,font:{family:'Archivo',size:11},autoSkip:false,maxRotation:0,callback:(v,i)=> i%2===0?LABELS[i].split(' ')[1]:'' }},
+      y:{position:'left',beginAtZero:true,suggestedMax:360,grid:{color:'rgba(28,24,19,.06)'},border:{display:false},ticks:{color:C.ink3,font:{family:'Archivo',size:11}}},
+      y1:{position:'right',beginAtZero:true,suggestedMax:48,grid:{display:false},border:{display:false},ticks:{color:C.ink3,font:{family:'Archivo',size:11}}}
+    },
+    plugins:{legend:{display:false},
+      tooltip:{backgroundColor:'#1c1813',padding:11,cornerRadius:9,titleFont:{family:'Archivo',weight:'800',size:12.5},bodyFont:{family:'Archivo',size:12.5},
+        callbacks:{title:(it)=>LABELS[it[0].dataIndex]+', 2026',label:(it)=>{const v=it.raw;if(v==null)return null;return '  '+it.dataset.label+': '+v;}}}}
+  }
+});
+
+/* ===== EVENTS — sales-facing, plain English, no spend (di = chart day index) ===== */
+const T={launch:'#e76f3c',crit:'#d6342a',change:'#bd720c',ext:'#5560d8',plan:'#5d6675',read:'#978c7c'};
+const TL={launch:'New',crit:'Watch-out',change:'Change',ext:'Cross-channel',plan:'Plan',read:'Context'};
+const EVENTS=[
+ {n:1,di:2,when:'Apr 1–6',type:'read',t:'Where April stood',
+  b:'Through April the account ran steady — healthy lead flow, with brand search holding top position at a normal cost per click (about $11). This is the healthy baseline we are working back toward.',c:['Steady lead flow','Brand CPC ~$11','Top position held']},
+ {n:2,di:14,when:'~Apr 15',type:'plan',t:'Leadership plan review',
+  b:'Mid-April, MadCap leadership reviewed and backed the shift from chasing volume to chasing fit — accept fewer, better-qualified leads and clean out the searches that waste sales\' time.',c:['Quality over volume','Approach greenlit']},
+ {n:3,di:35,when:'~May 6',type:'crit',t:'Brand conversion tracking breaks',
+  b:'Around May 6 the conversion tracking on real brand terms (like "madcap flare") stopped importing. Brand leads kept coming but stopped being counted — so brand looks worse on paper than it actually is. The repair is underway.',c:['Tracking break ~May 6','Brand leads undercounted','Fix underway'],bad:[true,true,false]},
+ {n:4,di:36,when:'May 7',type:'change',t:'Sales Accepted Lead data goes live',
+  b:'From May 7, Sales Accepted Lead data started flowing back into Google. The goal is to optimize toward the leads sales actually accepts — but first we are gathering SAL volume by campaign. Today most SALs come from the two broad campaigns, so we shift each campaign to SAL-based optimization only once it has the volume to support it.',c:['SAL data live','Optimization being evaluated','SAL volume by campaign first']},
+ {n:5,di:37,when:'Early May',type:'change',t:'Junk-search cleanup begins',
+  b:'In early May we cut a list of broad searches that were disqualifying about 80% of the time (mostly generic "AI" queries). Fewer leads from here — by design. We later found some of these were also blocking good searches, and rescoped them to phrase/exact on June 9 (below).',c:['~80% were disqualifying','Volume down by design','Rescoped Jun 9']},
+ {n:6,di:43,when:'May 14+',type:'crit',t:'Brand auction turns; "syndicate" leak',
+  b:'From mid-May, competitors bid the brand auction up and a generic "syndicate" search (a common word other firms use) quietly drained the brand budget with zero conversions. Brand cost per click jumped from about $11 to $38–65 a week, and we lost 45–62% of impressions to rank. The fix: block the generic "syndicate" as an exact negative (without touching "madcap syndicate"), tighten broad terms, and repair brand tracking.',c:['CPC ~$11 → $38–65','Lost to rank 45–62%','"syndicate" drained budget'],bad:[true,true,true]},
+ {n:7,di:49,when:'May 20',type:'launch',t:'Stronger Flare-vs-Paligo page',
+  b:'A stronger competitor landing page went live to convert Flare-vs-Paligo comparison traffic into qualified leads.',c:['New competitor page','Live May 20']},
+ {n:8,di:56,when:'~May 27',type:'change',t:'Microsoft narrowed to Brand + Flare',
+  b:'Around May 27 we focused Microsoft Ads on Brand + Flare for incremental reach at a lower cost. (A Microsoft tracking fix is in progress before we read results.)',c:['Microsoft: Brand + Flare','MS tracking fix in progress']},
+ {n:9,di:60,when:'May 31',type:'read',t:'May vs April',
+  b:'May closed with 159 MQLs versus 221 in April — about 28% fewer, as expected from the cleanup. But roughly 70% were accepted by sales, and on Flare qualified leads more than doubled (~24 → ~56) while disqualifications fell (~80 → ~20). Fewer leads, far better fit.',c:['MQLs 221 → 159','~70% accepted by sales','Qualified leads >2x'],g:[false,true,true]},
+ {n:10,di:62,when:'Jun 1–4',type:'plan',t:'What\'s next',
+  b:'Into June we are ramping Microsoft and the product campaigns (Flare, Create, Syndicate) to rebuild volume, with Demand Gen + YouTube planned as the next channel to come on — and we will wind the broad AI campaign down only after these backfill it, so there is no cliff.',c:['Products ramping','Demand Gen — planned','No cliff — sequenced']},
+ {n:11,di:68,when:'Jun 8',type:'read',t:'The rebound shows up',
+  b:'The week of June 8 was the strongest in weeks — daily clicks back near April levels and MQLs rebuilding, with sales acceptance holding around 70–77%. This is the recovery arriving in real data, not just a forecast.',c:['Clicks near April level','MQLs rebuilding','Acceptance ~70–77%'],g:[true,true,true]},
+ {n:12,di:69,when:'Jun 9',type:'change',t:'Over-broad negatives rescoped',
+  b:'On June 9 we rescoped the over-broad negative keywords to phrase/exact. Some broad negatives (like "software" and "lms") had been blocking good searches such as "documentation software" and "technical writing software" — this frees those back up while still cutting the junk.',c:['Rescoped Jun 9','Phrase/exact','Frees good searches']},
+ {n:13,di:75,when:'Jun 15',type:'launch',t:'EU targeting + LCMS landing page expanded',
+  b:'On June 15 we added EU targeting to the Syndicate and IXIA campaigns, and added the LCMS landing page to the LCMS and LMS related keywords — both aimed at extending qualified reach.',c:['EU added: Syndicate + IXIA','LCMS landing page → LCMS/LMS','Extending reach']},
+ {n:14,di:76,when:'Jun 16',type:'read',t:'Where we are now',
+  b:'Through mid-June the account is pacing even with or above May on MQLs, with far better fit. Microsoft and the product campaigns keep ramping to carry the volume, with Demand Gen + YouTube planned next, before the broad AI campaign winds down.',c:['Pacing even / above May','Better fit','Channels ramping'],g:[true,true,false]}
+];
+const NTOT=String(EVENTS.length).padStart(2,'0');
+
+/* ===== build ribbon markers ===== */
+const ribFrag=document.createDocumentFragment();
+EVENTS.forEach((e,idx)=>{
+  const col=T[e.type];
+  const mk=document.createElement('div');
+  mk.className='mk'; mk.dataset.idx=idx;
+  mk.innerHTML='<div class="n" style="background:'+col+'">'+e.n+'</div><div class="d">'+e.when+'</div><div class="ti">'+e.t+'</div>';
+  mk.addEventListener('click',()=>goTo(idx));
+  ribFrag.appendChild(mk);
+});
+ribbon.appendChild(ribFrag);
+const MKS=[...ribbon.querySelectorAll('.mk')];
+
+/* ===== positioning ===== */
+const stage=document.getElementById('stage'), band=document.getElementById('band');
+let EVX=[];
+function place(){
+  if(!chart.scales||!chart.scales.x)return;
+  const sx=chart.scales.x;
+  const cw=stage.clientWidth, padL=Math.round(cw*0.24), padR=cw-padL;
+  inner.style.width=(chartW+cw)+'px';
+  inner.style.paddingLeft=padL+'px';
+  inner.style.paddingRight=padR+'px';
+  EVX=EVENTS.map(e=>sx.getPixelForValue(e.di));
+  MKS.forEach((mk,i)=>mk.style.left=EVX[i]+'px');
+  band.style.width=Math.max(14,(sx.getPixelForValue(1)-sx.getPixelForValue(0)))+'px';
+  onScroll();
+}
+
+/* ===== active tracking ===== */
+const detail=document.getElementById('detail'), dcard=document.getElementById('dcard'), accentbar=document.getElementById('accentbar');
+let active=-1;
+function render(idx){
+  const e=EVENTS[idx], col=T[e.type];
+  let chips=e.c.map((ch,j)=>{let cls='';if(e.bad&&e.bad[j])cls='bad';if(e.g&&e.g[j])cls='good';return '<b class="'+cls+'">'+ch+'</b>';}).join('');
+  accentbar.style.background=col;
+  dcard.classList.remove('in');
+  dcard.innerHTML=
+    '<div class="dhead"><div class="dnum" style="background:'+col+'">'+e.n+'</div>'+
+    '<div><div class="dtype" style="color:'+col+'">'+TL[e.type]+'</div><div class="dwhen">'+e.when+'</div></div></div>'+
+    '<h3>'+e.t+'</h3><p>'+e.b+'</p>'+
+    '<div class="chips">'+chips+'</div>';
+  requestAnimationFrame(()=>dcard.classList.add('in'));
+}
+function setActive(idx){
+  if(idx===active)return; active=idx;
+  MKS.forEach((mk,i)=>mk.classList.toggle('on',i===idx));
+  band.style.left=EVX[idx]+'px';
+  document.getElementById('tcount').textContent=String(idx+1).padStart(2,'0')+' / '+NTOT;
+  render(idx);
+}
+function onScroll(){
+  const target=stage.scrollLeft;
+  let cur=0,best=1e9;
+  EVX.forEach((x,i)=>{const d=Math.abs(x-target);if(d<best){best=d;cur=i;}});
+  setActive(cur);
+  const max=stage.scrollWidth-stage.clientWidth;
+  document.getElementById('prev').disabled=stage.scrollLeft<=2;
+  document.getElementById('next').disabled=stage.scrollLeft>=max-2;
+}
+function goTo(idx){
+  idx=Math.max(0,Math.min(EVENTS.length-1,idx));
+  stage.scrollTo({left:EVX[idx],behavior:'smooth'});
+}
+
+document.getElementById('next').addEventListener('click',()=>goTo(active+1));
+document.getElementById('prev').addEventListener('click',()=>goTo(active-1));
+document.addEventListener('keydown',e=>{if(e.key==='ArrowRight')goTo(active+1);if(e.key==='ArrowLeft')goTo(active-1);});
+stage.addEventListener('wheel',e=>{
+  if(Math.abs(e.deltaY)<=Math.abs(e.deltaX))return;
+  const max=stage.scrollWidth-stage.clientWidth, canR=stage.scrollLeft<max-1, canL=stage.scrollLeft>1;
+  if((e.deltaY>0&&canR)||(e.deltaY<0&&canL)){stage.scrollLeft+=e.deltaY;e.preventDefault();}
+},{passive:false});
+stage.addEventListener('scroll',onScroll,{passive:true});
+window.addEventListener('resize',()=>{place();});
+
+place();
+requestAnimationFrame(()=>setTimeout(()=>{place();stage.scrollLeft=0;onScroll();},160));
+
+const io=new IntersectionObserver((es)=>{es.forEach(en=>{if(en.isIntersecting){en.target.classList.add('in');io.unobserve(en.target);}});},{threshold:.15});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+const prog=document.getElementById('prog');
+function pageProg(){const h=document.documentElement;const m=h.scrollHeight-h.clientHeight;prog.style.width=(m>0?h.scrollTop/m*100:0)+'%';}
+document.addEventListener('scroll',pageProg,{passive:true});pageProg();
+</script>
+</body>
+</html>
