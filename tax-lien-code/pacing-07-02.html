@@ -95,31 +95,6 @@
   .showrate-tile.warn .v{color:#fbbf24}
   .showrate-tile.alert .v{color:#f87171}
   @media (max-width:640px){ .showrate-grid{grid-template-columns:1fr} }
-.csr-note{font-size:11.5px;color:#94a3b8;margin-bottom:14px}
-  .csr-event{background:#22263a;border-radius:10px;padding:16px 18px;margin-bottom:16px}
-  .csr-event:last-of-type{margin-bottom:0}
-  .csr-head{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:8px;margin-bottom:12px}
-  .csr-head .name{font-size:15px;font-weight:700;color:#fff}
-  .csr-head .meta{font-size:11px;color:#94a3b8}
-  .csr-kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:14px}
-  .csr-kpi{background:#1a1d2b;border-radius:8px;padding:10px 12px}
-  .csr-kpi .l{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;color:#94a3b8;margin-bottom:3px}
-  .csr-kpi .v{font-size:18px;font-weight:700;color:#fff;line-height:1.1}
-  .csr-kpi.sr .v{color:#fbbf24}
-  .csr-kpi.bofu .v{color:#38bdf8}
-  .csr-table{width:100%;border-collapse:collapse;font-size:12.5px;margin-bottom:6px}
-  .csr-table th{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:#94a3b8;text-align:left;padding:6px 10px;border-bottom:1px solid #2e3350}
-  .csr-table td{padding:6px 10px;color:#e2e8f0;border-bottom:1px solid #1a1d27}
-  .csr-table tr:last-child td{border-bottom:none}
-  .csr-table td.num{text-align:right;font-variant-numeric:tabular-nums}
-  .csr-table th.num{text-align:right}
-  .csr-table .best{color:#34d399;font-weight:700}
-  .csr-subtitle{font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#94a3b8;margin:12px 0 6px}
-  .csr-pending{font-size:12px;color:#94a3b8;font-style:italic}
-  .csr-insights{list-style:none;padding:0;margin:12px 0 0}
-  .csr-insights li{padding:6px 0 6px 18px;position:relative;font-size:13px;color:#cbd5e1}
-  .csr-insights li:before{content:"→";position:absolute;left:0;color:#fbbf24}
-  @media (max-width:760px){ .csr-kpis{grid-template-columns:repeat(2,1fr)} }
 
 .chart-block{margin:14px 0 20px}
   .chart-title{font-size:12px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:#94a3b8;margin-bottom:6px;display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:10px}
@@ -170,7 +145,7 @@
 
   <div class="summary">
     <div><div class="l">Active events</div><div class="v">4</div></div>
-    <div><div class="l">Total spend</div><div class="v">$130,536</div></div>
+    <div><div class="l">Total spend</div><div class="v">$130,592</div></div>
     <div><div class="l">Total regs</div><div class="v">3,151</div></div>
     <div><div class="l">Blended CPL</div><div class="v">$41</div></div>
   </div>
@@ -180,7 +155,7 @@
     <div class="rs-box"><div class="rs-l">Reg sources · Other (organic / direct / Google)</div><div class="rs-v">824</div></div>
   </div>
 
-  <nav class="nav"><a href="#pending">Pending from TLC</a><a href="#showrate">Show rate</a><a href="#creative-sr">Creative show rate</a><a href="#ev-KEN">KEN</a><a href="#ev-RIC">RIC</a><a href="#ev-LAS">LAS</a><a href="#ev-FTL">FTL</a></nav>
+  <nav class="nav"><a href="#pending">Pending from TLC</a><a href="#showrate">Show rate</a><a href="show-rate.html">Creative show-rate report ↗</a><a href="#ev-KEN">KEN</a><a href="#ev-RIC">RIC</a><a href="#ev-LAS">LAS</a><a href="#ev-FTL">FTL</a></nav>
 <section class="section activations" id="activations">
 <div class="upcoming"><div class="ttl">Upcoming in next 7 days</div><ul>
 <li>LAS Las Vegas &middot; in 3d (2026-07-05): bolder claims</li>
@@ -221,40 +196,6 @@
     </div>
   </div>
 </section>
-<section class="section" id="creative-sr">
-<div class="section-title">Creative show-rate analysis · closed events</div>
-<div class="csr-note">Show rate = confirmed attendees / registrants, attributed per registrant via utm_content. Registrant-level utm_content attribution, Jun 2026 paired-market analysis (campaign 20260622); data pulled 2026-06-30 · Updated 2026-07-02</div>
-<div class="csr-event">
-<div class="csr-head"><span class="name">Columbia (CAE)</span><span class="meta">Event Jun 24-27, 2026 · data pulled 2026-06-30</span></div>
-<div class="csr-kpis"><div class="csr-kpi"><div class="l">Registrants</div><div class="v">1,671</div></div><div class="csr-kpi"><div class="l">Attendees</div><div class="v">153</div></div><div class="csr-kpi sr"><div class="l">Show rate</div><div class="v">9.2%</div></div><div class="csr-kpi"><div class="l">TOFU Meta</div><div class="v">8.1%</div></div><div class="csr-kpi bofu"><div class="l">BOFU Meta</div><div class="v">12.0%</div></div></div>
-<div class="csr-subtitle">By funnel stage &amp; platform</div>
-<table class="csr-table"><tr><th>Funnel / Platform</th><th class="num">Regs</th><th class="num">Attended</th><th class="num">Show rate</th></tr>
-<tr><td>TOFU / Meta</td><td class="num">950</td><td class="num">77</td><td class="num">8.1%</td></tr>
-<tr><td>Untagged / -</td><td class="num">544</td><td class="num">54</td><td class="num">9.9%</td></tr>
-<tr><td>BOFU / Meta</td><td class="num">133</td><td class="num">16</td><td class="num">12.0%</td></tr>
-<tr><td>TOFU / Google Demand Gen</td><td class="num">30</td><td class="num">5</td><td class="num best">16.7%</td></tr>
-<tr><td>Search / Google Search</td><td class="num">9</td><td class="num">1</td><td class="num">11.1%</td></tr>
-<tr><td>BOFU / Google Demand Gen</td><td class="num">5</td><td class="num">0</td><td class="num">0.0%</td></tr>
-</table>
-<div class="csr-subtitle">Creative rankings (by registrations)</div>
-<table class="csr-table"><tr><th>Creative</th><th>Stage</th><th class="num">Regs</th><th class="num">Attended</th><th class="num">Show rate</th></tr>
-<tr><td>CAE - AI Event Flyer Static</td><td>TOFU Meta</td><td class="num">690</td><td class="num">50</td><td class="num">7.2%</td></tr>
-<tr><td>CAE_hook 4_aspirational (video)</td><td>TOFU Meta</td><td class="num">147</td><td class="num">11</td><td class="num">7.5%</td></tr>
-<tr><td>CAE_hook 3_aspirational (video)</td><td>TOFU Meta</td><td class="num">54</td><td class="num">11</td><td class="num best">20.4%</td></tr>
-<tr><td>CAE_hook 2_aspirational (video)</td><td>TOFU Meta</td><td class="num">16</td><td class="num">2</td><td class="num">12.5%</td></tr>
-</table>
-</div>
-<div class="csr-event">
-<div class="csr-head"><span class="name">Washington DC (DCA)</span><span class="meta">Event Jun 24-27, 2026 · data pulled 2026-06-30</span></div>
-<div class="csr-kpis"><div class="csr-kpi"><div class="l">Registrants</div><div class="v">1,549</div></div><div class="csr-kpi"><div class="l">Attendees</div><div class="v">140</div></div><div class="csr-kpi sr"><div class="l">Show rate</div><div class="v">9.0%</div></div><div class="csr-kpi"><div class="l">TOFU Meta</div><div class="v">8.0%</div></div><div class="csr-kpi bofu"><div class="l">BOFU Meta</div><div class="v">11.6%</div></div></div>
-<div class="csr-pending">Detailed funnel and creative split pending for this event.</div>
-</div>
-<ul class="csr-insights">
-<li>The concept that wins on registration volume is rarely the one that wins on show rate: Columbia's static flyer led registrations (690) at the lowest show rate (7.2%), while hook 3 (video) converted at 20.4% on lower volume.</li>
-<li>BOFU Meta consistently out-shows TOFU Meta in both markets (12.0% vs 8.1% in Columbia; 11.6% vs 8.0% in Washington DC).</li>
-<li>About 25% of each registrant list is untagged, and session timing moves show rate more than any single creative.</li>
-</ul>
-</section>
 
 
   <div id="ev-KEN">
@@ -270,16 +211,16 @@
       <div class="kpi-grid">
         <div class="kpi">
           <div class="kpi-label">Spend</div>
-          <div class="kpi-value">$44,099</div>
-          <div class="kpi-sub">pacing $51,838 of $55,000
+          <div class="kpi-value">$44,116</div>
+          <div class="kpi-sub">pacing $51,858 of $55,000
             <span style="color:#34d399">(94%)</span>
           </div>
         </div>
         <div class="kpi">
           <div class="kpi-label">Registrations</div>
           <div class="kpi-value">428</div>
-          <div class="kpi-sub">pacing 503 of 1,200
-            <span style="color:#f87171">(42%)</span>
+          <div class="kpi-sub">pacing 503 of 2,000
+            <span style="color:#f87171">(25%)</span>
           </div>
         </div>
         <div class="kpi">
@@ -351,16 +292,16 @@
       <div class="kpi-grid">
         <div class="kpi">
           <div class="kpi-label">Spend</div>
-          <div class="kpi-value">$42,603</div>
-          <div class="kpi-sub">pacing $53,317 of $55,000
+          <div class="kpi-value">$42,614</div>
+          <div class="kpi-sub">pacing $53,331 of $55,000
             <span style="color:#34d399">(97%)</span>
           </div>
         </div>
         <div class="kpi">
           <div class="kpi-label">Registrations</div>
           <div class="kpi-value">1,008</div>
-          <div class="kpi-sub">pacing 1,261 of 1,200
-            <span style="color:#34d399">(105%)</span>
+          <div class="kpi-sub">pacing 1,261 of 2,000
+            <span style="color:#f87171">(63%)</span>
           </div>
         </div>
         <div class="kpi">
@@ -439,16 +380,16 @@
       <div class="kpi-grid">
         <div class="kpi">
           <div class="kpi-label">Spend</div>
-          <div class="kpi-value">$17,437</div>
-          <div class="kpi-sub">pacing $29,972 of $55,000
-            <span style="color:#34d399">(54%)</span>
+          <div class="kpi-value">$17,450</div>
+          <div class="kpi-sub">pacing $29,996 of $55,000
+            <span style="color:#34d399">(55%)</span>
           </div>
         </div>
         <div class="kpi">
           <div class="kpi-label">Registrations</div>
           <div class="kpi-value">701</div>
-          <div class="kpi-sub">pacing 1,205 of 1,200
-            <span style="color:#34d399">(100%)</span>
+          <div class="kpi-sub">pacing 1,205 of 2,000
+            <span style="color:#f87171">(60%)</span>
           </div>
         </div>
         <div class="kpi">
@@ -513,16 +454,16 @@
       <div class="kpi-grid">
         <div class="kpi">
           <div class="kpi-label">Spend</div>
-          <div class="kpi-value">$26,397</div>
-          <div class="kpi-sub">pacing $45,374 of $55,000
-            <span style="color:#34d399">(82%)</span>
+          <div class="kpi-value">$26,411</div>
+          <div class="kpi-sub">pacing $45,399 of $55,000
+            <span style="color:#34d399">(83%)</span>
           </div>
         </div>
         <div class="kpi">
           <div class="kpi-label">Registrations</div>
           <div class="kpi-value">1,014</div>
-          <div class="kpi-sub">pacing 1,743 of 1,200
-            <span style="color:#34d399">(145%)</span>
+          <div class="kpi-sub">pacing 1,743 of 2,000
+            <span style="color:#f87171">(87%)</span>
           </div>
         </div>
         <div class="kpi">
