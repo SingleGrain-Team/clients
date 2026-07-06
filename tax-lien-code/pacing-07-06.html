@@ -117,6 +117,17 @@
   .chart-tooltip .tt-row .lbl{color:#94a3b8}
   .chart-tooltip .tt-row .val{color:#f1f5f9;font-variant-numeric:tabular-nums;font-weight:600}
   .chart-tooltip .tt-total{margin-top:5px;padding-top:5px;border-top:1px solid #2e3350}
+
+.activations{background:rgba(251,191,36,0.06);border:1px solid rgba(251,191,36,0.35);border-radius:12px;padding:18px 22px;margin-bottom:18px}
+  .activations .ttl{font-size:11px;font-weight:700;letter-spacing:0.1em;color:#fbbf24;text-transform:uppercase;margin-bottom:12px}
+  .activations ul{list-style:none;padding:0;margin:0}
+  .activations li{padding:6px 0;border-bottom:1px solid rgba(251,191,36,0.15);font-size:13.5px;color:#e2e8f0}
+  .activations li:last-child{border-bottom:none}
+  .activations li strong{color:#fbbf24}
+  .activations .upcoming{margin-top:14px;padding-top:12px;border-top:1px solid rgba(251,191,36,0.25)}
+  .activations .upcoming .ttl{color:#94a3b8;font-size:10.5px;letter-spacing:0.08em;margin-bottom:6px}
+  .activations .upcoming li{color:#cbd5e1;font-size:12.5px;border-bottom:none;padding:2px 0}
+  .activations .desc{color:#94a3b8;font-size:11.5px;display:block;margin-top:2px}
 </style>
 </head>
 <body>
@@ -133,18 +144,30 @@
   </header>
 
   <div class="summary">
-    <div><div class="l">Active events</div><div class="v">4</div></div>
-    <div><div class="l">Total spend</div><div class="v">$177,938</div></div>
-    <div><div class="l">Total regs</div><div class="v">3,591</div></div>
+    <div><div class="l">Active events</div><div class="v">6</div></div>
+    <div><div class="l">Total spend</div><div class="v">$202,497</div></div>
+    <div><div class="l">Total regs</div><div class="v">4,043</div></div>
     <div><div class="l">Blended CPL</div><div class="v">$50</div></div>
   </div>
   <div class="summary-sources">
-    <div class="rs-box"><div class="rs-l">Reg sources · Meta Form</div><div class="rs-v">614</div></div>
-    <div class="rs-box"><div class="rs-l">Reg sources · Website</div><div class="rs-v">1,942</div></div>
-    <div class="rs-box"><div class="rs-l">Reg sources · Other (organic / direct / Google)</div><div class="rs-v">1,035</div></div>
+    <div class="rs-box"><div class="rs-l">Reg sources · Meta Form</div><div class="rs-v">675</div></div>
+    <div class="rs-box"><div class="rs-l">Reg sources · Website</div><div class="rs-v">2,201</div></div>
+    <div class="rs-box"><div class="rs-l">Reg sources · Other (organic / direct / Google)</div><div class="rs-v">1,167</div></div>
   </div>
 
-  <nav class="nav"><a href="#pending">Pending from TLC</a><a href="#showrate">Show rate</a><a href="show-rate.html">Creative show-rate report ↗</a><a href="#ev-KEN">KEN</a><a href="#ev-RIC">RIC</a><a href="#ev-LAS">LAS</a><a href="#ev-FTL">FTL</a></nav>
+  <nav class="nav"><a href="#pending">Pending from TLC</a><a href="#showrate">Show rate</a><a href="show-rate.html">Creative show-rate report ↗</a><a href="#ev-KEN">KEN</a><a href="#ev-RIC">RIC</a><a href="#ev-LAS">LAS</a><a href="#ev-FTL">FTL</a><a href="#ev-ATL">ATL</a><a href="#ev-ORF">ORF</a></nav>
+<section class="section activations" id="activations">
+<div class="ttl">Activations due today</div>
+<ul>
+<li><strong>ATL Atlanta</strong> &middot; day 8 &middot; activate <strong>bold claims</strong><span class="desc">Activate the bold-claims ad set in Meta — sister set to base TOFU, no budget cannibalization.</span></li>
+<li><strong>ORF Norfolk</strong> &middot; day 8 &middot; activate <strong>bold claims</strong><span class="desc">Activate the bold-claims ad set in Meta — sister set to base TOFU, no budget cannibalization.</span></li>
+</ul>
+<div class="upcoming"><div class="ttl">Upcoming in next 7 days</div><ul>
+<li>ATL Atlanta &middot; in 6d (2026-07-12): bolder claims</li>
+<li>ORF Norfolk &middot; in 6d (2026-07-12): bolder claims</li>
+</ul></div>
+</section>
+
 <section class="section" id="pending">
   <div class="section-title">Pending from Tax Lien team</div>
   <div class="trends">
@@ -234,28 +257,24 @@
           <td class="venue-regs">253</td>
           <td class="venue-proj">projecting 274</td>
         </tr>
-        
     
         <tr class="venue-row venue-ok">
           <td class="venue-name">Yakima</td>
           <td class="venue-regs">100</td>
           <td class="venue-proj">projecting 108</td>
         </tr>
-        
     
-        <tr class="venue-row venue-merge">
-          <td class="venue-name">Walla Walla <span class="badge badge-red">Merge candidate</span></td>
+        <tr class="venue-row venue-ok">
+          <td class="venue-name">Walla Walla</td>
           <td class="venue-regs">59</td>
           <td class="venue-proj">projecting 64</td>
         </tr>
-        <tr class="venue-rec-row"><td colspan="3"><div class="venue-rec venue-rec-empty">No consolidation candidate within 25 mi — neither healthy venues nor other underperformers are close enough to combine.</div></td></tr>
     
-        <tr class="venue-row venue-merge">
-          <td class="venue-name">Moses Lake <span class="badge badge-red">Merge candidate</span></td>
+        <tr class="venue-row venue-ok">
+          <td class="venue-name">Moses Lake</td>
           <td class="venue-regs">45</td>
           <td class="venue-proj">projecting 49</td>
         </tr>
-        <tr class="venue-rec-row"><td colspan="3"><div class="venue-rec venue-rec-empty">No consolidation candidate within 25 mi — neither healthy venues nor other underperformers are close enough to combine.</div></td></tr>
     
           </tbody>
         </table>
@@ -274,8 +293,8 @@
       <div class="kpi-grid">
         <div class="kpi">
           <div class="kpi-label">Spend</div>
-          <div class="kpi-value">$54,086</div>
-          <div class="kpi-sub">pacing $60,183 of $55,000
+          <div class="kpi-value">$54,123</div>
+          <div class="kpi-sub">pacing $60,224 of $55,000
             <span style="color:#fbbf24">(109%)</span>
           </div>
         </div>
@@ -315,35 +334,30 @@
           <td class="venue-regs">368</td>
           <td class="venue-proj">projecting 409</td>
         </tr>
-        
     
         <tr class="venue-row venue-ok">
           <td class="venue-name">Richmond (Airport)</td>
           <td class="venue-regs">207</td>
           <td class="venue-proj">projecting 230</td>
         </tr>
-        
     
         <tr class="venue-row venue-ok">
           <td class="venue-name">Midlothian</td>
           <td class="venue-regs">193</td>
           <td class="venue-proj">projecting 215</td>
         </tr>
-        
     
         <tr class="venue-row venue-ok">
           <td class="venue-name">Fredericksburg</td>
           <td class="venue-regs">149</td>
           <td class="venue-proj">projecting 166</td>
         </tr>
-        
     
         <tr class="venue-row venue-ok">
           <td class="venue-name">Colonial Heights</td>
           <td class="venue-regs">140</td>
           <td class="venue-proj">projecting 156</td>
         </tr>
-        
     
           </tbody>
         </table>
@@ -362,16 +376,16 @@
       <div class="kpi-grid">
         <div class="kpi">
           <div class="kpi-label">Spend</div>
-          <div class="kpi-value">$30,093</div>
-          <div class="kpi-sub">pacing $41,740 of $55,000
-            <span style="color:#34d399">(76%)</span>
+          <div class="kpi-value">$30,361</div>
+          <div class="kpi-sub">pacing $42,112 of $55,000
+            <span style="color:#34d399">(77%)</span>
           </div>
         </div>
         <div class="kpi">
           <div class="kpi-label">Registrations</div>
-          <div class="kpi-value">897</div>
-          <div class="kpi-sub">pacing 1,244 of 2,000
-            <span style="color:#f87171">(62%)</span>
+          <div class="kpi-value">902</div>
+          <div class="kpi-sub">pacing 1,251 of 2,000
+            <span style="color:#f87171">(63%)</span>
           </div>
         </div>
         <div class="kpi">
@@ -381,8 +395,8 @@
         </div>
         <div class="reg-sources">
           <div class="rs-box"><div class="rs-l">Reg src · Meta Form</div><div class="rs-v">158</div></div>
-          <div class="rs-box"><div class="rs-l">Reg src · Website</div><div class="rs-v">478</div></div>
-          <div class="rs-box"><div class="rs-l">Reg src · Other (organic / direct / Google)</div><div class="rs-v">261</div></div>
+          <div class="rs-box"><div class="rs-l">Reg src · Website</div><div class="rs-v">480</div></div>
+          <div class="rs-box"><div class="rs-l">Reg src · Other (organic / direct / Google)</div><div class="rs-v">264</div></div>
         </div>
       </div>
 <div class="chart-block"><div class="chart-title"><span>Daily Meta + Google leads</span><span class="chart-caveat">Combined Meta pixel leads + Google Ads conversions. Organic and direct not included.</span></div><div class="chart-wrap" id="chart-LAS"></div></div>
@@ -391,7 +405,7 @@
       
 
       <div class="venue-block">
-        <h3 class="venue-title">Venue breakdown <span class="venue-count">(3 venues, 897 regs)</span></h3>
+        <h3 class="venue-title">Venue breakdown <span class="venue-count">(3 venues, 902 regs)</span></h3>
         <table class="venues">
           <thead>
             <tr><th>Venue</th><th class="num">Regs</th><th>Pacing</th></tr>
@@ -400,24 +414,21 @@
             
         <tr class="venue-row venue-ok">
           <td class="venue-name">Henderson</td>
-          <td class="venue-regs">310</td>
-          <td class="venue-proj">projecting 430</td>
+          <td class="venue-regs">311</td>
+          <td class="venue-proj">projecting 431</td>
         </tr>
-        
     
         <tr class="venue-row venue-ok">
           <td class="venue-name">Las Vegas (Northwest)</td>
-          <td class="venue-regs">304</td>
-          <td class="venue-proj">projecting 422</td>
+          <td class="venue-regs">306</td>
+          <td class="venue-proj">projecting 424</td>
         </tr>
-        
     
         <tr class="venue-row venue-ok">
           <td class="venue-name">Summerlin</td>
-          <td class="venue-regs">283</td>
-          <td class="venue-proj">projecting 393</td>
+          <td class="venue-regs">285</td>
+          <td class="venue-proj">projecting 395</td>
         </tr>
-        
     
           </tbody>
         </table>
@@ -436,16 +447,16 @@
       <div class="kpi-grid">
         <div class="kpi">
           <div class="kpi-label">Spend</div>
-          <div class="kpi-value">$37,856</div>
-          <div class="kpi-sub">pacing $52,508 of $55,000
-            <span style="color:#34d399">(95%)</span>
+          <div class="kpi-value">$38,172</div>
+          <div class="kpi-sub">pacing $52,946 of $55,000
+            <span style="color:#34d399">(96%)</span>
           </div>
         </div>
         <div class="kpi">
           <div class="kpi-label">Registrations</div>
-          <div class="kpi-value">1,180</div>
-          <div class="kpi-sub">pacing 1,637 of 2,000
-            <span style="color:#f87171">(82%)</span>
+          <div class="kpi-value">1,191</div>
+          <div class="kpi-sub">pacing 1,652 of 2,000
+            <span style="color:#f87171">(83%)</span>
           </div>
         </div>
         <div class="kpi">
@@ -455,8 +466,8 @@
         </div>
         <div class="reg-sources">
           <div class="rs-box"><div class="rs-l">Reg src · Meta Form</div><div class="rs-v">327</div></div>
-          <div class="rs-box"><div class="rs-l">Reg src · Website</div><div class="rs-v">583</div></div>
-          <div class="rs-box"><div class="rs-l">Reg src · Other (organic / direct / Google)</div><div class="rs-v">270</div></div>
+          <div class="rs-box"><div class="rs-l">Reg src · Website</div><div class="rs-v">588</div></div>
+          <div class="rs-box"><div class="rs-l">Reg src · Other (organic / direct / Google)</div><div class="rs-v">276</div></div>
         </div>
       </div>
 <div class="chart-block"><div class="chart-title"><span>Daily Meta + Google leads</span><span class="chart-caveat">Combined Meta pixel leads + Google Ads conversions. Organic and direct not included.</span></div><div class="chart-wrap" id="chart-FTL"></div></div>
@@ -465,7 +476,7 @@
       
 
       <div class="venue-block">
-        <h3 class="venue-title">Venue breakdown <span class="venue-count">(8 venues, 1,180 regs)</span></h3>
+        <h3 class="venue-title">Venue breakdown <span class="venue-count">(8 venues, 1,191 regs)</span></h3>
         <table class="venues">
           <thead>
             <tr><th>Venue</th><th class="num">Regs</th><th>Pacing</th></tr>
@@ -474,59 +485,225 @@
             
         <tr class="venue-row venue-ok">
           <td class="venue-name">Ft Lauderdale (North)</td>
-          <td class="venue-regs">212</td>
-          <td class="venue-proj">projecting 294</td>
+          <td class="venue-regs">213</td>
+          <td class="venue-proj">projecting 295</td>
         </tr>
-        
     
         <tr class="venue-row venue-ok">
           <td class="venue-name">Ft Lauderdale (Downtown)</td>
-          <td class="venue-regs">193</td>
-          <td class="venue-proj">projecting 268</td>
+          <td class="venue-regs">195</td>
+          <td class="venue-proj">projecting 270</td>
         </tr>
-        
     
         <tr class="venue-row venue-ok">
           <td class="venue-name">Port St Lucie</td>
-          <td class="venue-regs">167</td>
-          <td class="venue-proj">projecting 232</td>
+          <td class="venue-regs">170</td>
+          <td class="venue-proj">projecting 236</td>
         </tr>
-        
     
         <tr class="venue-row venue-ok">
           <td class="venue-name">Coral Springs</td>
           <td class="venue-regs">153</td>
           <td class="venue-proj">projecting 212</td>
         </tr>
-        
     
         <tr class="venue-row venue-ok">
           <td class="venue-name">West Palm Beach</td>
-          <td class="venue-regs">149</td>
-          <td class="venue-proj">projecting 207</td>
+          <td class="venue-regs">150</td>
+          <td class="venue-proj">projecting 208</td>
         </tr>
-        
     
         <tr class="venue-row venue-ok">
           <td class="venue-name">Plantation</td>
-          <td class="venue-regs">143</td>
-          <td class="venue-proj">projecting 198</td>
+          <td class="venue-regs">145</td>
+          <td class="venue-proj">projecting 201</td>
         </tr>
-        
     
         <tr class="venue-row venue-ok">
           <td class="venue-name">Boca Raton</td>
-          <td class="venue-regs">97</td>
-          <td class="venue-proj">projecting 135</td>
+          <td class="venue-regs">99</td>
+          <td class="venue-proj">projecting 137</td>
         </tr>
-        
     
-        <tr class="venue-row venue-low">
-          <td class="venue-name">Palm Beach Gardens <span class="badge badge-amber">Pacing low</span></td>
+        <tr class="venue-row venue-ok">
+          <td class="venue-name">Palm Beach Gardens</td>
           <td class="venue-regs">66</td>
           <td class="venue-proj">projecting 92</td>
         </tr>
-        
+    
+          </tbody>
+        </table>
+      </div>
+    </section>
+    </div><div id="ev-ATL">
+    <section class="event">
+      <div class="event-head">
+        <div>
+          <div class="event-code">ATL</div>
+          <h2 class="event-label">Atlanta</h2>
+        </div>
+        <span class="event-status" style="color:#34d399;border-color:#34d399">Launched 6/28 · 19d remaining</span>
+      </div>
+
+      <div class="kpi-grid">
+        <div class="kpi">
+          <div class="kpi-label">Spend</div>
+          <div class="kpi-value">$9,101</div>
+          <div class="kpi-sub">pacing $19,810 of $55,000
+            <span style="color:#34d399">(36%)</span>
+          </div>
+        </div>
+        <div class="kpi">
+          <div class="kpi-label">Registrations</div>
+          <div class="kpi-value">149</div>
+          <div class="kpi-sub">pacing 324 of 2,000
+            <span style="color:#f87171">(16%)</span>
+          </div>
+        </div>
+        <div class="kpi">
+          <div class="kpi-label">CPL</div>
+          <div class="kpi-value">$61</div>
+          <div class="kpi-sub">46% of weighted window elapsed</div>
+        </div>
+        <div class="reg-sources">
+          <div class="rs-box"><div class="rs-l">Reg src · Meta Form</div><div class="rs-v">0</div></div>
+          <div class="rs-box"><div class="rs-l">Reg src · Website</div><div class="rs-v">95</div></div>
+          <div class="rs-box"><div class="rs-l">Reg src · Other (organic / direct / Google)</div><div class="rs-v">54</div></div>
+        </div>
+      </div>
+
+      
+
+      <div class="venue-block">
+        <h3 class="venue-title">Venue breakdown <span class="venue-count">(8 venues, 149 regs)</span></h3>
+        <table class="venues">
+          <thead>
+            <tr><th>Venue</th><th class="num">Regs</th><th>Pacing</th></tr>
+          </thead>
+          <tbody>
+            
+        <tr class="venue-row venue-ok">
+          <td class="venue-name">Alpharetta</td>
+          <td class="venue-regs">26</td>
+          <td class="venue-proj">projecting 57</td>
+        </tr>
+    
+        <tr class="venue-row venue-ok">
+          <td class="venue-name">McDonough</td>
+          <td class="venue-regs">22</td>
+          <td class="venue-proj">projecting 48</td>
+        </tr>
+    
+        <tr class="venue-row venue-ok">
+          <td class="venue-name">Peachtree City</td>
+          <td class="venue-regs">21</td>
+          <td class="venue-proj">projecting 46</td>
+        </tr>
+    
+        <tr class="venue-row venue-ok">
+          <td class="venue-name">Sandy Springs</td>
+          <td class="venue-regs">19</td>
+          <td class="venue-proj">projecting 41</td>
+        </tr>
+    
+        <tr class="venue-row venue-ok">
+          <td class="venue-name">Duluth</td>
+          <td class="venue-regs">18</td>
+          <td class="venue-proj">projecting 39</td>
+        </tr>
+    
+        <tr class="venue-row venue-ok">
+          <td class="venue-name">Lithia Springs</td>
+          <td class="venue-regs">18</td>
+          <td class="venue-proj">projecting 39</td>
+        </tr>
+    
+        <tr class="venue-row venue-ok">
+          <td class="venue-name">Atlanta (Midtown)</td>
+          <td class="venue-regs">17</td>
+          <td class="venue-proj">projecting 37</td>
+        </tr>
+    
+        <tr class="venue-row venue-ok">
+          <td class="venue-name">Decatur</td>
+          <td class="venue-regs">8</td>
+          <td class="venue-proj">projecting 17</td>
+        </tr>
+    
+          </tbody>
+        </table>
+      </div>
+    </section>
+    </div><div id="ev-ORF">
+    <section class="event">
+      <div class="event-head">
+        <div>
+          <div class="event-code">ORF</div>
+          <h2 class="event-label">Norfolk</h2>
+        </div>
+        <span class="event-status" style="color:#34d399;border-color:#34d399">Launched 6/28 · 19d remaining</span>
+      </div>
+
+      <div class="kpi-grid">
+        <div class="kpi">
+          <div class="kpi-label">Spend</div>
+          <div class="kpi-value">$14,837</div>
+          <div class="kpi-sub">pacing $32,295 of $55,000
+            <span style="color:#34d399">(59%)</span>
+          </div>
+        </div>
+        <div class="kpi">
+          <div class="kpi-label">Registrations</div>
+          <div class="kpi-value">287</div>
+          <div class="kpi-sub">pacing 625 of 2,000
+            <span style="color:#f87171">(31%)</span>
+          </div>
+        </div>
+        <div class="kpi">
+          <div class="kpi-label">CPL</div>
+          <div class="kpi-value">$52</div>
+          <div class="kpi-sub">46% of weighted window elapsed</div>
+        </div>
+        <div class="reg-sources">
+          <div class="rs-box"><div class="rs-l">Reg src · Meta Form</div><div class="rs-v">61</div></div>
+          <div class="rs-box"><div class="rs-l">Reg src · Website</div><div class="rs-v">157</div></div>
+          <div class="rs-box"><div class="rs-l">Reg src · Other (organic / direct / Google)</div><div class="rs-v">69</div></div>
+        </div>
+      </div>
+
+      
+
+      <div class="venue-block">
+        <h3 class="venue-title">Venue breakdown <span class="venue-count">(4 venues, 287 regs)</span></h3>
+        <table class="venues">
+          <thead>
+            <tr><th>Venue</th><th class="num">Regs</th><th>Pacing</th></tr>
+          </thead>
+          <tbody>
+            
+        <tr class="venue-row venue-ok">
+          <td class="venue-name">Virginia Beach</td>
+          <td class="venue-regs">116</td>
+          <td class="venue-proj">projecting 252</td>
+        </tr>
+    
+        <tr class="venue-row venue-ok">
+          <td class="venue-name">Newport News</td>
+          <td class="venue-regs">81</td>
+          <td class="venue-proj">projecting 176</td>
+        </tr>
+    
+        <tr class="venue-row venue-ok">
+          <td class="venue-name">Chesapeake</td>
+          <td class="venue-regs">70</td>
+          <td class="venue-proj">projecting 152</td>
+        </tr>
+    
+        <tr class="venue-row venue-ok">
+          <td class="venue-name">Suffolk</td>
+          <td class="venue-regs">20</td>
+          <td class="venue-proj">projecting 44</td>
+        </tr>
     
           </tbody>
         </table>
