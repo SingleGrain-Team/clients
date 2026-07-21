@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TLC Per-Event Landing Page — Mobile CRO Mockup</title>
+<style>
+  :root{ --navy:#16262e; --navy2:#1d2f38; --orange:#cf7f5b; --orange2:#c06f45; --num:#c9703f; --ink:#17242b; --line:#e2e6e9; }
+  *{ box-sizing:border-box; }
+  body{ font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif; background:#eceff1; margin:0; padding:26px 16px 60px; color:var(--ink); }
+  .wrap{ max-width:1000px; margin:0 auto; }
+  h1.t{ font-size:21px; margin:0 0 3px; }
+  .sub{ color:#667; font-size:13px; margin-bottom:24px; }
+  .cols{ display:flex; gap:26px; flex-wrap:wrap; align-items:flex-start; }
+  .col{ flex:1; min-width:320px; }
+  .col h2{ font-size:12px; text-transform:uppercase; letter-spacing:.06em; color:#556; margin:0 0 10px; }
+  .phone{ width:338px; margin:0 auto; border:10px solid #111; border-radius:34px; overflow:hidden; box-shadow:0 12px 34px rgba(0,0,0,.22); background:#000; }
+  .screen{ height:660px; overflow-y:auto; background:#fff; }
+  .hd{ background:var(--navy); color:#fff; text-align:center; padding:16px 14px 12px; }
+  .hd .logo{ font-weight:700; letter-spacing:.13em; font-size:15px; }
+  .hd .tp{ font-size:11px; color:#d9c9a8; margin-top:6px; }
+  .eyebrow{ font-family:Georgia,serif; font-weight:700; text-transform:uppercase; letter-spacing:.05em; color:#8a9aa3; font-size:12px; text-align:center; padding:14px 16px 0; }
+  .hl{ font-family:Georgia,'Times New Roman',serif; font-weight:800; text-align:center; color:var(--ink); padding:6px 16px 4px; }
+  .proof{ padding:6px 18px; }
+  .proof p{ text-align:center; font-size:13px; margin:9px 0; line-height:1.35; }
+  .proof b{ color:var(--num); }
+  .cta{ background:var(--orange); color:#fff; text-align:center; font-weight:700; letter-spacing:.02em; margin:12px 16px 6px; padding:15px; border-radius:8px; font-size:15px; }
+  .fine{ text-align:center; color:#9aa4ab; font-size:12px; padding:2px 16px 14px; }
+  .belowbar{ background:#f0f2f4; border-top:1px dashed #c3ccd2; color:#7a848b; font-size:11px; text-align:center; padding:9px 14px; }
+  .cur .hl{ font-size:27px; line-height:1.12; }
+  .cur .vsl{ margin:12px; height:150px; border-radius:8px; background:linear-gradient(160deg,#39434a,#20282d); position:relative; }
+  .cur .vsl:after{ content:"\25B6  VSL video"; position:absolute; inset:0; display:flex; align-items:center; justify-content:center; color:#cdd4d8; font-size:12px; }
+  .cur .step{ font-family:Georgia,serif; font-weight:700; font-size:16px; padding:12px 16px 4px; }
+  .cur .loc{ border-top:1px solid var(--line); padding:12px 16px; font-size:13px; }
+  .cur .loc b{ color:var(--ink); }
+  .pro .hl{ font-size:23px; line-height:1.15; }
+  .pro .picker{ margin:10px 12px 4px; }
+  .pro .nearest{ text-align:center; font-size:10px; color:#7a848b; margin:2px 0 8px; }
+  .pro .lc{ display:flex; align-items:center; gap:10px; border:1.5px solid var(--line); border-radius:10px; padding:10px 12px; margin-bottom:8px; }
+  .pro .lc.sel{ border-color:var(--orange); background:#fdf3ee; }
+  .pro .lc .r{ width:18px; height:18px; border-radius:50%; border:2px solid #b9c2c8; flex:0 0 auto; }
+  .pro .lc.sel .r{ border-color:var(--orange); background:var(--orange); box-shadow:inset 0 0 0 3px #fff; }
+  .pro .lc .txt{ font-size:12.5px; line-height:1.25; }
+  .pro .lc .txt b{ font-size:13px; }
+  .pro .lc .seats{ margin-left:auto; font-size:10px; color:#b5502a; font-weight:700; white-space:nowrap; }
+  .pro .form{ margin:8px 12px 0; }
+  .pro .form input{ width:100%; border:1px solid #cfd6db; border-radius:8px; padding:11px; font-size:13px; margin-bottom:8px; }
+  /* proposal detail */
+  .prop{ margin-top:30px; background:#fff; border-radius:12px; padding:22px 24px; box-shadow:0 2px 10px rgba(0,0,0,.05); }
+  .prop h3{ font-size:16px; margin:0 0 4px; }
+  .prop .lede{ color:#556; font-size:13px; margin:0 0 16px; }
+  .prop h4{ font-size:12px; text-transform:uppercase; letter-spacing:.05em; color:var(--orange2); margin:20px 0 8px; }
+  table{ border-collapse:collapse; width:100%; font-size:13px; }
+  th,td{ border:1px solid var(--line); padding:8px 10px; text-align:left; vertical-align:top; }
+  th{ background:#f5f7f8; }
+  ol,ul{ margin:6px 0; padding-left:20px; font-size:13px; }
+  li{ margin:6px 0; }
+  .pill{ display:inline-block; font-size:11px; font-weight:700; padding:2px 8px; border-radius:20px; margin-right:4px; }
+  .r1{ background:#fdece3; color:#b5502a; } .r2{ background:#eef2f4; color:#556; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1 class="t">Tax Lien Code — Per-Event Registration Page, Mobile CRO Mockup</h1>
+  <div class="sub">Built from the real per-event page (live.taxliencode.com). This is a directional test mockup for alignment, not final design.</div>
+
+  <div class="cols">
+    <div class="col">
+      <h2>Current (mobile)</h2>
+      <div class="phone"><div class="screen cur">
+        <div class="hd"><div class="logo">&#9670; TAXLIENCODE</div><div class="tp">&#9733; Trustpilot 4.9 / 2,847+ Reviews</div></div>
+        <div class="eyebrow">Free Atlanta Area Live Events</div>
+        <div class="hl">How You Could Make Passive, Fixed Real Estate Income Without Ever Buying A Single Property!</div>
+        <div class="proof">
+          <p><b>97%</b> of advanced training attendees purchase their first tax lien <b>within 14 days</b>.</p>
+          <p><b>16&ndash;25%</b> government-mandated returns.</p>
+          <p><b>125,000+</b> investors trained nationwide.</p>
+        </div>
+        <div class="cta">CLAIM YOUR 2 FREE TICKETS</div>
+        <div class="fine">No experience required &middot; Free in-person class</div>
+        <div class="vsl"></div>
+        <div class="step">Step 1: Choose Location &amp; Enter Details</div>
+        <div class="loc"><b>Peachtree City:</b> Tue Jul 21 @ 6:30 PM &mdash; Hilton Peachtree City</div>
+        <div class="loc"><b>Lithia Springs:</b> Wed Jul 22 @ 12:30 PM &mdash; Hilton Garden Inn</div>
+      </div></div>
+      <div class="belowbar">Trust + proof are strong and above the fold. But the CTA scrolls past a VSL video before the location list, and the form is further down still.</div>
+    </div>
+
+    <div class="col">
+      <h2>Proposed variant (mobile)</h2>
+      <div class="phone"><div class="screen pro">
+        <div class="hd"><div class="logo">&#9670; TAXLIENCODE</div><div class="tp">&#9733; Trustpilot 4.9 / 2,847+ Reviews</div></div>
+        <div class="eyebrow">Free Atlanta Area Live Events</div>
+        <div class="hl">Earn fixed 16&ndash;25% real estate income, without buying a single property.</div>
+        <div class="proof"><p><b>97%</b> buy their first tax lien within 14 days &middot; <b>125,000+</b> trained</p></div>
+        <div class="picker">
+          <div class="nearest">&#128205; Nearest to you &mdash; pick a date:</div>
+          <div class="lc sel"><span class="r"></span><span class="txt"><b>Atlanta (Midtown)</b><br>Wed Jul 22 &middot; 6:30 PM &middot; Marriott Suites</span><span class="seats">6 seats left</span></div>
+          <div class="lc"><span class="r"></span><span class="txt"><b>Decatur</b><br>Thu Jul 23 &middot; 12:30 PM &middot; Hampton Inn</span><span class="seats">limited</span></div>
+          <div class="lc"><span class="r"></span><span class="txt"><b>Lithia Springs</b><br>Wed Jul 22 &middot; 12:30 PM &middot; Hilton Garden Inn</span></div>
+        </div>
+        <div class="form">
+          <input placeholder="First name">
+          <input placeholder="Email" inputmode="email">
+          <input placeholder="Phone" inputmode="tel">
+        </div>
+        <div class="cta">Claim my 2 free tickets &rarr;</div>
+        <div class="fine">No experience required &middot; Free in-person class</div>
+        <div class="vsl" style="margin:8px 12px 12px; height:120px; border-radius:8px; background:linear-gradient(160deg,#39434a,#20282d);"></div>
+      </div></div>
+      <div class="belowbar" style="color:#177245; border-top-color:#bfe0cc;">Location picker + short form pulled above the fold, headline tightened, one proof line, seat scarcity. VSL kept as support below the form.</div>
+    </div>
+  </div>
+
+  <div class="prop">
+    <h3>The proposal in detail</h3>
+    <p class="lede">The current page already earns trust well (Trustpilot, 97% / 16&ndash;25% / 125,000+). The single biggest mobile friction is that the ask, the location picker and the form, sits below a full-screen hero and a VSL video, so a visitor has to scroll through two screens before they can act. Everything below is aimed at shortening the path from intent to registration on mobile, where the majority of traffic lands.</p>
+
+    <h4>What changes, and why</h4>
+    <table>
+      <tr><th>Change</th><th>Why</th><th>Metric it moves</th></tr>
+      <tr><td>Pull the location picker and a short form (first name, email, phone) above the fold</td><td>The ask currently sits behind the hero and the VSL; on mobile that is two scrolls before anyone can register</td><td>Registration CVR up, CPA down</td></tr>
+      <tr><td>Tighten the headline from five-plus lines to one benefit line</td><td>Long serif headline fills the first screen and slows comprehension on a phone</td><td>CVR (faster to the offer)</td></tr>
+      <tr><td>Condense proof to one scannable line, keep the Trustpilot bar</td><td>Keeps the credibility that is working without pushing the form further down</td><td>CVR (trust retained, less scroll)</td></tr>
+      <tr><td>Turn the plain location list into tappable cards, nearest date first, with seat scarcity</td><td>Easier one-thumb selection and a reason to act now instead of later</td><td>CVR + registration intent</td></tr>
+      <tr><td>Keep the VSL, but place it below the form</td><td>Visitors who want the video still get it; it no longer gates the registration action</td><td>CVR without losing the sales narrative</td></tr>
+    </table>
+
+    <h4>How we would test it (single variable at a time)</h4>
+    <ol>
+      <li><span class="pill r1">Round 1</span> Form + location above the fold vs current. This is the biggest lever, so it runs first.</li>
+      <li><span class="pill r2">Round 2</span> Tightened headline vs current headline.</li>
+      <li><span class="pill r2">Round 3</span> Seat scarcity and nearest-date-first ordering vs neutral list.</li>
+      <li>Each round is an A/B test in a single region so the read is clean, before rolling the winner across markets.</li>
+    </ol>
+
+    <h4>How we measure it</h4>
+    <ul>
+      <li><b>Primary:</b> registration conversion rate (visits to registration) and cost per registration.</li>
+      <li><b>Guardrail:</b> show rate, so we never trade registration volume for attendance quality.</li>
+      <li><b>Read:</b> per region, once each variant clears a minimum volume.</li>
+    </ul>
+
+    <h4>What stays</h4>
+    <ul>
+      <li>The Trustpilot bar and the 97% / 16&ndash;25% / 125,000+ proof, which already work.</li>
+      <li>The VSL video and the overall brand look.</li>
+      <li>The ugly landing page and the AI flyer stay off the table.</li>
+    </ul>
+
+    <h4>How it feeds marketing</h4>
+    <ul>
+      <li>A higher on-page conversion rate lowers cost per registration, which lets budget scale further inside the same event cap.</li>
+      <li>It pairs with the add-to-calendar signal test: a cleaner form flow plus optimizing toward higher-intent registrants compounds on show rate and cost per attendee.</li>
+      <li>The client can implement page changes quickly, so we can move from mockup to a live single-region test fast.</li>
+    </ul>
+  </div>
+</div>
+</body>
+</html>
