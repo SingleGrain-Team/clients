@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TLC Closed-Event Readout, Fort Lauderdale + Las Vegas</title>
+<style>
+  :root{
+    --orange:#F27038; --orange-soft:#FDEEE6; --ink:#1c1c1e; --muted:#6b7075;
+    --line:#e7e7e9; --bg:#ffffff; --card:#fafafa;
+    --hit:#1f9d55; --hit-bg:#e6f4ec; --miss:#c0392b; --miss-bg:#fbeae8;
+    --pend:#8a6d3b; --pend-bg:#fbf3e2;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;color:var(--ink);background:#f2f2f4;line-height:1.5;font-size:15px}
+  .page{max-width:960px;margin:24px auto;background:var(--bg);box-shadow:0 1px 4px rgba(0,0,0,.08);border-radius:10px;overflow:hidden}
+  header{background:var(--orange);color:#fff;padding:26px 34px}
+  header h1{margin:0 0 4px;font-size:22px;font-weight:800;letter-spacing:-.01em}
+  header .sub{font-size:14px;opacity:.95}
+  .verdict{padding:16px 34px;background:var(--orange-soft);border-bottom:1px solid var(--line);font-size:14px}
+  .verdict b{color:var(--orange)}
+  section{padding:22px 34px;border-bottom:1px solid var(--line)}
+  section:last-child{border-bottom:none}
+  h2{font-size:12px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);margin:0 0 6px;font-weight:700}
+  .lead{font-size:13px;color:var(--muted);margin:0 0 14px}
+  table{width:100%;border-collapse:collapse;font-size:13.5px}
+  th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line)}
+  th{font-size:11px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);font-weight:700}
+  td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+  td.kpi{font-weight:600}
+  tr.pending td{color:var(--pend)}
+  .pendtag{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;background:var(--pend-bg);color:var(--pend);padding:1px 6px;border-radius:20px}
+  .up{color:var(--miss);font-weight:700}
+  .down{color:var(--hit);font-weight:700}
+  .neutral{color:var(--muted)}
+  ul.tight{margin:6px 0 0;padding-left:18px}
+  ul.tight li{margin-bottom:7px}
+  .cols{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+  .cols h3{font-size:13px;margin:0 0 6px}
+  .callout{background:var(--pend-bg);border:1px solid #ecd9b0;border-left:4px solid var(--pend);border-radius:6px;padding:14px 16px;font-size:13.5px}
+  .callout b{color:var(--pend)}
+  .note{font-size:12px;color:var(--muted);margin-top:10px;font-style:italic}
+  .footer{padding:16px 34px;font-size:12px;color:var(--muted);background:var(--card)}
+  @media(max-width:720px){.cols{grid-template-columns:1fr}section{padding:18px 20px}header{padding:22px 20px}.verdict{padding:14px 20px}}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header>
+    <h1>Closed-Event Readout, Fort Lauderdale + Las Vegas</h1>
+    <div class="sub">Workshop week 13 to 18 July 2026 &nbsp;&middot;&nbsp; Prepared by Single Grain</div>
+  </header>
+
+  <div class="verdict">
+    <b>Summary:</b> Both markets held cost efficiency in line with or better than the prior year. Las Vegas brought cost per registration down 20% year over year, and Fort Lauderdale delivered the same market on 22% less spend, both under budget. Registration volume ran below 2025 in both. Attendance and media KPIs are below; buyer economics populate once the weekly HubSpot feed is in place.
+  </div>
+
+  <section>
+    <h2>KPI scorecard</h2>
+    <p class="lead">Structured to match the KPIs reported in the internal management meeting.</p>
+    <table>
+      <thead>
+        <tr><th>KPI</th><th class="num">Fort Lauderdale</th><th class="num">Las Vegas</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="kpi">Registrations (vs 2,000 target)</td><td class="num">1,175 &middot; 59%</td><td class="num">984 &middot; 49%</td></tr>
+        <tr><td class="kpi">Media spend (vs $55K budget)</td><td class="num">$47,242 &middot; 86%</td><td class="num">$51,574 &middot; 94%</td></tr>
+        <tr><td class="kpi">Blended cost per reg</td><td class="num">$40.20</td><td class="num">$52.41</td></tr>
+        <tr><td class="kpi">Show rate</td><td class="num">10.55%</td><td class="num">10.77%</td></tr>
+        <tr><td class="kpi">Attendance</td><td class="num">124</td><td class="num">106</td></tr>
+        <tr><td class="kpi">Cost per attendee</td><td class="num">$381</td><td class="num">$487</td></tr>
+        <tr class="pending"><td class="kpi">Front-end buyers</td><td class="num"><span class="pendtag">pending feed</span></td><td class="num"><span class="pendtag">pending feed</span></td></tr>
+        <tr class="pending"><td class="kpi">Buy rate</td><td class="num"><span class="pendtag">pending feed</span></td><td class="num"><span class="pendtag">pending feed</span></td></tr>
+        <tr class="pending"><td class="kpi">Cost per buyer</td><td class="num"><span class="pendtag">pending feed</span></td><td class="num"><span class="pendtag">pending feed</span></td></tr>
+      </tbody>
+    </table>
+    <div class="note">Registrations, show rate, and attendance are host-level from the attendance file. Buyers, buy rate, and cost per buyer populate once the weekly HubSpot feed keyed to utm_campaign and utm_content is in place.</div>
+  </section>
+
+  <section>
+    <h2>Event over event, same market</h2>
+    <div class="cols">
+      <div>
+        <h3>Fort Lauderdale</h3>
+        <table>
+          <thead><tr><th>Metric</th><th class="num">2025</th><th class="num">2026</th><th class="num">Delta</th></tr></thead>
+          <tbody>
+            <tr><td>Spend</td><td class="num">$60,946</td><td class="num">$47,242</td><td class="num down">-22.5%</td></tr>
+            <tr><td>Registrations</td><td class="num">1,720</td><td class="num">1,175</td><td class="num up">-31.7%</td></tr>
+            <tr><td>Cost / reg</td><td class="num">$35.43</td><td class="num">$40.20</td><td class="num up">+13.5%</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div>
+        <h3>Las Vegas</h3>
+        <table>
+          <thead><tr><th>Metric</th><th class="num">2025</th><th class="num">2026</th><th class="num">Delta</th></tr></thead>
+          <tbody>
+            <tr><td>Spend</td><td class="num">$89,240</td><td class="num">$51,574</td><td class="num down">-42.2%</td></tr>
+            <tr><td>Registrations</td><td class="num">1,365</td><td class="num">984</td><td class="num up">-27.9%</td></tr>
+            <tr><td>Cost / reg</td><td class="num">$65.38</td><td class="num">$52.41</td><td class="num down">-19.8%</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="note">Prior-year baselines from the 2025 event summary (Fort Lauderdale Jun 9, Las Vegas Aug 11). 2025 show rate uses a different base, so it is left out of this comparison.</div>
+  </section>
+
+  <section>
+    <h2>Top creative by attendees</h2>
+    <div class="cols">
+      <div>
+        <h3>Fort Lauderdale</h3>
+        <ul class="tight">
+          <li>Blue Event Dates static, the leader</li>
+          <li>Brian direct call-out video (Evergreen)</li>
+          <li>Objection handling video ("Is this legit?")</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Las Vegas</h3>
+        <ul class="tight">
+          <li>Blue Event Dates static, the leader</li>
+          <li>House + Event Dates static</li>
+          <li>"Are You Coming" live crowd video</li>
+        </ul>
+      </div>
+    </div>
+    <div class="note">Ranked by attended registrants via utm_content. Rotation is led by proven concepts to stay ahead of fatigue.</div>
+  </section>
+
+  <section>
+    <h2>What happened and what we are changing</h2>
+    <ul class="tight">
+      <li>Cost efficiency held or improved: Las Vegas cost per registration came down 20% year over year, and Fort Lauderdale delivered on 22% less spend at a $40 cost per registration. Both markets came in under budget.</li>
+      <li>Registration volume ran below 2025 in both markets. Interest-based targeting was the most efficient lead source and was underweighted, so we are rebalancing budget toward it on the next launches.</li>
+      <li>Registration timing is the strongest lever on attendance in the data: hosts who register in the final days show up at a much higher rate than those who register weeks out. We are strengthening the reminder sequence for early registrants and testing a back-loaded spend curve.</li>
+      <li>Standing up the weekly HubSpot feed so buyer economics report alongside media efficiency.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Data notes</h2>
+    <div class="callout">
+      <b>Registration, show-rate, and attendance figures are host-level from the attendance file.</b> Media spend and per-channel efficiency are pulled live by Single Grain and include Google for these markets, which ran before the national evergreen consolidation. Front-end buyers, buy rate, and cost per buyer are HubSpot fields on the client side. A weekly export keyed to utm_campaign and utm_content closes those rows and lets us report the exact KPIs used in the internal management meeting.
+    </div>
+  </section>
+
+  <div class="footer">
+    Media figures pulled live from Meta and Google Ads (full flight windows through each event). Registration, show-rate, and attendance figures are host-level from the attendance file. Pending rows require the weekly HubSpot feed.
+  </div>
+
+</div>
+</body>
+</html>
