@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Tax Lien Code — Event Pacing (Aug 5, 2026)</title>
+<title>Tax Lien Code — Event Pacing (Aug 6, 2026)</title>
 <style>
   *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
   body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0f1117;color:#e2e8f0;line-height:1.55;font-size:14px}
@@ -95,6 +95,28 @@
   .showrate-tile.warn .v{color:#fbbf24}
   .showrate-tile.alert .v{color:#f87171}
   @media (max-width:640px){ .showrate-grid{grid-template-columns:1fr} }
+
+.chart-block{margin:14px 0 20px}
+  .chart-title{font-size:12px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:#94a3b8;margin-bottom:6px;display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:10px}
+  .chart-caveat{font-size:11px;font-weight:500;color:#64748b;text-transform:none;letter-spacing:0;font-style:italic}
+  .chart-wrap{background:#0f1117;border:1px solid #232739;border-radius:8px;padding:14px 16px;overflow-x:auto;position:relative}
+  .chart-svg{width:100%;height:auto;display:block;min-width:600px}
+  .chart-axis{stroke:#2e3350;stroke-width:1}
+  .chart-grid{stroke:#1a1d27;stroke-width:1;stroke-dasharray:2 3}
+  .chart-tick{fill:#64748b;font-size:11px;font-family:-apple-system,sans-serif}
+  .chart-dow{fill:#475569;font-size:9.5px;font-weight:600;letter-spacing:0.08em}
+  .chart-line{fill:none;stroke-width:1.75}
+  .chart-dot{stroke:#0f1117;stroke-width:1.5}
+  .chart-legend{display:flex;flex-wrap:wrap;gap:10px 14px;margin-top:10px;font-size:11.5px;color:#cbd5e1}
+  .chart-legend .item{display:inline-flex;align-items:center;gap:6px}
+  .chart-legend .swatch{width:11px;height:11px;border-radius:2px;display:inline-block}
+  .chart-tooltip{position:absolute;pointer-events:none;background:#0f1117;border:1px solid #2e3350;border-radius:6px;padding:8px 10px;font-size:11.5px;line-height:1.45;color:#e2e8f0;box-shadow:0 6px 18px rgba(0,0,0,0.4);opacity:0;transition:opacity 0.08s ease;z-index:20;min-width:140px}
+  .chart-tooltip.show{opacity:1}
+  .chart-tooltip .tt-date{font-size:10px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:#94a3b8;margin-bottom:5px}
+  .chart-tooltip .tt-row{display:flex;justify-content:space-between;gap:14px}
+  .chart-tooltip .tt-row .lbl{color:#94a3b8}
+  .chart-tooltip .tt-row .val{color:#f1f5f9;font-variant-numeric:tabular-nums;font-weight:600}
+  .chart-tooltip .tt-total{margin-top:5px;padding-top:5px;border-top:1px solid #2e3350}
 </style>
 </head>
 <body>
@@ -106,20 +128,20 @@
     </div>
     <div class="header-right">
       <div class="logo">SINGLE GRAIN</div>
-      <div>Wednesday, August 5, 2026</div>
+      <div>Thursday, August 6, 2026</div>
     </div>
   </header>
 
   <div class="summary">
     <div><div class="l">Active events</div><div class="v">4</div></div>
-    <div><div class="l">Total spend</div><div class="v">$130,589</div></div>
-    <div><div class="l">Total regs</div><div class="v">1,806</div></div>
-    <div><div class="l">Blended CPL</div><div class="v">$72</div></div>
+    <div><div class="l">Total spend</div><div class="v">$135,160</div></div>
+    <div><div class="l">Total regs</div><div class="v">1,839</div></div>
+    <div><div class="l">Blended CPL</div><div class="v">$73</div></div>
   </div>
   <div class="summary-sources">
     <div class="rs-box"><div class="rs-l">Reg sources · Meta Form</div><div class="rs-v">0</div></div>
-    <div class="rs-box"><div class="rs-l">Reg sources · Website</div><div class="rs-v">1,102</div></div>
-    <div class="rs-box"><div class="rs-l">Reg sources · Other (organic / direct / Google)</div><div class="rs-v">704</div></div>
+    <div class="rs-box"><div class="rs-l">Reg sources · Website</div><div class="rs-v">1,122</div></div>
+    <div class="rs-box"><div class="rs-l">Reg sources · Other (organic / direct / Google)</div><div class="rs-v">717</div></div>
   </div>
 
   <nav class="nav"><a href="#pending">Pending from TLC</a><a href="#showrate">Show rate</a><a href="show-rate.html">Creative show-rate report ↗</a><a href="#ev-JAX">JAX</a><a href="#ev-PWM">PWM</a><a href="#ev-PHX">PHX</a><a href="#ev-REN">REN</a></nav>
@@ -129,29 +151,8 @@
     <div class="trend">
       <div class="trend-num">·</div>
       <div class="trend-body">
-        <div class="insight">Show rate and attendance baselines for the open markets.</div>
-        <div class="action">Reno has come through, thank you. Whenever the equivalent numbers for Jacksonville, Phoenix and Portland are available, we can complete the closed market postmortems and read attendance against pacing per market.</div>
-      </div>
-    </div>
-    <div class="trend">
-      <div class="trend-num">·</div>
-      <div class="trend-body">
-        <div class="insight">TransUnion lead scoring, validation and go live.</div>
-        <div class="action">Any update on the data validation with Thales would help. Once it is live we can score registrant quality before each event rather than reading it afterwards.</div>
-      </div>
-    </div>
-    <div class="trend">
-      <div class="trend-num">·</div>
-      <div class="trend-body">
-        <div class="insight">Landing page direction for the next test.</div>
-        <div class="action">The variant build is ready to go once there is a decision between the video opening and the social proof version. Happy to proceed on either as soon as you have a preference.</div>
-      </div>
-    </div>
-    <div class="trend">
-      <div class="trend-num">·</div>
-      <div class="trend-body">
-        <div class="insight">Forward event calendar.</div>
-        <div class="action">A confirmed list of the next markets and dates lets us build with full lead time rather than compressing the ramp close to the event.</div>
+        <div class="insight">Meta Lead Forms — HubSpot unblock.</div>
+        <div class="action">Any news on the HubSpot integration that's blocking Meta lead forms going live? Lead form testing remains paused until the CRM connection is resolved.</div>
       </div>
     </div>
   </div>
@@ -186,40 +187,42 @@
           <div class="event-code">JAX</div>
           <h2 class="event-label">Jacksonville</h2>
         </div>
-        <span class="event-status" style="color:#fbbf24;border-color:#fbbf24">Launched 7/12 · 3d remaining</span>
+        <span class="event-status" style="color:#fbbf24;border-color:#fbbf24">Launched 7/12 · 2d remaining</span>
       </div>
 
       <div class="kpi-grid">
         <div class="kpi">
           <div class="kpi-label">Spend</div>
-          <div class="kpi-value">$48,416</div>
-          <div class="kpi-sub">pacing $51,550 of $55,000
+          <div class="kpi-value">$49,493</div>
+          <div class="kpi-sub">pacing $51,583 of $55,000
             <span style="color:#34d399">(94%)</span>
           </div>
         </div>
         <div class="kpi">
           <div class="kpi-label">Registrations</div>
-          <div class="kpi-value">830</div>
-          <div class="kpi-sub">pacing 884 of 2,000
+          <div class="kpi-value">836</div>
+          <div class="kpi-sub">pacing 871 of 2,000
             <span style="color:#f87171">(44%)</span>
           </div>
         </div>
         <div class="kpi">
           <div class="kpi-label">CPL</div>
-          <div class="kpi-value">$58</div>
-          <div class="kpi-sub">94% of weighted window elapsed</div>
+          <div class="kpi-value">$59</div>
+          <div class="kpi-sub">96% of weighted window elapsed</div>
         </div>
         <div class="reg-sources">
           <div class="rs-box"><div class="rs-l">Reg src · Meta Form</div><div class="rs-v">0</div></div>
-          <div class="rs-box"><div class="rs-l">Reg src · Website</div><div class="rs-v">503</div></div>
-          <div class="rs-box"><div class="rs-l">Reg src · Other (organic / direct / Google)</div><div class="rs-v">327</div></div>
+          <div class="rs-box"><div class="rs-l">Reg src · Website</div><div class="rs-v">508</div></div>
+          <div class="rs-box"><div class="rs-l">Reg src · Other (organic / direct / Google)</div><div class="rs-v">328</div></div>
         </div>
       </div>
+<div class="chart-block"><div class="chart-title"><span>Daily Meta + Google leads</span><span class="chart-caveat">Combined Meta pixel leads + Google Ads conversions. Organic and direct not included.</span></div><div class="chart-wrap" id="chart-JAX"></div></div>
+
 
       
 
       <div class="venue-block">
-        <h3 class="venue-title">Venue breakdown <span class="venue-count">(6 venues, 830 regs)</span></h3>
+        <h3 class="venue-title">Venue breakdown <span class="venue-count">(6 venues, 836 regs)</span></h3>
         <table class="venues">
           <thead>
             <tr><th>Venue</th><th class="num">Regs</th><th>Pacing</th></tr>
@@ -229,37 +232,37 @@
         <tr class="venue-row venue-ok">
           <td class="venue-name">Jacksonville</td>
           <td class="venue-regs">292</td>
-          <td class="venue-proj">projecting 311</td>
+          <td class="venue-proj">projecting 304</td>
         </tr>
     
         <tr class="venue-row venue-ok">
           <td class="venue-name">Orange Park</td>
           <td class="venue-regs">153</td>
-          <td class="venue-proj">projecting 163</td>
+          <td class="venue-proj">projecting 159</td>
         </tr>
     
         <tr class="venue-row venue-ok">
           <td class="venue-name">Jacksonville Beach</td>
-          <td class="venue-regs">127</td>
+          <td class="venue-regs">130</td>
           <td class="venue-proj">projecting 135</td>
         </tr>
     
         <tr class="venue-row venue-ok">
           <td class="venue-name">St Augustine</td>
           <td class="venue-regs">112</td>
-          <td class="venue-proj">projecting 119</td>
+          <td class="venue-proj">projecting 117</td>
         </tr>
     
         <tr class="venue-row venue-ok">
           <td class="venue-name">Gainesville</td>
-          <td class="venue-regs">75</td>
+          <td class="venue-regs">77</td>
           <td class="venue-proj">projecting 80</td>
         </tr>
     
         <tr class="venue-row venue-ok">
           <td class="venue-name">Palm Coast</td>
-          <td class="venue-regs">71</td>
-          <td class="venue-proj">projecting 76</td>
+          <td class="venue-regs">72</td>
+          <td class="venue-proj">projecting 75</td>
         </tr>
     
           </tbody>
@@ -271,42 +274,44 @@
       <div class="event-head">
         <div>
           <div class="event-code">PWM</div>
-          <h2 class="event-label">Portland, Maine</h2>
+          <h2 class="event-label">PWM</h2>
         </div>
-        <span class="event-status" style="color:#34d399;border-color:#34d399">Launched 7/16 · 10d remaining</span>
+        <span class="event-status" style="color:#34d399;border-color:#34d399">Launched 7/16 · 9d remaining</span>
       </div>
 
       <div class="kpi-grid">
         <div class="kpi">
           <div class="kpi-label">Spend</div>
-          <div class="kpi-value">$29,653</div>
-          <div class="kpi-sub">pacing $36,828 of $55,000
-            <span style="color:#34d399">(67%)</span>
+          <div class="kpi-value">$30,983</div>
+          <div class="kpi-sub">pacing $37,387 of $55,000
+            <span style="color:#34d399">(68%)</span>
           </div>
         </div>
         <div class="kpi">
           <div class="kpi-label">Registrations</div>
-          <div class="kpi-value">288</div>
-          <div class="kpi-sub">pacing 358 of 2,000
+          <div class="kpi-value">292</div>
+          <div class="kpi-sub">pacing 352 of 2,000
             <span style="color:#f87171">(18%)</span>
           </div>
         </div>
         <div class="kpi">
           <div class="kpi-label">CPL</div>
-          <div class="kpi-value">$103</div>
-          <div class="kpi-sub">81% of weighted window elapsed</div>
+          <div class="kpi-value">$106</div>
+          <div class="kpi-sub">83% of weighted window elapsed</div>
         </div>
         <div class="reg-sources">
           <div class="rs-box"><div class="rs-l">Reg src · Meta Form</div><div class="rs-v">0</div></div>
-          <div class="rs-box"><div class="rs-l">Reg src · Website</div><div class="rs-v">178</div></div>
-          <div class="rs-box"><div class="rs-l">Reg src · Other (organic / direct / Google)</div><div class="rs-v">110</div></div>
+          <div class="rs-box"><div class="rs-l">Reg src · Website</div><div class="rs-v">180</div></div>
+          <div class="rs-box"><div class="rs-l">Reg src · Other (organic / direct / Google)</div><div class="rs-v">112</div></div>
         </div>
       </div>
+<div class="chart-block"><div class="chart-title"><span>Daily Meta + Google leads</span><span class="chart-caveat">Combined Meta pixel leads + Google Ads conversions. Organic and direct not included.</span></div><div class="chart-wrap" id="chart-PWM"></div></div>
+
 
       
 
       <div class="venue-block">
-        <h3 class="venue-title">Venue breakdown <span class="venue-count">(5 venues, 288 regs)</span></h3>
+        <h3 class="venue-title">Venue breakdown <span class="venue-count">(5 venues, 292 regs)</span></h3>
         <table class="venues">
           <thead>
             <tr><th>Venue</th><th class="num">Regs</th><th>Pacing</th></tr>
@@ -316,30 +321,30 @@
         <tr class="venue-row venue-ok">
           <td class="venue-name">Portland</td>
           <td class="venue-regs">119</td>
-          <td class="venue-proj">projecting 148</td>
+          <td class="venue-proj">projecting 144</td>
         </tr>
     
         <tr class="venue-row venue-ok">
           <td class="venue-name">Auburn</td>
-          <td class="venue-regs">53</td>
-          <td class="venue-proj">projecting 66</td>
+          <td class="venue-regs">54</td>
+          <td class="venue-proj">projecting 65</td>
         </tr>
     
         <tr class="venue-row venue-ok">
           <td class="venue-name">Brunswick</td>
-          <td class="venue-regs">41</td>
-          <td class="venue-proj">projecting 51</td>
+          <td class="venue-regs">43</td>
+          <td class="venue-proj">projecting 52</td>
         </tr>
     
         <tr class="venue-row venue-ok">
           <td class="venue-name">Dover</td>
           <td class="venue-regs">39</td>
-          <td class="venue-proj">projecting 48</td>
+          <td class="venue-proj">projecting 47</td>
         </tr>
     
         <tr class="venue-row venue-ok">
           <td class="venue-name">Portsmouth</td>
-          <td class="venue-regs">36</td>
+          <td class="venue-regs">37</td>
           <td class="venue-proj">projecting 45</td>
         </tr>
     
@@ -354,40 +359,42 @@
           <div class="event-code">PHX</div>
           <h2 class="event-label">Phoenix</h2>
         </div>
-        <span class="event-status" style="color:#34d399;border-color:#34d399">Launched 7/19 · 10d remaining</span>
+        <span class="event-status" style="color:#34d399;border-color:#34d399">Launched 7/19 · 9d remaining</span>
       </div>
 
       <div class="kpi-grid">
         <div class="kpi">
           <div class="kpi-label">Spend</div>
-          <div class="kpi-value">$31,885</div>
-          <div class="kpi-sub">pacing $40,863 of $55,000
+          <div class="kpi-value">$33,082</div>
+          <div class="kpi-sub">pacing $40,974 of $55,000
             <span style="color:#34d399">(74%)</span>
           </div>
         </div>
         <div class="kpi">
           <div class="kpi-label">Registrations</div>
-          <div class="kpi-value">454</div>
-          <div class="kpi-sub">pacing 582 of 2,000
+          <div class="kpi-value">469</div>
+          <div class="kpi-sub">pacing 581 of 2,000
             <span style="color:#f87171">(29%)</span>
           </div>
         </div>
         <div class="kpi">
           <div class="kpi-label">CPL</div>
-          <div class="kpi-value">$70</div>
-          <div class="kpi-sub">78% of weighted window elapsed</div>
+          <div class="kpi-value">$71</div>
+          <div class="kpi-sub">81% of weighted window elapsed</div>
         </div>
         <div class="reg-sources">
           <div class="rs-box"><div class="rs-l">Reg src · Meta Form</div><div class="rs-v">0</div></div>
-          <div class="rs-box"><div class="rs-l">Reg src · Website</div><div class="rs-v">290</div></div>
-          <div class="rs-box"><div class="rs-l">Reg src · Other (organic / direct / Google)</div><div class="rs-v">164</div></div>
+          <div class="rs-box"><div class="rs-l">Reg src · Website</div><div class="rs-v">301</div></div>
+          <div class="rs-box"><div class="rs-l">Reg src · Other (organic / direct / Google)</div><div class="rs-v">168</div></div>
         </div>
       </div>
+<div class="chart-block"><div class="chart-title"><span>Daily Meta + Google leads</span><span class="chart-caveat">Combined Meta pixel leads + Google Ads conversions. Organic and direct not included.</span></div><div class="chart-wrap" id="chart-PHX"></div></div>
+
 
       
 
       <div class="venue-block">
-        <h3 class="venue-title">Venue breakdown <span class="venue-count">(8 venues, 454 regs)</span></h3>
+        <h3 class="venue-title">Venue breakdown <span class="venue-count">(8 venues, 469 regs)</span></h3>
         <table class="venues">
           <thead>
             <tr><th>Venue</th><th class="num">Regs</th><th>Pacing</th></tr>
@@ -396,49 +403,49 @@
             
         <tr class="venue-row venue-ok">
           <td class="venue-name">Chandler</td>
-          <td class="venue-regs">105</td>
-          <td class="venue-proj">projecting 135</td>
+          <td class="venue-regs">107</td>
+          <td class="venue-proj">projecting 133</td>
         </tr>
     
         <tr class="venue-row venue-ok">
           <td class="venue-name">Phoenix (Biltmore)</td>
-          <td class="venue-regs">84</td>
-          <td class="venue-proj">projecting 108</td>
+          <td class="venue-regs">85</td>
+          <td class="venue-proj">projecting 105</td>
         </tr>
     
         <tr class="venue-row venue-ok">
           <td class="venue-name">Glendale</td>
           <td class="venue-regs">71</td>
-          <td class="venue-proj">projecting 91</td>
+          <td class="venue-proj">projecting 88</td>
         </tr>
     
         <tr class="venue-row venue-ok">
           <td class="venue-name">Scottsdale</td>
-          <td class="venue-regs">46</td>
-          <td class="venue-proj">projecting 59</td>
+          <td class="venue-regs">47</td>
+          <td class="venue-proj">projecting 58</td>
         </tr>
     
         <tr class="venue-row venue-ok">
           <td class="venue-name">Tempe</td>
-          <td class="venue-regs">41</td>
-          <td class="venue-proj">projecting 53</td>
+          <td class="venue-regs">45</td>
+          <td class="venue-proj">projecting 56</td>
         </tr>
     
         <tr class="venue-row venue-ok">
           <td class="venue-name">Mesa</td>
-          <td class="venue-regs">39</td>
-          <td class="venue-proj">projecting 50</td>
+          <td class="venue-regs">41</td>
+          <td class="venue-proj">projecting 51</td>
         </tr>
     
         <tr class="venue-row venue-ok">
           <td class="venue-name">Happy Valley</td>
-          <td class="venue-regs">37</td>
-          <td class="venue-proj">projecting 47</td>
+          <td class="venue-regs">41</td>
+          <td class="venue-proj">projecting 51</td>
         </tr>
     
         <tr class="venue-row venue-ok">
           <td class="venue-name">Avondale</td>
-          <td class="venue-regs">31</td>
+          <td class="venue-regs">32</td>
           <td class="venue-proj">projecting 40</td>
         </tr>
     
@@ -451,42 +458,44 @@
       <div class="event-head">
         <div>
           <div class="event-code">REN</div>
-          <h2 class="event-label">Reno</h2>
+          <h2 class="event-label">REN</h2>
         </div>
-        <span class="event-status" style="color:#34d399;border-color:#34d399">Launched 7/26 · 17d remaining</span>
+        <span class="event-status" style="color:#34d399;border-color:#34d399">Launched 7/26 · 16d remaining</span>
       </div>
 
       <div class="kpi-grid">
         <div class="kpi">
           <div class="kpi-label">Spend</div>
-          <div class="kpi-value">$20,635</div>
-          <div class="kpi-sub">pacing $38,023 of $55,000
-            <span style="color:#34d399">(69%)</span>
+          <div class="kpi-value">$21,602</div>
+          <div class="kpi-sub">pacing $37,132 of $55,000
+            <span style="color:#34d399">(68%)</span>
           </div>
         </div>
         <div class="kpi">
           <div class="kpi-label">Registrations</div>
-          <div class="kpi-value">234</div>
-          <div class="kpi-sub">pacing 431 of 2,000
-            <span style="color:#f87171">(22%)</span>
+          <div class="kpi-value">242</div>
+          <div class="kpi-sub">pacing 416 of 2,000
+            <span style="color:#f87171">(21%)</span>
           </div>
         </div>
         <div class="kpi">
           <div class="kpi-label">CPL</div>
-          <div class="kpi-value">$88</div>
-          <div class="kpi-sub">54% of weighted window elapsed</div>
+          <div class="kpi-value">$89</div>
+          <div class="kpi-sub">58% of weighted window elapsed</div>
         </div>
         <div class="reg-sources">
           <div class="rs-box"><div class="rs-l">Reg src · Meta Form</div><div class="rs-v">0</div></div>
-          <div class="rs-box"><div class="rs-l">Reg src · Website</div><div class="rs-v">131</div></div>
-          <div class="rs-box"><div class="rs-l">Reg src · Other (organic / direct / Google)</div><div class="rs-v">103</div></div>
+          <div class="rs-box"><div class="rs-l">Reg src · Website</div><div class="rs-v">133</div></div>
+          <div class="rs-box"><div class="rs-l">Reg src · Other (organic / direct / Google)</div><div class="rs-v">109</div></div>
         </div>
       </div>
+<div class="chart-block"><div class="chart-title"><span>Daily Meta + Google leads</span><span class="chart-caveat">Combined Meta pixel leads + Google Ads conversions. Organic and direct not included.</span></div><div class="chart-wrap" id="chart-REN"></div></div>
+
 
       
 
       <div class="venue-block">
-        <h3 class="venue-title">Venue breakdown <span class="venue-count">(3 venues, 234 regs)</span></h3>
+        <h3 class="venue-title">Venue breakdown <span class="venue-count">(3 venues, 242 regs)</span></h3>
         <table class="venues">
           <thead>
             <tr><th>Venue</th><th class="num">Regs</th><th>Pacing</th></tr>
@@ -495,19 +504,19 @@
             
         <tr class="venue-row venue-ok">
           <td class="venue-name">Reno (Downtown)</td>
-          <td class="venue-regs">139</td>
-          <td class="venue-proj">projecting 256</td>
+          <td class="venue-regs">140</td>
+          <td class="venue-proj">projecting 241</td>
         </tr>
     
         <tr class="venue-row venue-ok">
           <td class="venue-name">Reno (South)</td>
-          <td class="venue-regs">69</td>
+          <td class="venue-regs">74</td>
           <td class="venue-proj">projecting 127</td>
         </tr>
     
         <tr class="venue-row venue-ok">
           <td class="venue-name">Carson City</td>
-          <td class="venue-regs">26</td>
+          <td class="venue-regs">28</td>
           <td class="venue-proj">projecting 48</td>
         </tr>
     
@@ -518,8 +527,86 @@
     </div>
 
   <div class="footer">
-    Generated Aug 5, 2026 · Spend from Google Ads + Meta · Total regs from Hapily (all sources) · Meta Form + Website pulled live from the Meta platform · Other = total regs minus Meta-attributed
+    Generated Aug 6, 2026 · Spend from Google Ads + Meta · Total regs from Hapily (all sources) · Meta Form + Website pulled live from the Meta platform · Other = total regs minus Meta-attributed
   </div>
 </div>
+<script>
+(function(){
+  var dates = ["2026-07-02", "2026-07-03", "2026-07-04", "2026-07-05", "2026-07-06", "2026-07-07", "2026-07-08", "2026-07-09", "2026-07-10", "2026-07-11", "2026-07-12", "2026-07-13", "2026-07-14", "2026-07-15", "2026-07-16", "2026-07-17", "2026-07-18", "2026-07-19", "2026-07-20", "2026-07-21", "2026-07-22", "2026-07-23", "2026-07-24", "2026-07-25", "2026-07-26", "2026-07-27", "2026-07-28", "2026-07-29", "2026-07-30", "2026-07-31", "2026-08-01", "2026-08-02", "2026-08-03", "2026-08-04", "2026-08-05"];
+  var data  = {"JAX": {"color": "#818cf8", "launch": "", "vals": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 42.0, 38.0, 48.0, 60.0, 56.0, 52.0, 58.0, 50.0, 46.0, 62.0, 50.0, 50.0, 46.0, 26.0, 16.0, 40.0, 48.0, 28.0, 34.0, 30.0, 20.0, 24.0, 22.0, 42.0, 24.0], "google": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], "meta": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 42.0, 38.0, 48.0, 60.0, 56.0, 52.0, 58.0, 50.0, 46.0, 62.0, 50.0, 50.0, 46.0, 26.0, 16.0, 40.0, 48.0, 28.0, 34.0, 30.0, 20.0, 24.0, 22.0, 42.0, 24.0]}, "PWM": {"color": "#34d399", "launch": "", "vals": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4.0, 44.0, 24.0, 36.0, 10.0, 24.0, 14.0, 16.0, 16.0, 10.0, 24.0, 26.0, 26.0, 8.0, 10.0, 32.0, 12.0, 8.0, 16.0], "google": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], "meta": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4.0, 44.0, 24.0, 36.0, 10.0, 24.0, 14.0, 16.0, 16.0, 10.0, 24.0, 26.0, 26.0, 8.0, 10.0, 32.0, 12.0, 8.0, 16.0]}, "PHX": {"color": "#fbbf24", "launch": "", "vals": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 52.0, 72.0, 40.0, 24.0, 22.0, 36.0, 22.0, 28.0, 32.0, 32.0, 18.0, 18.0, 30.0, 34.0, 30.0, 28.0, 38.0, 36.0], "google": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], "meta": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 52.0, 72.0, 40.0, 24.0, 22.0, 36.0, 22.0, 28.0, 32.0, 32.0, 18.0, 18.0, 30.0, 34.0, 30.0, 28.0, 38.0, 36.0]}, "REN": {"color": "#f472b6", "launch": "", "vals": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 52.0, 30.0, 26.0, 24.0, 18.0, 18.0, 28.0, 24.0, 20.0, 18.0, 8.0], "google": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], "meta": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 52.0, 30.0, 26.0, 24.0, 18.0, 18.0, 28.0, 24.0, 20.0, 18.0, 8.0]}};
+  var codes = ["JAX", "PWM", "PHX", "REN"];
+
+  function shortDate(iso){ var p = iso.split('-'); return parseInt(p[1],10)+'/'+parseInt(p[2],10); }
+  var DOW = ['SUN','MON','TUE','WED','THU','FRI','SAT'];
+  function dayOfWeek(iso){ return DOW[new Date(iso + 'T00:00:00').getDay()]; }
+  function niceCeil(v){
+    if (v <= 10) return Math.ceil(v/2)*2;
+    if (v <= 30) return Math.ceil(v/5)*5;
+    if (v <= 100) return Math.ceil(v/10)*10;
+    return Math.ceil(v/50)*50;
+  }
+  function avg(vals){ var nz = vals.filter(function(v){return v>0;}); if(!nz.length) return 0; return nz.reduce(function(a,b){return a+b;},0)/nz.length; }
+  function fmtFullDate(iso){ var p = iso.split('-'); var m=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']; return m[parseInt(p[1],10)-1]+' '+parseInt(p[2],10); }
+
+  function render(eventCode){
+    var series = data[eventCode]; if(!series) return;
+    var host = document.getElementById('chart-'+eventCode); if(!host) return;
+    var vals = series.vals, color = series.color;
+    var max = Math.max.apply(null, vals);
+    var yMax = niceCeil(max * 1.15) || 1;
+    var total = vals.reduce(function(a,b){return a+b;},0);
+    var avgActive = avg(vals);
+    var W = 760, H = 232, padL = 42, padR = 16, padT = 18, padB = 50;
+    var plotW = W - padL - padR, plotH = H - padT - padB;
+    var nPts = vals.length, xStep = plotW / Math.max(1, nPts - 1);
+    function xPos(i){ return padL + i * xStep; }
+    function yPos(v){ return padT + plotH - (v / yMax) * plotH; }
+    var svg = '<svg class="chart-svg" viewBox="0 0 '+W+' '+H+'" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Daily Meta + Google leads for '+eventCode+'">';
+    for (var k=0; k<=4; k++){ var yv=yMax*(1-k/4), yy=padT+plotH*(k/4); svg+='<line class="chart-grid" x1="'+padL+'" y1="'+yy+'" x2="'+(W-padR)+'" y2="'+yy+'"/>'; svg+='<text class="chart-tick" x="'+(padL-6)+'" y="'+(yy+4)+'" text-anchor="end">'+Math.round(yv)+'</text>'; }
+    var step = Math.ceil(nPts/8);
+    for (var i=0; i<nPts; i++){ if (i%step===0 || i===nPts-1){ svg+='<text class="chart-tick" x="'+xPos(i)+'" y="'+(H-26)+'" text-anchor="middle">'+shortDate(dates[i])+'</text>'; svg+='<text class="chart-dow" x="'+xPos(i)+'" y="'+(H-12)+'" text-anchor="middle">'+dayOfWeek(dates[i])+'</text>'; } }
+    svg += '<line class="chart-axis" x1="'+padL+'" y1="'+(padT+plotH)+'" x2="'+(W-padR)+'" y2="'+(padT+plotH)+'"/>';
+    var pts = vals.map(function(val,i){return xPos(i)+','+yPos(val);}).join(' ');
+    svg += '<polyline class="chart-line" points="'+pts+'" stroke="'+color+'"/>';
+    vals.forEach(function(val,i){ if (val<=0 && i<nPts-1) return; svg+='<circle class="chart-dot" data-event="'+eventCode+'" data-idx="'+i+'" cx="'+xPos(i)+'" cy="'+yPos(val)+'" r="3" fill="'+color+'"/>'; });
+    svg += '</svg>';
+    var legend = '<div class="chart-legend">';
+    legend += '<span class="item"><span class="swatch" style="background:'+color+'"></span>'+eventCode+' Meta + Google daily leads</span>';
+    legend += '<span class="item" style="color:#94a3b8">Total in window: <strong style="color:#cbd5e1;margin-left:4px">'+total.toFixed(0)+'</strong></span>';
+    legend += '<span class="item" style="color:#94a3b8">Avg active day: <strong style="color:#cbd5e1;margin-left:4px">'+avgActive.toFixed(1)+'</strong></span>';
+    legend += '</div>';
+    host.innerHTML = svg + '<div class="chart-tooltip" id="tt-'+eventCode+'"></div>' + legend;
+  }
+
+  function attachHover(){
+    document.querySelectorAll('.chart-wrap').forEach(function(wrap){
+      var tooltip = wrap.querySelector('.chart-tooltip'); if (!tooltip) return;
+      wrap.addEventListener('mouseover', function(e){
+        var dot = e.target.closest('circle.chart-dot'); if (!dot) return;
+        var ev = dot.getAttribute('data-event'), idx = parseInt(dot.getAttribute('data-idx'),10), series = data[ev]; if (!series) return;
+        var g = series.google[idx]||0, m = series.meta[idx]||0, t = series.vals[idx]||0;
+        tooltip.innerHTML = '<div class="tt-date">'+ev+' · '+fmtFullDate(dates[idx])+'</div><div class="tt-row"><span class="lbl">Meta</span><span class="val">'+m.toFixed(1)+'</span></div><div class="tt-row"><span class="lbl">Google</span><span class="val">'+g.toFixed(1)+'</span></div><div class="tt-row tt-total"><span class="lbl">Total</span><span class="val">'+t.toFixed(1)+'</span></div>';
+        tooltip.classList.add('show'); dot.setAttribute('r','5'); dot.setAttribute('stroke','#fff'); dot.setAttribute('stroke-width','1.5');
+      });
+      wrap.addEventListener('mousemove', function(e){
+        var dot = e.target.closest('circle.chart-dot'); if (!dot) return;
+        var r = wrap.getBoundingClientRect(), x = e.clientX-r.left, y = e.clientY-r.top;
+        var ttW = tooltip.offsetWidth||160, ttH = tooltip.offsetHeight||80;
+        var left = x+14, top = y-ttH-10;
+        if (left+ttW > wrap.clientWidth) left = x-ttW-14;
+        if (top < 0) top = y+14;
+        tooltip.style.left = left+'px'; tooltip.style.top = top+'px';
+      });
+      wrap.addEventListener('mouseout', function(e){
+        var dot = e.target.closest('circle.chart-dot'); if (!dot) return;
+        var rel = e.relatedTarget; if (rel && rel.closest && rel.closest('circle.chart-dot')) return;
+        tooltip.classList.remove('show'); dot.setAttribute('r','3'); dot.removeAttribute('stroke'); dot.removeAttribute('stroke-width');
+      });
+    });
+  }
+  codes.forEach(render);
+  attachHover();
+})();
+</script>
 </body>
 </html>
